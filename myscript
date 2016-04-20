@@ -1,0 +1,26 @@
+#!/bin/bash
+alias cls="clear"
+alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"
+alias vimms="vim ~/shellscript/myscript"
+alias catms="cat ~/shellscript/myscript"
+alias flexa="flex -o a.c lex.l"
+alias gcca="gcc -o a a.c"
+alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
+alias stoss="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
+alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
+alias stawf="echo '$mypassword' | sudo ap-hotspot start"
+alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
+alias cman='LANG="zh_CN.utf8" man'
+alias gj="echo '$mypassword' | sudo -S shutdown -h now"
+alias cnf="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
+alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
+mip="192.168.56.101"
+# ubtip="192.168.56.103"
+# 使用时，前面加$就可以了
+# alias sshxm="ssh -X mininet@192.168.56.101" # Mininet 中last 不好用以后会注释掉了
+# alias smctcrip="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.103,port=6653"
+# alias smctcrip2="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.101,port=6653"
+# alias fireidx="firefox http://localhost:8080/ui/index.html"
+# alias suble="subl && exit"
+# alias minie="virtualbox --startvm ~/VirtualBox\ VMs/Mininet_Alpha/Mininet_Alpha.vbox & exit"

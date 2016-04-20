@@ -1,0 +1,43 @@
+#! /bin/bash
+name=`basename $0`
+
+# 针对草木鱼（六）
+if [ $name = "lexya6" ]
+then
+	bison -d lexya_e.y
+	lex -d lexya_e.l
+	gcc -g -o graph lex.yy.c lexya_e.tab.c liwei.c
+	./graph < treeinput
+elif [ $name = "lexya5" ]
+then
+	bison -d lexya_e.y
+	lex -d lexya_e.l
+	gcc -g -o parser lex.yy.c lexya_e.tab.c parser.c
+	./parser < input
+elif [ $name = "lexya4" ]
+then
+	bison -d lexya_e.y
+	lex -d lexya_e.l
+	gcc -g -o parser lex.yy.c lexya_e.tab.c parser.c
+	./parser < input
+elif [ $name = "lexya7" ]
+then
+	bison -d tree.y
+	lex -d tree.l
+	gcc -g -c lex.yy.c tree.tab.c parser.c # 有Waring，忽略之 -c 只编译不链接
+	ar -rl compile.a *.o
+	# 使用静态库文件编译外部程序：
+	gcc -g  -o lw main.c compile.a
+	# 运行编译显示结果：
+	./lw input
+elif [ $name = "lexyan" ]
+then
+	make lex
+	make yacc
+	make
+	./parser < testfile/test.c > test.asm
+	# nasm -f elf64 test.asm
+	# ld -s -o test test.o
+	as --32 -o test.o test.asm
+	ld -s -m elf_i386 -o test test.o
+fi

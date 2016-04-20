@@ -1,0 +1,16 @@
+#!/bin/bash
+name=`basename $0`
+if [ $name = "sshxm" ]
+then
+    ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
+    echo $ip >> mytmpip
+    scp mytmpip mininet@192.168.56.101:~/
+    rm mytmpip
+    ssh -X mininet@192.168.56.101
+elif [ $name = "scpm" ]
+then
+    scp $1 mininet@192.168.56.101:~/
+elif [ $name = "qkill" ]
+then
+    ps -e | grep $1 | cut -c 1-5 | xargs kill
+fi

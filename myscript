@@ -1,5 +1,6 @@
 #!/bin/bash
 alias cls="clear"
+alias cdhtml="cd /media/coder352/文档/HTML"
 alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"
 alias vimms="vim ~/shellscript/myscript"
 alias catms="cat ~/shellscript/myscript"

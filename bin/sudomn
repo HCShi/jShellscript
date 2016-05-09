@@ -10,6 +10,9 @@ then
 elif [ $name = "scpm" ]
 then
     scp $1 mininet@192.168.56.101:~/
+elif [ $name = "greps" ]
+then
+    grep -rn "$1"
 elif [ $name = "qkill" ]
 then
     ps -e | grep $1 | cut -c 1-5 | xargs kill

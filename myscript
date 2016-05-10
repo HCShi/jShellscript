@@ -1,5 +1,6 @@
 #!/bin/bash
 alias cls="clear"
+alias cddel="cd ~/Documents/thiscandel"
 alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"

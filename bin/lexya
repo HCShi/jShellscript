@@ -38,6 +38,6 @@ then
 	./parser < testfile/test.c > test.asm
 	# nasm -f elf64 test.asm
 	# ld -s -o test test.o
-	as --32 -o test.o test.asm
-	ld -s -m elf_i386 -o test test.o
+	#as --32 -o test.o test.asm
+	#ld -s -m elf_i386 -o test test.o
 fi

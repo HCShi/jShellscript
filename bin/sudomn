@@ -13,6 +13,9 @@ then
 elif [ $name = "greps" ]
 then
     grep -rn "$1"
+elif [ $name = "scps" ]
+then 
+    scp -P 29318 $1 root@45.78.9.29:$2
 elif [ $name = "qkill" ]
 then
     ps -e | grep $1 | cut -c 1-5 | xargs kill

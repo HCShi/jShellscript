@@ -1,37 +1,77 @@
 #!/bin/bash
+# alias 等号左右不能有空格
+
+########################################
+# 系统操作 
+########################################
 alias cls="clear"
+alias catms="cat ~/shellscript/myscript | more"
+alias nau='nautilus .'
+alias vimms="vim ~/shellscript/myscript"
+alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
+alias cman='LANG="zh_CN.utf8" man'
+alias gj="echo '$mypassword' | sudo -S shutdown -h now"
+
+########################################
+# cd 相关操作
+########################################
 alias cddel="cd ~/Documents/thiscandel"
 alias cdhtml="cd /media/coder352/文档/HTML"
+alias cdjpc="cd ~/github/jPC"
+alias cdjserver="cd ~/github/jServer"
+alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjvim="cd ~/github/jvim/vimrc"
-alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"
-alias vimms="vim ~/shellscript/myscript"
-alias catms="cat ~/shellscript/myscript"
+alias cdmyextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
+
+########################################
+# git 相关操作
+########################################
 alias gis="git status"
-alias flexa="flex -o a.c lex.l"
-alias gcca="gcc -o a a.c"
-alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
+alias gia="git add ."
+alias gial='git add --all'
+alias gid="git diff"
+
+########################################
+# SDN
+########################################
+alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"
+alias cnf="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
+alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
+
+########################################
+# SSH 相关操作
+########################################
 alias sshaliyun="ssh root@115.28.247.19"
-alias sshbanwagong="ssh root@45.78.9.29 -p 29318"
+alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105"
 alias sshredhat="ssh root@192.168.56.103"
 #alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
-alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
-alias stoss="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+
+########################################
+# Shadowsocks 后面两个是统计和显示流量
+########################################
+alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start"
+#alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
+#alias stoss="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop"
 alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
 alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
+
+########################################
+# 渗透 
+########################################
 alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
+
+
+########################################
+# 无线AP 
+########################################
 alias stawf="echo '$mypassword' | sudo ap-hotspot start"
 alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
-alias cman='LANG="zh_CN.utf8" man'
-alias gj="echo '$mypassword' | sudo -S shutdown -h now"
-alias cnf="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
-alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
-mip="192.168.56.101"
-# ubtip="192.168.56.103"
+
 # 使用时，前面加$就可以了
 # alias sshxm="ssh -X mininet@192.168.56.101" # Mininet 中last 不好用以后会注释掉了
 # alias smctcrip="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.103,port=6653"
 # alias smctcrip2="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.101,port=6653"
 # alias fireidx="firefox http://localhost:8080/ui/index.html"
-# alias suble="subl && exit"
 # alias minie="virtualbox --startvm ~/VirtualBox\ VMs/Mininet_Alpha/Mininet_Alpha.vbox & exit"

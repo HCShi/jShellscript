@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo 'hello'
+
+:<<!EOF!
+echo "hello1"
+!EOF!
+
+:||{
+
+echo "hello2"
+
+}

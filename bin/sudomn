@@ -19,4 +19,8 @@ then
 elif [ $name = "qkill" ]
 then
     ps -e | grep $1 | cut -c 1-5 | xargs kill
+elif [ $name = "day" ]
+then
+    #/bin/date '+%Y-%m-%d'
+    /bin/date '+%Y-%m-%d.%H-%M-%S'
 fi

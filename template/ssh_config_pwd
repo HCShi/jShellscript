@@ -1,0 +1,40 @@
+#!/bin/bash
+##################################################################
+## 这里有将pwd的结果转化为字符串的
+## 用双引号可以直接转，用单引号就不行
+##################################################################
+cd
+path=`pwd`
+echo "$path/.ssh"
+echo '$path/.ssh'
+
+:<<!EOF!
+cd -
+if [ ! -e "$path/.ssh" ]
+then 
+    echo "mkdir the ~/.ssh directory"
+    mkdir ~/.ssh
+    chmod 0700 ~/.ssh
+fi
+
+file="$path/.ssh/jid_rsa.pub"
+if [ ! -e $file ]
+then
+    cp ./src/jid_rsa.pub ~/.ssh/jid_rsa.pub
+    cp ./src/did_rsa.pub ~/.ssh/did_rsa.pub
+    echo "first modify"
+else
+    echo "already configure the ssh"
+fi
+
+cd ~/.ssh
+if [ ! -e authorized_keys ]
+then 
+    touch authorized_keys 
+fi
+cat jid_rsa.pub > authorized_keys 
+cat did_rsa.pub >> authorized_keys 
+chmod 600 authorized_keys 
+!EOF!
+
+

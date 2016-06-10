@@ -1,4 +1,5 @@
 #!/bin/bash
-
-sudo echo '. /home/coder352/shellscript/myscript' >> /etc/bash.bashrc                                                   
-sudo echo 'export PATH=/home/coder352/shellscript/bin:$PATH' >> /etc/bash.bashrc
+path=`pwd`
+#sudo echo ". $path/myscript" 
+sudo echo ". $path/myscript" >> /etc/bash.bashrc                                                   
+sudo echo "export PATH=$path/bin:$PATH" >> /etc/bash.bashrc

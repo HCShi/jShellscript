@@ -45,6 +45,8 @@ echo ${str/apple/APPLE}   # 替换第一次出现的apple
 echo ${str//apple/APPLE}  # 替换所有apple
 echo ${str/#apple/APPLE}  # 如果字符串str以apple开头，则用APPLE替换它
 echo ${str/%apple/APPLE}  # 如果字符串str以apple结尾，则用APPLE替换它
+echo $str
+echo
 
 echo "6. 比较"
 [[ "a.txt" == a* ]]        # 逻辑真 (pattern matching)
@@ -56,11 +58,15 @@ echo "7. 连接"
 s1="hello"
 s2="world"
 echo ${s1}${s2}   # 当然这样写 $s1$s2 也行，但最好加上大括号}
+echo ${s1}world
 
 ##################################################################
 ## 上面一些常用的，下面是自己用过的
 ##################################################################
 
+echo 
+echo
+echo "8. others"
 str="abcdef"
 echo ${str:(-6):5}
 

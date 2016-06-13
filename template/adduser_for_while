@@ -11,6 +11,49 @@
 # 否则会提示循环不能执行
 ########################################
 
+for x in one two three four
+do
+    echo number $x
+done
+
+echo
+echo
+for x in ./*
+do
+    echo $(basename $x) is a file living in ./
+done
+
+echo
+for thing in "$@"
+do
+    echo you typed ${thing}
+done
+
+echo
+for j in $(seq 1 5)
+do
+    echo $j
+done
+for (( i=1; i<=5; i++ ))
+do
+    echo "i=$i"
+done
+
+echo 
+echo "变量自增"
+i=0;
+while [ $i -lt 10 ]
+do
+    echo $i
+    i=`expr $i + 1`
+    let i+=1
+    ((i++))
+    i=$[$i+1]
+    i=$(( $i + 1 ))
+done
+
+echo
+echo "添加用户: "
 for((i=1;i<=4;i++))
 do
     for((j=1;j<=30;j++))
@@ -25,7 +68,7 @@ do
         # useradd $USERNAME
         # 删除用户
         # userdel -r $USERNAME
-        echo $USERNAME 
+        #echo $USERNAME 
     done
 done
 

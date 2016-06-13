@@ -11,6 +11,7 @@ alias vimms="vim ~/shellscript/myscript"
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias cman='LANG="zh_CN.utf8" man'
 alias gj="echo '$mypassword' | sudo -S shutdown -h now"
+alias php="/opt/lampp/bin/php"
 
 ########################################
 # cd 相关操作
@@ -21,7 +22,9 @@ alias cdjpc="cd ~/github/jPC"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjvim="cd ~/github/jvim/vimrc"
+alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
 alias cdmyextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
+alias cdshellscript="cd ~/shellscript"
 
 ########################################
 # git 相关操作
@@ -44,16 +47,18 @@ alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.propertie
 alias sshaliyun="ssh root@115.28.247.19"
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105"
-alias sshredhat="ssh root@192.168.56.103"
-#alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
+alias sshredhat="ssh root@192.168.56.101"
+alias sshteacher="ssh r12@121.251.254.208" #passwd = 123456
+# alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
+# 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
 
 ########################################
 # Shadowsocks 后面两个是统计和显示流量
 ########################################
-alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start"
+alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 #alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 #alias stoss="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
-alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop"
+alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
 alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
 alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
 

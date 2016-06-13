@@ -1,0 +1,4 @@
+sudo usermod -a -G root coder352
+
+sudo chmod 777 filename
+sudo chomd 600 filename

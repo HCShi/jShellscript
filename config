@@ -1,5 +1,11 @@
 #!/bin/bash
+# 如果只是配置zshrc，不用sudo权限
+# 配置bashrc 需要速冻
 path=`pwd`
 #sudo echo ". $path/myscript" 
 sudo echo ". $path/myscript" >> /etc/bash.bashrc                                                   
-sudo echo "export PATH=$path/bin:$PATH" >> /etc/bash.bashrc
+sudo echo ". $path/mybashrc" >> /etc/bash.bashrc                                                   
+cp ./zshrc ~/.zshrc
+
+#sudo echo "export PATH=$path/bin:$PATH" >> /etc/bash.bashrc
+#sudo echo "export PATH=$path/bin:$PATH" >> ~/github/shellscript/mybashrc

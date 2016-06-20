@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo 
+echo "uname -a:"
+echo
+uname -a # 查看所有系统信息 --help 查看uname功能
+echo
+echo "lsb_release:"
+echo
+lsb_release -a # 查看Ubuntu版本
+echo
+echo "finger:"
+echo
+finger -s coder352  # 用户相关信息，登录时间
+echo
+echo "id:"
+echo
+id coder352 # UID，GID
+echo
+echo "whoami:"
+echo
+whoami # 产看当前用户
+echo
+echo "who:"
+echo
+who&w # 查看当前有几个终端+1和各个终端的命令
+echo
+echo "users:"
+echo
+users # 查看有几个终端+1
+echo
+echo "groups:"
+echo
+groups # 有哪些groups

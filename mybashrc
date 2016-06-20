@@ -1,0 +1,16 @@
+#!/bin/bash
+
+##################################################################
+## /etc/bash.bashrc
+##################################################################
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export PATH=/home/coder352/github/shellscript/bin:$PATH
+
+
+##################################################################
+## ~/.zshrc
+##################################################################
+eval `dircolors .dircolors` # 执行的是调用这个脚本的地方的文件，即 ~/.dircolors
+export TERM=xterm-256color
+DEFAULT_USER=`whoami`
+export EDITOR=/usr/bin/vim

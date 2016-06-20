@@ -1,0 +1,85 @@
+#!/bin/bash
+# 参考: https://linux.cn/article-3948-1.html
+:<<!EOF!
+选项    描述
+-n      不输出末尾的换行符。
+-e      启用反斜线转义。
+\b      退格
+\\      反斜线
+\n      新行
+\r      回车
+\t      水平制表符
+\v      垂直制表符
+!EOF!
+
+echo -- Welcome to shellscript --
+echo 
+for i in $(seq 1 10)
+do
+    for (( j=1; j<=$i; j++ ))
+    #for j in $(seq 1 $i)
+    do
+        echo -ne $i x $j=$((i*j)) \\t
+    done
+    echo
+done
+
+##################################################################
+## 下面是一些具体的讲解
+##################################################################
+echo 1:
+echo Tecmint is a community of Linux Nerds
+
+echo 2:
+x=10
+echo The value of variable x = $x 
+
+echo 3:
+echo -e "Tecmint \bis \ba \bcommunity \bof \bLinux \bNerds" 
+# TecmintisacommunityofLinuxNerds
+# '-e'后带上'\b'会删除字符间的所有空格
+# Linux中的选项‘-e‘扮演了转义字符反斜线的翻译器
+echo "Tecmint \bis \ba \bcommunity \bof \bLinux \bNerds" 
+# Tecmint \bis \ba \bcommunity \bof \bLinux \bNerds
+
+echo 4:
+echo -e "Tecmint \nis \na \ncommunity \nof \nLinux \nNerds" 
+# ‘-e‘后面的带上‘\n’行会在遇到的地方作为新的一行
+echo "Tecmint \nis \na \ncommunity \nof \nLinux \nNerds" 
+
+echo 5:
+echo -e "Tecmint \tis \ta \tcommunity \tof \tLinux \tNerds"
+# ‘-e‘后面跟上‘\t’会在空格间加上水平制表符
+echo -e "\n\tTecmint \n\tis \n\ta \n\tcommunity \n\tof \n\tLinux \n\tNerds"
+# 也可以同时使用换行‘\n‘与水平制表符‘\t‘
+
+echo 6:
+echo -e "\vTecmint \vis \va \vcommunity \vof \vLinux \vNerds" 
+# ‘-e‘后面跟上‘\v’会加上垂直制表符
+
+echo 7:
+echo -e "\n\vTecmint \n\vis \n\va \n\vcommunity \n\vof \n\vLinux \n\vNerds" 
+# 也可以同时使用换行‘\n‘与垂直制表符‘\v‘
+
+echo 8:
+echo -e "Tecmint \ris a community of Linux Nerds" 
+# ‘-e‘后面跟上‘\r’来指定输出中的回车符。（LCTT 译注：会覆写行开头的字符）
+# is a community of Linux Nerds 
+
+echo 9:
+echo -e "Tecmint is a community \cof Linux Nerds" 
+# Tecmint is a community 
+# ‘-e‘后面跟上‘\c’会抑制输出后面的字符并且最后不会换新行
+
+echo 10:
+echo -n "Tecmint is a community of Linux Nerds" 
+# ‘-n‘会在echo完后不会输出新行
+
+echo 11:
+echo -e "Tecmint is a community of \aLinux Nerds" 
+# Tecmint is a community of Linux Nerds
+# ‘-e‘后面跟上‘\a’选项会听到声音警告
+
+echo 12:
+echo *
+# 使用echo命令打印所有的文件和文件夹（ls命令的替代）

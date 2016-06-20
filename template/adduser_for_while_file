@@ -53,6 +53,7 @@ do
 done
 
 echo
+cat /etc/passwd
 echo "添加用户: "
 for((i=1;i<=4;i++))
 do

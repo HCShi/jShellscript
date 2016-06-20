@@ -1,0 +1,8 @@
+#!/bin/bash
+
+touch file{1..10}.txt
+ls | grep file
+rm file{1..10}.txt
+ls | grep file
+
+

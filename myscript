@@ -1,13 +1,15 @@
 #!/bin/bash
 # alias 等号左右不能有空格
-
+#oneko & # 打开终端出现一只小猫
 ########################################
 # 系统操作 
 ########################################
 alias cls="clear"
-alias catms="cat ~/shellscript/myscript | more"
+alias catms="cat ~/github/shellscript/myscript | more"
+alias grep="grep --color=always"
+alias greps="grep -rin --color=always"
+alias grepsls='ls | grep'
 alias nau='nautilus .'
-alias vimms="vim ~/shellscript/myscript"
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias cman='LANG="zh_CN.utf8" man'
 alias gj="echo '$mypassword' | sudo -S shutdown -h now"
@@ -21,18 +23,35 @@ alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdjpc="cd ~/github/jPC"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
+alias cdjtemplatepython="cd ~/github/jTemplate/python"
+alias cdjpctmux="cd ~/github/jPC/src/tmux"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
 alias cdmyextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
-alias cdshellscript="cd ~/shellscript"
+alias cdshellscript="cd ~/github/shellscript"
+alias cdshellscripttemplate="cd ~/github/shellscript/template"
+alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
+
+##################################################################
+## vim 相关操作
+##################################################################
+alias vimms="cd ~/github/shellscript && vim myscript"
+alias vimtmuxshorcuts="vim ~/github/jPC/src/tmux/README.md"
+alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 
 ########################################
-# git 相关操作
+# git 相关操作 要被淘汰了 via oh my zsh
 ########################################
 alias gis="git status"
 alias gia="git add ."
 alias gial='git add --all'
 alias gid="git diff"
+alias gitcloned='git clone --depth=1' # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
+
+##################################################################
+## Java 
+##################################################################
+alias javac="javac -J-Dfile.encoding=utf8"
 
 ########################################
 # SDN
@@ -48,6 +67,7 @@ alias sshaliyun="ssh root@115.28.247.19"
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105"
 alias sshredhat="ssh root@192.168.56.101"
+alias sshruanjianbei="ssh jrp@211.87.185.53 -p 22222" # passwd = Yr1Uwud6yH87kcJ8
 alias sshteacher="ssh r12@121.251.254.208" #passwd = 123456
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
@@ -67,12 +87,26 @@ alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '
 ########################################
 alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
 
-
 ########################################
 # 无线AP 
 ########################################
 alias stawf="echo '$mypassword' | sudo ap-hotspot start"
 alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
+
+##################################################################
+## -s
+##################################################################
+alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名，会在 vim 中打开,如果想用TextMate打开可以将vi改成mate
+alias -s rb=vi     # 在命令行直接输入 ruby 文件，会在 vim 中打开
+alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+alias -s js=vi
+alias -s c=vi
+alias -s java=vi
+alias -s txt=vi
+alias -s gz='tar -xzvf'  #表示自动解压后缀为 gz 的压缩包。
+alias -s tgz='tar -xzvf'
+alias -s zip='unzip'
+alias -s bz2='tar -xjvf'
 
 # 使用时，前面加$就可以了
 # alias sshxm="ssh -X mininet@192.168.56.101" # Mininet 中last 不好用以后会注释掉了

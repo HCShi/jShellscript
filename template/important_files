@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo 显示当前系统的所有shell:
+cat /etc/shells 
+echo
+echo 默认shell:
+echo $SHELL

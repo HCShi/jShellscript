@@ -1,6 +1,7 @@
 #!/bin/bash
 # alias 等号左右不能有空格
-#oneko & # 打开终端出现一只小猫
+# oneko & # 打开终端出现一只小猫
+# 变态的 oh-my-zsh 中有好多的 alias，又造轮子了 
 ########################################
 # 系统操作 
 ########################################
@@ -46,6 +47,8 @@ alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 alias gis="git status"
 alias gia="git add ."
 alias gial='git add --all'
+alias gicommit='git commit -m'
+alias gipush='git push origin master'
 alias gid="git diff"
 alias gitcloned='git clone --depth=1' # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
 

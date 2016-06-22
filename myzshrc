@@ -1,0 +1,117 @@
+#!/bin/bash
+
+##################################################################
+## 命令提示符 下面有两种命令提示符 还是和 ag... 不能兼容
+##################################################################
+# 第一种 6 行
+#ZSH_THEME_GIT_PROMPT_CLEAN=""
+#ZSH_THEME_GIT_PROMPT_DIRTY=" !"
+#ZSH_THEME_GIT_PROMPT_PREFIX=" :"
+#ZSH_THEME_GIT_PROMPT_SUFFIX=""
+#PROMPT=$(echo "${ret_status}%{$fg_bold[green]%}%p%{$fg[blue]%}%5~\
+#%{$fg_bold[cyan]%}$(git_prompt_info) %{$reset_color%}")
+
+# 第二种 下边第一行是一个简介的 theme，第二行是原来的 theme
+#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}>'
+#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}']]]]}]}
+
+##################################################################
+## 配置 autojump，要先装上 sudo apt-get install autojump
+##################################################################
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+
+##################################################################
+## 当上一条命令忘记加 sudo 时，按两次 ESC 就行了 
+##################################################################
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+    zle end-of-line
+}
+zle -N sudo-command-line
+bindkey "\e\e" sudo-command-line
+
+##################################################################
+## 语法高亮
+##################################################################
+setopt extended_glob
+TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace' 'man')
+
+recolor-cmd() {
+    region_highlight=()
+    colorize=true
+    start_pos=0
+    for arg in ${(z)BUFFER}; do
+        ((start_pos+=${#BUFFER[$start_pos+1,-1]}\
+            -${#${BUFFER[$start_pos+1,-1]## #}}))
+        ((end_pos=$start_pos+${#arg}))
+        if $colorize; then
+            colorize=false
+            res=$(LC_ALL=C builtin type $arg 2>/dev/null)
+            case $res in
+                *'reserved word'*)   style="fg=magenta,bold";;
+                *'alias for'*)       style="fg=cyan,bold";;
+                *'shell builtin'*)   style="fg=yellow,bold";;
+                *'shell function'*)  style='fg=green,bold';;
+                *"$arg is"*)        
+                    [[ $arg = 'sudo' ]] && style="fg=red,bold"\
+                                  || style="fg=blue,bold";;
+                *)                   style='none,bold';;
+            esac
+            region_highlight+=("$start_pos $end_pos $style")
+        fi
+        [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]]\
+            && colorize=true
+        start_pos=$end_pos
+    done
+}
+
+check-cmd-self-insert() { zle .self-insert && recolor-cmd }
+check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
+
+zle -N self-insert check-cmd-self-insert
+zle -N backward-delete-char check-cmd-backward-delete-char
+
+##################################################################
+## 对每个目录使用独立的历史命令 不太好用
+##################################################################
+#mkdir -p $HOME/.zsh_history$PWD
+#export HISTFILE="$HOME/.zsh_history$PWD/zhistory"
+
+#cd() {
+    #builtin cd "$@"
+    #fc -W
+    #local HISTDIR="$HOME/.zsh_history$PWD"
+    #if  [ ! -d "$HISTDIR" ] ; then
+        #mkdir -p "$HISTDIR"
+    #fi
+    #export HISTFILE="$HISTDIR/zhistory"
+    #touch $HISTFILE
+    #local ohistsize=$HISTSIZE
+    #HISTSIZE=0
+    #HISTSIZE=$ohistsize
+    #fc -R
+#}
+
+#function allhistory {
+    #cat $(find $HOME/.zsh_history -name zhistory)
+#}
+
+#function convhistory {
+    #sort $1 | uniq |
+    #sed 's/^:\([ 0-9]*\):[0-9]*;\(.*\)/\1::::::\2/' |
+    #awk -F"::::::" '{ $1=strftime("%Y-%m-%d %T",$1) "|"; print }' 
+#}
+
+#function histall {
+    #convhistory =(allhistory) | sed '/^.\{20\} *cd/i\\'
+#}
+
+#function hist {
+    #convhistory $HISTFILE
+#}
+ 
+#function top50 {
+    #allhistory | awk -F':[ 0-9]*:[0-9]*;' '{ $1="" ; print }'\
+        #| sed 's/ /\n/g' | sed '/^$/d' | sort | uniq -c | sort -nr | head -n 50
+#}

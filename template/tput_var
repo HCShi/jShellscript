@@ -1,0 +1,8 @@
+#!/bin/bash
+tput colors # 查看 xterm 终端支持的颜色
+echo
+echo SHELL:
+echo $SHELL
+echo
+echo TERM:
+echo $TERM

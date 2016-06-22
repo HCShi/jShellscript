@@ -7,5 +7,54 @@ sudo echo ". $path/myscript" >> /etc/bash.bashrc
 sudo echo ". $path/mybashrc" >> /etc/bash.bashrc                                                   
 cp ./zshrc ~/.zshrc
 
-#sudo echo "export PATH=$path/bin:$PATH" >> /etc/bash.bashrc
-#sudo echo "export PATH=$path/bin:$PATH" >> ~/github/shellscript/mybashrc
+##################################################################
+## 使用 Zsh 的九个理由 by 伯乐在线 http://blog.jobbole.com/28829/
+##################################################################
+# 理由 1：zsh 的补全模式更方便
+# 	zsh 中按两下 tab 键可以触发 zsh 的补全，所有待补全项都可以通过键盘方向键或者 <Ctrl-n/p/f/b> 来选择。
+
+# 理由 2：zsh 支持命令选项补全
+#	zsh 除了支持目录的补全，还支持命令选项的补全，例如 ls -<TAB><TAB> 会直接列出所有 ls 的参数，再也不会出现一个命令打到一半，忘记参数导致重开一个 terminal man 一把。
+
+# 理由 3：zsh 支持命令参数补全
+# 	以前想 kill 掉一个进程，我的做法是 ps aux | grep "进程名" 然后记下 id，再 kill id。在 zsh 下，
+# 	只需要 kill 进程名<TAB>，zsh 就会自动补全进程的 pid。
+# 	其余我常用的补全还有：
+# 	·ssh <TAB><TAB> 时 zsh 会自动列出你访问过的主机和用户名来补全 ssh 的参数。
+# 	·brew install <TAB><TAB> 来补全软件包名，除了 homebrew 以外，同样支持 port/apt-get 等其他包管理器。
+
+# 理由 4：zsh 支持更加聪明的目录补全
+# 	以前比如想进入一个比较深的目录，比如 /Users/pw/workspace/project/src/main/webapps/static/js，
+#	就得在 bash 下面打半天，不停的 tab 去补全一个正确的路径出来。在 zsh 下，只需要输入每个路径的头字母
+# 	然后 tab 一下： cd /u/p/w/p/s/m/w/s/j<TAB>
+
+# 理由 5：zsh 强大的快速目录切换
+# 	以前最苦逼的事情莫过于频繁在两个工作目录下切换，总要打一长串 cd 路径。也尝试过 popd 和 pushd 来解决这个问题，
+#	但往往是目录已经切换了才想起来没用 pushd。而 zsh 会记住你每一次切换的路径，
+#	然后通过 1 来切换到你上一次访问的路径，2 切换到上上次……一直到 9，还可以通过 d 查看目录访问历史。
+#	zsh 还可以配合 autojump 一起使用，autojump 会记录下每一个你访问过的目录，然后通过 j 来快速跳转。
+
+# 理由 6：zsh 支持全局 alias 和后缀名 alias
+#	bash 的 alias 只能做命令的缩写，而 zsh 更进一步，使 alias 可以缩写命令的一部分，例如参数或环境变量设置。
+:<<!EOF!
+$ alias -s log=less
+$ ~/package/tomcat/log/catalina.log # 相当于 less ~/package/tomcat/log/catalina.log
+$ alias -g PR=http_proxy=127.0.0.1:8087
+$ PR curl https://twitter.com # 相当于 http_proxy=127.0.0.1:8087 curl https://twitter.com
+!EOF!
+
+# 理由 7：zsh 有着丰富多彩的命令行提示符
+#	bash 下通过设置 $PS1 已经可以实现很丰富的提示符了，而 zsh 更进一步，可以实现诸如多行提示符、提示符右对齐等功能。
+#	oh-my-zsh 配置文件中提供了非常丰富的提示符 theme 供选择，我使用的是 gentoo 主题，比较简洁，
+# 	还可以显示当前 git 仓库的状态。
+
+# 理由 8：zsh 有更多优雅的语法
+#	例如修改 PATH，bash 下设置 $PATH 要求所有路径都要写在一行里，目录多了以后看起来就很难看。
+#	zsh 支持更加符合程序员审美观的设置方式。
+:<<!EOF!
+path=(
+    ~/bin
+    $path
+    ~/package/smartsprites/bin
+)
+!EOF!

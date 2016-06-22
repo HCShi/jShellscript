@@ -1,0 +1,23 @@
+# dpkg 是Debian package的简写，为”Debian“ 操作系统 专门开发的套件管理系统，用于软件的安装，更新和移除。
+# 所有源自”Debian”的Linux的发行版都使用 dpkg, 例如”Ubuntu”
+# 通常情况下，linux会这样放软件的组件：
+# 程序的文档—–>/usr/share/doc
+# 程序—–>/usr/share
+# 程序的启动项—–>/usr/share/apps
+# 程序的语言包—–>/usr/share/locale
+##################################################################
+## install
+##################################################################
+dpkg -i sogoupinyin_2.0.deb # 安装软件
+# In Ubuntu 16.04, maybe you need to use gdebi
+
+dpkg -L sougoupinyin # 列出与该包先关联的文件,查看软件安装到什么地方,在/user/share
+dpkg -l sougoupinyin # 显示包的版本
+dpkg -r sougoupinyin # 移除软件（保留配置）
+dpkg -P package # 移除软件（不保留配置）
+dpkg -s package # 查找包的详细信息
+dpkg -c package.deb # 列出deb包的内容
+dpkg –unpack package.deb # 解开 deb 包的内容
+dpkg -S keyword # 搜索所属的包内容
+dpkg –configure package # 配置包
+dpkg –liistfile softname # 查看系统中输入软件的文件

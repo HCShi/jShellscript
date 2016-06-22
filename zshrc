@@ -1,4 +1,3 @@
-. /home/coder352/github/shellscript/myscript
 . /home/coder352/github/shellscript/mybashrc
 # Path to your oh-my-zsh installation.
 export ZSH=/home/coder352/.oh-my-zsh
@@ -51,7 +50,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow debian grails rvm history-substring-search github gradle svn node npm zsh-syntax-highlighting sublime)
+plugins=(autojump git git-flow debian grails rvm history-substring-search github gradle svn node npm zsh-syntax-highlighting sublime)
 
 
 # User configuration
@@ -85,3 +84,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+. /home/coder352/github/shellscript/myscript # 为了将自己的 alias 的优先级提高

@@ -48,6 +48,7 @@ alias gis="git status"
 alias gia="git add ."
 alias gial='git add --all'
 alias gicommit='git commit -m'
+alias gilog='git log --oneline --decorate --graph --all'
 alias gipush='git push origin master'
 alias gid="git diff"
 alias gitcloned='git clone --depth=1' # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量

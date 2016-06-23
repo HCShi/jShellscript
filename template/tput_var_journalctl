@@ -6,3 +6,6 @@ echo $SHELL
 echo
 echo TERM:
 echo $TERM
+echo 
+echo 查看登陆过程中的报错,这个太多，注释了
+# journalctl -xb | grep error

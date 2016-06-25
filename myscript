@@ -7,6 +7,7 @@
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
+export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
 alias greps="grep -rin --color=always"
 alias grepsls='ls | grep'
@@ -33,6 +34,11 @@ alias cdmyextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
 alias cdshellscript="cd ~/github/shellscript"
 alias cdshellscripttemplate="cd ~/github/shellscript/template"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
+
+# snippets for vim
+alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/' # 优先级低
+alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/' # 优先级低
+# 上面还有一个jvimsnippte
 
 ##################################################################
 ## vim 相关操作

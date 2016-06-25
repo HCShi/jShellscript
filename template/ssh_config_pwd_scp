@@ -28,3 +28,18 @@ echo '$path/.ssh'
 ##################################################################
 # ssh-copy-id -i .ssh/id_rsa.pub root@192.168.56.101 再输入一次密码就可以了，相当于下面一句话
 # ssh user@host ‘mkdir -p .ssh && cat >> .ssh/authorized_keys’ < ~/.ssh/id_rsa.pub
+
+
+##################################################################
+## scp
+##################################################################
+:||{
+
+# 1. 上传目录到服务器
+scp -r Documents root@192.168.56.101:~/root/ 
+# 2. 从服务器下载整个目录
+scp -r username@servername:remote_dir/ /tmp/local_dir 
+# 3. 从服务器下载文件
+scp username@servername:/path/filename /tmp/local_destination
+
+}

@@ -17,7 +17,7 @@ dpkg -r sougoupinyin # 移除软件（保留配置）
 dpkg -P package # 移除软件（不保留配置）
 dpkg -s package # 查找包的详细信息
 dpkg -c package.deb # 列出deb包的内容
-dpkg –unpack package.deb # 解开 deb 包的内容
-dpkg -S keyword # 搜索所属的包内容
-dpkg –configure package # 配置包
-dpkg –liistfile softname # 查看系统中输入软件的文件
+dpkg --unpack package.deb # 解开 deb 包的内容
+dpkg -S mysql # 搜索所属的包内容 # 查看 软件 安装了那些文件,以及放到了什么位置
+dpkg --configure package # 配置包
+dpkg --liistfile softname # 查看系统中输入软件的文件

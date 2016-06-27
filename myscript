@@ -7,15 +7,19 @@
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
+alias findname='find -name'
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
 alias greps="grep -rin --color=always"
 alias grepsls='ls | grep'
+alias dush='du -sh'
 alias nau='nautilus .'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias cman='LANG="zh_CN.utf8" man'
 alias gj="echo '$mypassword' | sudo -S shutdown -h now"
 alias php="/opt/lampp/bin/php"
+# sudo apt-get install nmap
+alias nmapme='nmap localhost'
 
 ########################################
 # cd 相关操作
@@ -31,6 +35,7 @@ alias cdjpctmux="cd ~/github/jPC/src/tmux"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
 alias cdmyextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
+alias cdos='cd ~/github/OS_Curriculum_Design'
 alias cdshellscript="cd ~/github/shellscript"
 alias cdshellscripttemplate="cd ~/github/shellscript/template"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
@@ -80,6 +85,7 @@ alias sshkali="ssh root@192.168.56.105" # passwd: asd
 alias sshredhat="ssh root@192.168.56.101" # passwd: 123456
 alias sshruanjianbei="ssh jrp@211.87.185.53 -p 22222" # passwd: Yr1Uwud6yH87kcJ8
 alias sshteacher="ssh r12@121.251.254.208" # username: root; passwd: 123456
+alias sshtencent='ssh root@115.159.88.186'
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
 

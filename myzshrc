@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##################################################################
-## 命令提示符 下面有两种命令提示符 还是和 ag... 不能兼容
+## 命令提示符 下面有几种命令提示符 还是和 agnoster 不能兼容
 ##################################################################
 # 第一种 6 行
 #ZSH_THEME_GIT_PROMPT_CLEAN=""
@@ -15,8 +15,29 @@
 #PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}>'
 #PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}']]]]}]}
 
+# 第三种 右边有时间
+#RPROMPT=$(echo "$RED%D %T$FINISH")
+#PROMPT=$(echo "$CYAN%n@$YELLOW%M:$GREEN%/$_YELLOW>$FINISH ")
+
+#标题栏、任务栏样式{{{
+case $TERM in (*xterm*|*rxvt*|(dt|k|E)term)
+precmd () { print -Pn "\e]0;%n@%M//%/\a" }
+preexec () { print -Pn "\e]0;%n@%M//%/\ $1\a" }
+;;
+esac
+#}}}
+
 ##################################################################
-## 配置 autojump，要先装上 sudo apt-get install autojump
+## 路径提示
+##################################################################
+# 命令提示符 颜色随机 但是会失去 agnoster
+randomise_prompt_colour () {
+  #PS1="%n%B%F{$((RANDOM % 8))}@%m %~ %(!.#.\$) "
+}
+add-zsh-hook precmd randomise_prompt_colour
+
+##################################################################
+## 配置 autojump，要先装上 sudo apt-get install autojump 介绍在 config 中
 ##################################################################
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
@@ -30,6 +51,21 @@ sudo-command-line() {
 }
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
+
+##################################################################
+## color
+##################################################################
+#color{{{
+autoload colors
+colors
+ 
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+eval _$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+eval $color='%{$fg[${(L)color}]%}'
+(( count = $count + 1 ))
+done
+FINISH="%{$terminfo[sgr0]%}"
+#}}}
 
 ##################################################################
 ## 语法高亮

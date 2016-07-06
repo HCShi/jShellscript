@@ -10,7 +10,7 @@ export PATH=/home/coder352/github/shellscript/bin:$PATH
 ##################################################################
 ## ~/.zshrc see something in jpc/terminal_config
 ##################################################################
-eval `dircolors .dircolors` # 执行的是调用这个脚本的地方的文件，即 ~/.dircolors
+eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件，即 ~/.dircolors
 # dircolors 是系统自带命令，dircolors文件是自定义的，只要加上这句话，就可以改变ls的颜色，不需要其它软件支持
 export TERM=xterm-256color
 DEFAULT_USER=`whoami`

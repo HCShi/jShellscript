@@ -15,11 +15,12 @@ alias grepsls='ls | grep'
 alias dush='du -sh'
 alias nau='nautilus .'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
+alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias cman='LANG="zh_CN.utf8" man'
 alias gj="echo '$mypassword' | sudo -S shutdown -h now"
 alias php="/opt/lampp/bin/php"
-# sudo apt-get install nmap
-alias nmapme='nmap localhost'
+alias tcpdump='tcpdump -nn -XSltv'
+alias nmapme='nmap localhost'  # sudo apt-get install nmap
 
 ########################################
 # cd 相关操作
@@ -72,9 +73,12 @@ alias javac="javac -J-Dfile.encoding=utf8"
 ########################################
 # SDN
 ########################################
-alias flt="cd ~/floodlight/ && java -jar target/floodlight.jar"
+alias flt="cd ~/github/floodlight/ && java -jar target/floodlight.jar"
 alias cnf="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
 alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
+alias rum="ryu-manager --verbose"
+alias cdru="cd ~/github/ryu/ryu/app"
+alias cdjtemplatepythonsdnryu="cd ~/github/jTemplate/python/sdn/ryuapp/"
 
 ########################################
 # SSH 相关操作

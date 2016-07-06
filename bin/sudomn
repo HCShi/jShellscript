@@ -7,6 +7,13 @@ then
     scp mytmpip mininet@192.168.56.101:~/
     rm mytmpip
     ssh -X mininet@192.168.56.101
+elif [ $name = "sudomn" ]
+then
+    # 这个是在 mininet 下的一个命令, 放在这里只是为了备份方便, 需要经常从 mininet 中 copy 备份
+    ip=`cat ~/mytmpip`
+    # sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --link tc,bw=10,delay=1ms --mac
+    #sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk,protocols=OpenFlow13
+    sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk,protocols=OpenFlow13
 elif [ $name = "scpm" ]
 then
     scp $1 mininet@192.168.56.101:~/

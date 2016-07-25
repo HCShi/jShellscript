@@ -3,6 +3,8 @@ sudo usermod -a -G root coder352
 sudo chmod 777 filename
 sudo chomd 600 filename
 
+sudo chown -R hadoop ./hadoop  # 将当前的 hadoop 文件夹的权限改为 hadoop 用户, -R 表示递归
+
 ##################################################################
 ## 代码 编码
 ##################################################################

@@ -5,6 +5,7 @@
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/home/coder352/github/shellscript/bin:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 
 ##################################################################
@@ -16,24 +17,24 @@ export TERM=xterm-256color
 DEFAULT_USER=`whoami`
 export EDITOR=/usr/bin/vim
 
-# 只显示当前工作目录 并不起作用
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
-    #PS1="\$(basename `pwd`)"
-fi
-unset color_prompt force_color_prompt
+# 只显示当前工作目录 并不起作用, 对 agnoster
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+#     #PS1="\$(basename `pwd`)"
+# fi
+# unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]"
-    ;;
-*)
-    ;;
-esac
+# case "$TERM" in
+# xterm*|rxvt*)
+#     #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]$PS1"
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \W\a\]"
+#     ;;
+# *)
+#     ;;
+# esac
 ##################################################################
 ## 科普 各种 profile 的作用
 ##################################################################

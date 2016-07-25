@@ -14,6 +14,7 @@ alias greps="grep -rin --color=always"
 alias grepsls='ls | grep'
 alias dush='du -sh'
 alias nau='nautilus .'
+alias netstatm='netstat -ant'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias cman='LANG="zh_CN.utf8" man'
@@ -81,9 +82,12 @@ alias cdru="cd ~/github/ryu/ryu/app"
 alias cdjtemplatepythonsdnryu="cd ~/github/jTemplate/python/sdn/ryuapp/"
 alias cdjtemplatepythonmininet="cd ~/github/jTemplate/python/sdn/mininet"
 # ovs-vsctl
-alias ovsc='ovs-vsctl'
-alias ovscab='ovs-vsctl add-br'
-alias ovscap='ovs-vsctl add-port'
+alias ovsc='sudo ovs-vsctl'
+alias ovscab='sudo ovs-vsctl add-br'
+alias ovscdb='sudo ovs-vsctl del-br'
+alias ovscap='sudo ovs-vsctl add-port'
+alias ovscdp='sudo ovs-vsctl del-port'
+alias ovscsc='sudo ovs-vsctl set-controller'
 
 ########################################
 # SSH 相关操作
@@ -107,6 +111,15 @@ alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
 alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
 alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
+
+##################################################################
+# Docker
+##################################################################
+alias doci='docker images'
+alias docps='docker ps -a'
+alias docpu='docker pull'
+alias docr='docker run -it --rm'
+alias docs='docker start -i'
 
 ########################################
 # 渗透 

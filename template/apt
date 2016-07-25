@@ -1,1 +1,5 @@
+# 添加第三方
 sudo add-apt-repository ppa:indicator-multiload/stable-daily
+
+# 先搜一下,有哪些可一安装, 看到了 implementation
+apt-cache search openvswitch  

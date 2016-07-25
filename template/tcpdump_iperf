@@ -1,0 +1,110 @@
+##################################################################
+## tcpdump
+##################################################################
+
+# 检测 Mininet 的流量
+sudo tcpdump -i vboxnet0 -nn -XSltv
+
+sudo tcpdump -i eth0 -nn -X 'port 53' -c 1
+# -n 这样的话域名就不会被解析了，而是用数字IP的形式显示地址(译者注: 同netstat的-n是一样的喔)。
+# -X 这样就会同时把包的内容以ASCII码和十六制的形式显示
+# -S 它个选项会显示绝对序号而不是相对序号。因为当包被隐藏起来的话，你也不会看到奇怪的序号。
+# 请谨记，tcpdump较之其它工具的优势之一就是可以与包(packets)手工交互
+# -s xxxx tcpdump默认只会从packet中取出前96个字节。我通常会把这个数字设定为1514而得到所有的数据
+# -i eth0 监听 eth0 端口
+# -i any 捕获所有网卡数据
+# -nn 比如: 21端口是FTP端口，我们希望显示21，而非tcpdump自作聪明的将它显示成FTP
+# 'port 53' 过滤器
+# -c 设置抓几个包
+# -e 增加以太网帧头部信息输出
+# -l 使输出变为行缓冲
+# -t 不打印时间戳
+# -v 在原有输出的基础之上，你还会看到tos值、ttl值、ID值、总长度、校验值等
+# -F 指定过滤规则,放到文件中
+# $ sudo cat filter.txt
+# port 53
+# $ sudo tcpdump -i eth0 -c 1 -t -F filter.txt
+# -w 流量保存 tcpdump -i eth0 -w flowdata, 存放的是 raw packets 无法直接查看
+# -r 读取 raw packets 文件 tcpdump -r flowdata
+
+##################################################################
+## iperf
+##################################################################
+
+########## 测试单线程TCP吞吐量
+# sudo apt-get install iperf
+# 测试单线程TCP吞吐量
+iperf -s  # 在 Ubuntu 上执行 默认是 TCP 传输
+iperf -c 172.18.131.175  # 在 Mininet 上执行
+# Ubuntu 端显示
+# ------------------------------------------------------------
+# Server listening on TCP port 5001
+# TCP window size: 85.3 KByte (default)
+# ------------------------------------------------------------
+# [  4] local 172.18.131.175 port 5001 connected with 172.18.131.175 port 39344
+# [ ID] Interval       Transfer     Bandwidth
+# [  4]  0.0-10.0 sec   885 MBytes   742 Mbits/sec
+
+# Mininet 端显示
+# ------------------------------------------------------------
+# Client connecting to 172.18.131.175, TCP port 5001
+# TCP window size: 85.0 KByte (default)
+# ------------------------------------------------------------
+# [  3] local 10.0.2.15 port 53617 connected with 172.18.131.175 port 5001
+# [ ID] Interval       Transfer     Bandwidth
+# [  3]  0.0-10.0 sec   884 MBytes   742 Mbits/sec
+
+# 可以看到Iperf默认的运行时间在10秒左右，网卡的带宽速率1.79Gbits/sec(这是网上别人的带宽)
+
+########## 测试UDP丢包和延迟
+# perf也可以用于UDP数据包吞吐量、丢包率和延迟指标，但是由于UDP协议是一个
+# 非面向连接的轻量级传输协议，并且不提供可靠的数据传输服务，因此，对UDP应用
+# 的关注点不是传输数据有多快，而是它的丢包率和延时指标。
+# 通过Iperf的“-u”参数即可测试UDP应用的传输性能，这里测试Iperf客户端传输100M的UDP数据包的输出结果
+
+########## 只开 mininet 的情况
+iperf -c 172.18.131.175 -u -b 100M -i 10  # 在 Mininet 上执行 , 因为是 面向无连接的, 所以 Ubuntu 上不用开服务器
+# ------------------------------------------------------------
+# Client connecting to 172.18.131.175, UDP port 5001
+# Sending 1470 byte datagrams
+# UDP buffer size:  208 KByte (default)
+# ------------------------------------------------------------
+# [  3] local 10.0.2.15 port 36900 connected with 172.18.131.175 port 5001
+# read failed: Connection refused
+# [  3] WARNING: did not receive ack of last datagram after 1 tries.
+# [ ID] Interval       Transfer     Bandwidth
+# [  3]  0.0-10.0 sec  60.8 MBytes  51.0 Mbits/sec
+# [  3]  0.0-10.0 sec  60.8 MBytes  51.0 Mbits/sec
+# [  3] Sent 85266 datagrams
+
+########## 同时打开 server 的情况
+iperf -s -u  # Ubuntu 上打开 iperf
+iperf -c 172.18.131.175 -u -b 100M -i 10  # 在 Mininet 上执行
+# Ubuntu Output:
+# ------------------------------------------------------------
+# Server listening on UDP port 5001
+# Receiving 1470 byte datagrams
+# UDP buffer size:  208 KByte (default)
+# ------------------------------------------------------------
+# [  3] local 172.18.131.175 port 5001 connected with 172.18.131.175 port 38076
+# [ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+# [  3]  0.0-10.0 sec   119 MBytes  99.8 Mbits/sec   0.003 ms    0/84871 (0%)
+# [  3]  0.0-10.0 sec  1 datagrams received out-of-order
+# “Jitter”列表示抖动时间，也称为传输延迟，“Lost/Total Datagrams”列表示丢失的数据包和数据包数量，0%是平均丢包率。
+ 
+# Mininet Output:
+# ------------------------------------------------------------
+# Client connecting to 172.18.131.175, UDP port 5001
+# Sending 1470 byte datagrams
+# UDP buffer size:  208 KByte (default)
+# ------------------------------------------------------------
+# [  3] local 10.0.2.15 port 44283 connected with 172.18.131.175 port 5001
+# [ ID] Interval       Transfer     Bandwidth
+# [  3]  0.0-10.0 sec   119 MBytes  99.8 Mbits/sec
+# [  3]  0.0-10.0 sec   119 MBytes  99.8 Mbits/sec
+# [  3] Sent 84872 datagrams
+# [  3] Server Report:
+# [  3]  0.0-10.0 sec   119 MBytes  99.8 Mbits/sec   0.002 ms    0/84871 (0%)
+# [  3]  0.0-10.0 sec  1 datagrams received out-of-order
+
+

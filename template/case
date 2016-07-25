@@ -1,4 +1,6 @@
 #!/bin/bash
+# ./case cat 
+# ./case
 case $1 in
 cat)
 echo dog;;

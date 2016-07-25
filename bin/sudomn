@@ -2,7 +2,7 @@
 name=`basename $0`
 if [ $name = "sshxm" ]
 then
-    ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
+    ip=`/sbin/ifconfig -a | grep inet | grep -v 127.0.0.1 | grep -v 172.17.0.1 | grep -v 192.168.56.1 | grep -v inet6 | awk '{print $2}' | tr -d "addr:"`
     echo $ip >> mytmpip
     scp mytmpip mininet@192.168.56.101:~/
     rm mytmpip
@@ -13,7 +13,8 @@ then
     ip=`cat ~/mytmpip`
     # sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --link tc,bw=10,delay=1ms --mac
     #sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk,protocols=OpenFlow13
-    sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk,protocols=OpenFlow13
+    #sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk,protocols=OpenFlow13
+    sudo mn --custom $1 --topo mytopo --controller=remote,ip=$ip,port=6653 --switch ovsk  # openflow 13 把我坑惨了
 elif [ $name = "scpm" ]
 then
     scp $1 mininet@192.168.56.101:~/

@@ -124,6 +124,22 @@ sudo ps -elf
 # -e：显示系统内的所有进程信息
 # -l：使用长格式显示进程信息
 # -f：使用完整的格式显示进程信息
+sudo ps -elf | grep nginx  # 显示 nginx 的进程号
+
+##################################################################
+## kill
+##################################################################
+# 以 nginx 为例
+# 杀死进程
+sudo ps -elf | grep nginx  # 显示 nginx 的进程号
+kill -QUIT pid_of_nginx  # 从容停止 nginx
+kill -TERM pid_of_nginx  # 快速停止 nginx
+kill -INT pid_of_nginx  # 快速停止 nginx
+pkill -9 nginx  # 强制停止
+sudo nginx -s stop/quit  # 这样也可以停止 nginx
+# 重启进程
+sudo nginx -s reload  # 或者
+ps -ef | grep nginx && kill -HUP pid  # 发送信号重启
 
 ##################################################################
 ## top 查看动态 进程 排名信息

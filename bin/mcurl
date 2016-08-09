@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+# coding: utf-8
+from os import system
+import sys
+
+if __name__ == '__main__':
+    if(len(sys.argv) == 1):
+        system("curl localhost")
+    else:
+        cmd = "curl localhost" + str(sys.argv[1])
+        system(cmd)
+
+

@@ -31,10 +31,10 @@
 ## 路径提示
 ##################################################################
 # 命令提示符 颜色随机 但是会失去 agnoster
-randomise_prompt_colour () {
+# randomise_prompt_colour () {
   #PS1="%n%B%F{$((RANDOM % 8))}@%m %~ %(!.#.\$) "
-}
-add-zsh-hook precmd randomise_prompt_colour
+# }
+# add-zsh-hook precmd randomise_prompt_colour
 
 ##################################################################
 ## 配置 autojump，要先装上 sudo apt-get install autojump 介绍在 config 中

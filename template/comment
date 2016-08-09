@@ -11,3 +11,5 @@ echo "hello1"
 echo "hello2"
 
 }
+
+# 第一个最好用, 第二个有时候不好用

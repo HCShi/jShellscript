@@ -1,0 +1,6 @@
+以 nginx 配置 虚拟主机为例
+### 配置 eth0
+ifconfig eth0 192.168.1.9 netmask 255.255.255.0
+### 配置 eth0 分设备 配置 虚拟主机
+ifconfig eth0:1 192.168.1.7 broadcast 192.168.1.255 netmask 255.255.255.0
+ifconfig eth0:2 192.168.1.17 broadcast 192.168.1.255 netmask 255.255.255.0

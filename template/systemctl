@@ -1,0 +1,2 @@
+# 查看 nginx 运行状态 出错的时候
+systemctl status nginx.service

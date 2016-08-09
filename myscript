@@ -3,28 +3,58 @@
 # oneko & # 打开终端出现一只小猫
 # 变态的 oh-my-zsh 中有好多的 alias，又造轮子了 
 ########################################
-# 系统操作 
+## 系统操作 
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
-alias findname='find -name'
+alias findname='find -iname'
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
 alias greps="grep -rin --color=always"
 alias grepsls='ls | grep'
 alias dush='du -sh'
-alias nau='nautilus .'
-alias netstatm='netstat -ant'
+alias llv='ll -v'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
+alias nau='nautilus .'
+alias netstatm='netstat -antp'
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias cman='LANG="zh_CN.utf8" man'
 alias gj="echo '$mypassword' | sudo -S shutdown -h now"
-alias php="/opt/lampp/bin/php"
+# alias php="/opt/lampp/bin/php"
 alias tcpdump='tcpdump -nn -XSltv'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
+# 这个unzip的参数只有ubuntu默认有
+alias unzipo='unzip -O cp936'
+
+##################################################################
+## Nginx php
+##################################################################
+alias cnginx='sudo nginx -p $PWD'
+alias snginx='sudo nginx -s stop'
+# Ubuntu 直接输入 可执行的 .py 文件不是执行它, 而是打开, 以前 14.04 还不是的啊
+# alias mcurl='python ~/github/shellscript/bin/curl.py'  # 是下面的 py=vi 搞得鬼
+# 开启 fgcgi, 用 nginx 和 php 时要开启
+alias sfcgi='sudo /usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -C 5 -u www-data -g www-data -f /usr/bin/php-cgi7.0 -P /var/run/fastcgi-php.pid' 
+alias sphpserver='php -S localhost:9999'
+alias phpserver='google-chrome http://localhost:9999/'
+alias lnsphpmyadmin='sudo ln -s /usr/share/phpmyadmin /home/coder352/web/phpmyadmin'
+alias logphpmyadmin='google-chrome localhost/phpmyadmin'
+alias clsweb='rm ~/web/*'
+
+##################################################################
+## mysql
+##################################################################
+alias logmysql='mysql -u root -p'
+
+##################################################################
+## player
+##################################################################
+alias mpa="ls > music.lst && mplayer -playlist music.lst"
+alias mps="mplayer -playlist music.lst"
+alias mpm="ls > music.lst"
 
 ########################################
-# cd 相关操作
+## cd 相关操作
 ########################################
 alias cddel="cd ~/Documents/thiscandel"
 #alias cdhtml="cd /media/coder352/文档/HTML"
@@ -33,6 +63,9 @@ alias cdjpc="cd ~/github/jPC"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatepython="cd ~/github/jTemplate/python"
+alias cdjtemplatewebjavascript="cd ~/github/jTemplate/web/javascript"
+alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
+alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjpctmux="cd ~/github/jPC/src/tmux"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
@@ -41,6 +74,7 @@ alias cdos='cd ~/github/OS_Curriculum_Design'
 alias cdshellscript="cd ~/github/shellscript"
 alias cdshellscripttemplate="cd ~/github/shellscript/template"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
+alias cdvedio="cd /media/coder352/文档/Share/视频"
 
 # snippets for vim
 alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/' # 优先级低
@@ -53,9 +87,11 @@ alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/' # 优先级低
 alias vimms="cd ~/github/shellscript && vim myscript"
 alias vimtmuxshorcuts="vim ~/github/jPC/src/tmux/README.md"
 alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
+# php.vim 中补全的更新, 中间的括号太乱了
+# alias updatephpfunlist='curl http://www.php.net/manual/en/indexes.functions.php | sed '/class="index"/!d' | grep -oP '>[^<]+</a> - .*</li>' | cut -b2- | sed 's~</a> - ~ ; ~; s~</li>$~~' > php-funclist.txt'
 
 ########################################
-# git 相关操作 要被淘汰了 via oh my zsh
+## git 相关操作 要被淘汰了 via oh my zsh
 ########################################
 alias gis="git status"
 alias gia="git add ."
@@ -72,11 +108,11 @@ alias gitcloned='git clone --depth=1' # git shallow clone --depth=1 表示只下
 alias javac="javac -J-Dfile.encoding=utf8"
 
 ########################################
-# SDN
+## SDN
 ########################################
 alias flt="cd ~/github/floodlight/ && java -jar target/floodlight.jar"
-alias cnf="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
-alias cff="cd ~/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
+alias cnf="cd ~/github/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
+alias cff="cd ~/github/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
 alias rum="ryu-manager --verbose"
 alias cdru="cd ~/github/ryu/ryu/app"
 alias cdjtemplatepythonsdnryu="cd ~/github/jTemplate/python/sdn/ryuapp/"
@@ -90,7 +126,7 @@ alias ovscdp='sudo ovs-vsctl del-port'
 alias ovscsc='sudo ovs-vsctl set-controller'
 
 ########################################
-# SSH 相关操作
+## SSH 相关操作
 ########################################
 alias sshaliyun="ssh root@115.28.247.19"
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
@@ -103,7 +139,7 @@ alias sshtencent='ssh root@115.159.88.186'
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
 
 ########################################
-# Shadowsocks 后面两个是统计和显示流量
+## Shadowsocks 后面两个是统计和显示流量
 ########################################
 alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 #alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
@@ -138,7 +174,8 @@ alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
 alias -s log=cd # 省去 cd
 alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名，会在 vim 中打开,如果想用TextMate打开可以将vi改成mate
 alias -s rb=vi     # 在命令行直接输入 ruby 文件，会在 vim 中打开
-alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+# alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+# 被这个 py=vi 坑了好长时间
 alias -s js=vi
 alias -s c=vi
 alias -s java=vi

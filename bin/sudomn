@@ -18,12 +18,22 @@ then
 elif [ $name = "scpm" ]
 then
     scp $1 mininet@192.168.56.101:~/
-#elif [ $name = "greps" ]
-#then
-    #grep -rn "$1"
-elif [ $name = "scps" ]
+elif [ $name = "scpbanwagong" ]
 then 
     scp -P 29318 $1 root@45.78.9.29:$2
+# exp: scpaliyun filename  或者  scpaliyun filename .  第二个是加了一个路径, 默认就是 . 家目录
+elif [ $name = "scpaliyun" ]
+then 
+    scp $1 root@115.28.247.19:$2
+elif [ $name = "scpbaliyun" ]
+then 
+    scp root@115.28.247.19:$1 $2
+elif [ $name = "scptencent" ]
+then 
+    scp $1 root@115.159.88.186:$2
+elif [ $name = "scpbtencent" ]
+then 
+    scp root@115.159.88.186:$1 $2
 elif [ $name = "qkill" ]
 then
     ps -e | grep $1 | cut -c 1-5 | xargs kill
@@ -31,4 +41,7 @@ elif [ $name = "day" ]
 then
     #/bin/date '+%Y-%m-%d'
     /bin/date '+%Y-%m-%d.%H-%M-%S'
+elif [ $name = "md5sumtr" ]
+then
+    md5sum $1 | tr "a-z" "A-Z"
 fi

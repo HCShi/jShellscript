@@ -7,6 +7,12 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/home/coder352/github/shellscript/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
+##################################################################
+## django & virtualenv
+##################################################################
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+source /usr/local/bin/virtualenvwrapper.sh
 
 ##################################################################
 ## ~/.zshrc see something in jpc/terminal_config

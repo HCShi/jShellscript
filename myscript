@@ -7,10 +7,10 @@
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
-alias findname='find -iname'
+alias findname='find -iname'  # exapmle: findname "*.txt"
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
-alias greps="grep -rin --color=always"
+alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
 alias dush='du -sh'
 alias llv='ll -v'
@@ -25,6 +25,7 @@ alias tcpdump='tcpdump -nn -XSltv'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
 # 这个unzip的参数只有ubuntu默认有
 alias unzipo='unzip -O cp936'
+alias xopen="xdg-open"
 
 ##################################################################
 ## Nginx php
@@ -63,6 +64,7 @@ alias cdjpc="cd ~/github/jPC"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatepython="cd ~/github/jTemplate/python"
+alias cdjtemplatesql="cd ~/github/jTemplate/sql"
 alias cdjtemplatewebjavascript="cd ~/github/jTemplate/web/javascript"
 alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
 alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
@@ -89,6 +91,8 @@ alias vimtmuxshorcuts="vim ~/github/jPC/src/tmux/README.md"
 alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 # php.vim 中补全的更新, 中间的括号太乱了
 # alias updatephpfunlist='curl http://www.php.net/manual/en/indexes.functions.php | sed '/class="index"/!d' | grep -oP '>[^<]+</a> - .*</li>' | cut -b2- | sed 's~</a> - ~ ; ~; s~</li>$~~' > php-funclist.txt'
+# 下面这句话会在当前目录下生成一个 vim 启动时打开文件的顺序以及事件节点, 可以查看是哪里耗费启动时间
+# alias vimtimefile = "vim --startuptime timefile the_file_you_want_to_edit"
 
 ########################################
 ## git 相关操作 要被淘汰了 via oh my zsh
@@ -160,7 +164,9 @@ alias docs='docker start -i'
 ########################################
 # 渗透 
 ########################################
-alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
+#alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
+alias sqlmap="python ~/github/others/sqlmap-dev/sqlmap.py"
+alias sqlmapub="python ~/github/others/sqlmap-dev/sqlmap.py --current-user --current-db"
 
 ########################################
 # 无线AP 

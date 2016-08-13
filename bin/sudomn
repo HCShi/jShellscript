@@ -18,6 +18,9 @@ then
 elif [ $name = "scpm" ]
 then
     scp $1 mininet@192.168.56.101:~/
+elif [ $name = "scpbm" ]
+then
+    scp mininet@192.168.56.101:$1 $2
 elif [ $name = "scpbanwagong" ]
 then 
     scp -P 29318 $1 root@45.78.9.29:$2

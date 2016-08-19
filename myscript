@@ -25,6 +25,7 @@ alias tcpdump='tcpdump -nn -XSltv'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
 # 这个unzip的参数只有ubuntu默认有
 alias unzipo='unzip -O cp936'
+alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias xopen="xdg-open"
 
 ##################################################################

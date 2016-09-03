@@ -85,4 +85,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 . /home/${USER}/github/shellscript/myscript # 为了将自己的 alias 的优先级提高
+folder="/home/${USER}/.config/jshellscript"
+if [ -d "$folder" ] 
+then
+    echo 'hello'
+    . /home/${USER}/.config/jshellscript/*.sh
+fi
 . /home/${USER}/github/shellscript/myzshrc

@@ -88,7 +88,6 @@ source $ZSH/oh-my-zsh.sh
 folder="/home/${USER}/.config/jshellscript"
 if [ -d "$folder" ] 
 then
-    echo 'hello'
     . /home/${USER}/.config/jshellscript/*.sh
 fi
 . /home/${USER}/github/shellscript/myzshrc

@@ -4,8 +4,9 @@
 ## /etc/bash.bashrc
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/home/coder352/github/shellscript/bin:$PATH
+export PATH=/home/${USER}/github/shellscript/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 
 ##################################################################
 ## django & virtualenv

@@ -1,6 +1,6 @@
-. /home/coder352/github/shellscript/mybashrc
+. /home/${USER}/github/shellscript/mybashrc
 # Path to your oh-my-zsh installation.
-export ZSH=/home/coder352/.oh-my-zsh
+export ZSH=/home/${USER}/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -55,7 +55,7 @@ plugins=(autojump git git-flow debian grails rvm history-substring-search github
 
 # User configuration
 
-  export PATH="/home/coder352/github/shellscript/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+  export PATH="/home/${USER}/github/shellscript/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -84,5 +84,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-. /home/coder352/github/shellscript/myscript # 为了将自己的 alias 的优先级提高
-. /home/coder352/github/shellscript/myzshrc
+. /home/${USER}/github/shellscript/myscript # 为了将自己的 alias 的优先级提高
+. /home/${USER}/github/shellscript/myzshrc

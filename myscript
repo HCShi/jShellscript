@@ -81,8 +81,8 @@ alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
 alias cdvedio="cd /media/coder352/文档/Share/视频"
 
 # snippets for vim
-alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/' # 优先级低
-alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/' # 优先级低
+alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/'  # 优先级低
+alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # 优先级低
 # 上面还有一个jvimsnippte
 
 ##################################################################
@@ -106,7 +106,8 @@ alias gicommit='git commit -m'
 alias gilog='git log --oneline --decorate --graph --all'
 alias gipush='git push origin master'
 alias gid="git diff"
-alias gitcloned='git clone --depth=1' # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
+alias gitcloned='git clone --depth=1'  # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
+alias gitinfo='git config --global -l'  # 显示git相关配置信息
 
 ##################################################################
 ## Java 

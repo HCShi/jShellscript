@@ -12,7 +12,7 @@ export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
 alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
-alias dush='du -sh'
+alias dush='du -sh'  # 查看当前所在的目录的大小
 alias llv='ll -v'
 alias lsv='ls -v'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"

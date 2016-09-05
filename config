@@ -3,8 +3,8 @@
 # 配置bashrc 需要速冻
 path=`pwd`
 #sudo echo ". $path/myscript" 
-sudo echo ". $path/myscript" >> /etc/bash.bashrc                                                   
-sudo echo ". $path/mybashrc" >> /etc/bash.bashrc                                                   
+#sudo echo ". $path/myscript" >> /etc/bash.bashrc                                                   
+#sudo echo ". $path/mybashrc" >> /etc/bash.bashrc                                                   
 # 因为 zsh 没有默认的配置文件，一般都是把 oh-my-zsh 中的直接扒下来，所以没有备份
 cp ./zshrc ~/.zshrc
 

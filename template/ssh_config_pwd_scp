@@ -44,6 +44,6 @@ scp -r Documents root@192.168.56.101:~/root/
 # 2. 从服务器下载整个目录
 scp -r username@servername:remote_dir/ /tmp/local_dir 
 # 3. 从服务器下载文件
-scp username@servername:/path/filename /tmp/local_destination
+scp -P port username@servername:/path/filename /tmp/local_destination
 
 }

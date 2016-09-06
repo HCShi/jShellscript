@@ -10,7 +10,7 @@
 ##################################################################
 # 五种查看mount挂载的命令
 sudo fdisk -l
-df -h
+df -h  # 这个可以查到 Android 设备挂载到 /run/user/<user-id>/gvfs/ 中
 df -ia
 mount
 cat /etc/mtab

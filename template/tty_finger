@@ -1,0 +1,34 @@
+#!/bin/bash
+
+##################################################################
+## tty 显示终端机连接标准输入设备的文件名称, 自己当前使用的终端
+##################################################################
+tty
+# echo hello > /dev/pts/2  # 将输出定向到其它终端
+
+##########
+# vim 中想在新的窗口中执行命令
+# 方法一: 未完成
+old=`ls /dev/pts | sort -h`
+echo $old
+gnome-terminal --working-directory=`pwd`
+new=`ls /dev/pts | sort -h`
+echo $new
+# 剩下的就是将新的和旧的对比
+
+# 方法二
+ls -l --full-time -ch /dev/pts | awk '{print  $8, $10}' | sort | awk '{print $NF}' | awk 'END{print}'
+ls -l --full-time -ch /dev/pts | awk '{print  $8, $10}' | sort | awk '{print $NF}' | tail -1
+# ls -t 是根据最新修改的时间排序,不行
+# -c 是根据创建的时间
+# -h 符合人们的读写习惯
+# --full-time 默认是没有秒的
+# $NF 是最后一列
+# END{print} 打印最有一行
+# tail -1 也是最后一行
+
+##################################################################
+## finger 查看当前登录用户所使用的终端 图形界面是 tty7
+##################################################################
+# sudo apt-get install finger
+finger

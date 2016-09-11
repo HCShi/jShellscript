@@ -8,8 +8,10 @@
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
 alias findname='find -iname'  # exapmle: findname "*.txt"
+alias fy='sdcv -c'  # sudo apt-get install sdcv
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
+# grepf 在 PATH 里
 alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
 alias dush='du -sh'  # 查看当前所在的目录的大小
@@ -28,9 +30,15 @@ alias nmapme='nmap localhost'  # sudo apt-get install nmap
 alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias xopen="xdg-open"
+alias mmatlabr="matlab -nosplash -nodesktop -r"
+alias mmatlab="matlab -nosplash -nodesktop"
+# -nosplash表示不加载启动界面
+# -nodesktop表示不加载GUI界面
+# -r表示运行Matlab命令行（MATLAB_command）
+# file_base_name表示文件名，但不包含文件扩展名
 
 ##################################################################
-## Nginx php
+## Nginx PHP Server
 ##################################################################
 alias cnginx='sudo nginx -p $PWD'
 alias snginx='sudo nginx -s stop'
@@ -43,6 +51,12 @@ alias phpserver='google-chrome http://localhost:9999/'
 alias lnsphpmyadmin='sudo ln -s /usr/share/phpmyadmin /home/coder352/web/phpmyadmin'
 alias logphpmyadmin='google-chrome localhost/phpmyadmin'
 alias clsweb='rm ~/web/*'
+
+# Hexo
+alias loghexo='google-chrome http://localhost:4000'
+
+# Python
+alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
 
 ##################################################################
 ## mysql
@@ -63,6 +77,8 @@ alias cddel="cd ~/Documents/thiscandel"
 #alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime" 
 alias cdjhexo="cd ~/github/jHexo"
+alias cdjhexoothers='cd ~/github/others/Blog_backup'
+alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
 alias cdjpc="cd ~/github/jPC"
 alias cdjpcchromeextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
 alias cdjpctmux="cd ~/github/jPC/src/tmux"
@@ -86,10 +102,12 @@ alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # 优先级低
 # 上面还有一个jvimsnippte
 
 ##################################################################
-## vim 相关操作
+## vim 相关操作  进目录是为了退出时能够 git
 ##################################################################
 alias vimms="cd ~/github/shellscript && vim myscript"
-alias vimtmuxshorcuts="vim ~/github/jPC/src/tmux/README.md"
+alias vimjpcpcconfig="cd ~/github/jPC && vim pc_config"
+alias vimjpcchromeconfig="cd ~/github/jPC && vim chrome_config"
+alias vimtmuxshorcuts="cd ~/github/jPC/src/tmux && vim README.md"
 alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 # php.vim 中补全的更新, 中间的括号太乱了
 # alias updatephpfunlist='curl http://www.php.net/manual/en/indexes.functions.php | sed '/class="index"/!d' | grep -oP '>[^<]+</a> - .*</li>' | cut -b2- | sed 's~</a> - ~ ; ~; s~</li>$~~' > php-funclist.txt'
@@ -108,6 +126,8 @@ alias gipush='git push origin master'
 alias gid="git diff"
 alias gitcloned='git clone --depth=1'  # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
 alias gitinfo='git config --global -l'  # 显示git相关配置信息
+##### 下面是 Github + Hexo + 七牛云
+alias qrsync="~/github/others/qrsync/qrsync"
 
 ##################################################################
 ## Java 
@@ -148,10 +168,16 @@ alias sshtencent='ssh root@115.159.88.186'
 ########################################
 ## Shadowsocks 后面两个是统计和显示流量
 ########################################
+#alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
+alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+alias stassother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d start && exit"
+alias stossother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d stop && exit"
 #alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
 #alias stoss="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
-alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+#alias cstass="sudo sslocal -s 45.78.9.29 -p 443 -b 127.0.0.1 -l 1080 -k MzBhMDU4YT -m aes-256-cfb -t 500 --fast-open -d start -v"
+alias cstass="sudo sslocal -s 45.78.9.29 -p 443 -b 127.0.0.1 -l 1080 -k MzBhMDU4YT -m aes-256-cfb -t 300 -d start -v"
+alias cstoss="sudo sslocal -s 45.78.9.29 -p 443 -b 127.0.0.1 -l 1080 -k MzBhMDU4YT -m aes-256-cfb -t 300 -d stop -v"
 alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
 alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
 

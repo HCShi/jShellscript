@@ -4,3 +4,5 @@
 ls | wc -l  # 后一个命令在前一个的基础上运行
 # ls > test  # 重定向, 写入
 find -name *.py | xargs grep asdf  # 作为参数, 找 py 结尾的文件中的字符串
+# 删除子文件的指定文件
+findname "*.db" | xargs rm

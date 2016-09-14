@@ -57,6 +57,7 @@ alias loghexo='google-chrome http://localhost:4000'
 
 # Python
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
+alias pythonmsimpleserver="python ~/github/shellscript/bin/MySimpleHTTPServer.py"  # 开启8000端口
 
 ##################################################################
 ## mysql
@@ -91,6 +92,7 @@ alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
 alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
+alias cdshare="cd /media/coder352/文档/Share"
 alias cdshellscript="cd ~/github/shellscript"
 alias cdshellscripttemplate="cd ~/github/shellscript/template"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
@@ -100,6 +102,9 @@ alias cdvedio="cd /media/coder352/文档/Share/视频"
 alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/'  # 优先级低
 alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # 优先级低
 # 上面还有一个jvimsnippte
+
+# Windows
+alias cdwendang="cd /media/coder352/文档"
 
 ##################################################################
 ## vim 相关操作  进目录是为了退出时能够 git

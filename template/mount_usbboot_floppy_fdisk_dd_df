@@ -30,13 +30,17 @@ eject # 弹出光驱
 ##################################################################
 su root
 cat Ubuntu-amd64.iso > /dev/sdb
+cat ubuntu-16.04-desktop-amd64.iso > /dev/sdc1  # 没能干掉老毛桃, 还没试 /dev/sdc
+cat ubuntu-16.04-desktop-amd64.iso > /dev/sdc  # 干掉了老毛桃, 却启动不了了
 
 ##################################################################
 ## dd command with usb bootin
 ##################################################################
 su root
-dd if=Ubuntu-amd64.iso of=/dev/sdb1 bs=4M # 制作 U 盘启动盘
-dd if=Ubuntu-amd64.iso of=/dev/cdrom bs=4M # 制作 CD/DVD 系统盘
+dd if=Ubuntu-amd64.iso of=/dev/sdb1 bs=4M  # 制作 U 盘启动盘
+dd if=Ubuntu-amd64.iso of=/dev/cdrom bs=4M  # 制作 CD/DVD 系统盘
+dd if=ubuntu-16.04-desktop-amd64.iso of=/dev/sdc1  # 制作 U 盘启动盘, 测试能不能把里面的老毛桃干掉
+dd if=ubuntu-16.04-desktop-amd64.iso of=/dev/sdc  # 最后尝试的这个, OK
 
 ##################################################################
 ## dd 软盘 

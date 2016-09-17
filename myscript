@@ -93,6 +93,7 @@ alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjvim="cd ~/github/jvim/vimrc"
 alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
 alias cdshare="cd /media/coder352/文档/Share"
+alias cdshareshiyanlou="cd /media/coder352/文档/Share/实验楼"
 alias cdshellscript="cd ~/github/shellscript"
 alias cdshellscripttemplate="cd ~/github/shellscript/template"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
@@ -174,8 +175,8 @@ alias sshtencent='ssh root@115.159.88.186'
 ## Shadowsocks 后面两个是统计和显示流量
 ########################################
 #alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
-alias stass="sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"
-alias stoss="sudo -S sslocal -c /etc/shadowsocks.json -d stop && exit"
+alias stass="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json.bak -d start && exit"
+alias stoss="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json.bak -d stop && exit"
 alias stassother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d start && exit"
 alias stossother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d stop && exit"
 #alias stass="echo '$mypassword' | sudo -S sslocal -c /etc/shadowsocks.json -d start && exit"

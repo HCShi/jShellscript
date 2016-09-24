@@ -7,7 +7,6 @@
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
-alias
 alias findname='find -iname'  # exapmle: findname "*.txt"
 alias fy='sdcv -c'  # sudo apt-get install sdcv
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗

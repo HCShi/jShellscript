@@ -2,41 +2,38 @@
 # alias 等号左右不能有空格
 # oneko & # 打开终端出现一只小猫
 # 变态的 oh-my-zsh 中有好多的 alias，又造轮子了 
+# alias test='test() { };test'
 ########################################
 ## 系统操作 
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
+alias cman='LANG="zh_CN.utf8" man'
+alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"
+# alias day="/bin/date '+%Y-%m-%d'"  # 另一种形式
 alias findname='find -iname'  # exapmle: findname "*.txt"
 alias fy='sdcv -c'  # sudo apt-get install sdcv
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -i --color=always"
-# grepf 在 PATH 里
+alias grepf='test() { find -iname $2 | xargs grep -rin --color=always $1 };test'  # example: grepf hello "*.md"
 alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
 alias dush='du -sh'  # 查看当前所在的目录的大小
 alias llv='ll -v'
 alias lsv='ls -v'
+alias md5sum='test() { md5sum $1 | tr "a-z" "a-z" };test'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias nau='nautilus .'
 alias netstatm='netstat -antp'
-alias terminalnew='gnome-terminal --working-directory=`pwd`'
-alias cman='LANG="zh_CN.utf8" man'
-alias gj="echo '$mypassword' | sudo -S shutdown -h now"
-# alias php="/opt/lampp/bin/php"
-alias rmlatex="rm *.log *.aux *.pdf"
-alias tcpdump='tcpdump -nn -XSltv'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
+alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | xargs kill };test'
+alias rmlatex="rm *.log *.aux *.pdf"
+alias terminalnew='gnome-terminal --working-directory=`pwd`'
+alias tcpdump='tcpdump -nn -XSltv'
 # 这个unzip的参数只有ubuntu默认有
 alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias xopen="xdg-open"
-alias mmatlabr="matlab -nosplash -nodesktop -r"
-alias mmatlab="matlab -nosplash -nodesktop"
-# -nosplash表示不加载启动界面
-# -nodesktop表示不加载GUI界面
-# -r表示运行Matlab命令行（MATLAB_command）
-# file_base_name表示文件名，但不包含文件扩展名
 
 ##################################################################
 ## Nginx PHP Server
@@ -76,6 +73,16 @@ alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pin
 ## mysql
 ##################################################################
 alias logmysql='mysql -u root -p'
+
+##################################################################
+## Matlab
+##################################################################
+alias mmatlabr="matlab -nosplash -nodesktop -r"
+alias mmatlab="matlab -nosplash -nodesktop"
+# -nosplash表示不加载启动界面
+# -nodesktop表示不加载GUI界面
+# -r表示运行Matlab命令行（MATLAB_command）
+# file_base_name表示文件名，但不包含文件扩展名
 
 ##################################################################
 ## player
@@ -173,7 +180,7 @@ alias ovscdp='sudo ovs-vsctl del-port'
 alias ovscsc='sudo ovs-vsctl set-controller'
 
 ########################################
-## SSH 相关操作
+## SSH SCP
 ########################################
 alias sshaliyun="ssh root@115.28.247.19"
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
@@ -184,6 +191,14 @@ alias sshteacher="ssh r12@121.251.254.208" # username: root; passwd: 123456
 alias sshtencent='ssh root@115.159.88.186'
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
+alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
+alias scpbm='test() { scp mininet@192.168.56.101:$1 $2 };test'  # 向回传
+alias scpbanwagong='test() { scp -P 29318 $1 root@45.78.9.29:$2 };test'  # 带端口的
+alias scpaliyun='test() { scp $1 root@115.28.247.19:$2 };test'
+# exp: scpaliyun filename  或者  scpaliyun filename .  第二个是加了一个路径, 默认就是 . 家目录
+alias scpbaliyun='test() { scp root@115.28.247.19:$1 $2 };test'
+alias scptencent='test() { scp $1 root@115.159.88.186:$2 };test'
+alias scpbtencent='test() { scp root@115.159.88.186:$1 $2 };test'
 
 ########################################
 ## Shadowsocks 后面两个是统计和显示流量

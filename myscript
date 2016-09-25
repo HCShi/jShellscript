@@ -26,6 +26,8 @@ alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v
 alias nau='nautilus .'
 alias netstatm='netstat -antp'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
+alias pbd='ping www.baidu.com'
+alias pbdip='ping 119.76.218.70'
 alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | xargs kill };test'
 alias rmlatex="rm *.log *.aux *.pdf"
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
@@ -122,8 +124,8 @@ alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
 alias cdvedio="cd /media/coder352/文档/Share/视频"
 
 # snippets for vim
-alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/'  # 优先级低
-alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # 优先级低
+alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/'  # snippets using UltiSnips format  # 优先级低
+alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # snippets using snipMate format  # 优先级低
 # 上面还有一个jvimsnippte
 
 # Windows

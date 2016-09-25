@@ -25,3 +25,16 @@ sudo route add default gw 172.20.21.254
 # 好像不用配置 DNS, 可以配置为 211.87.191.66, 211.87.191.77(UPC D402)
 # 上面是石油大学基础实验楼的配置 
 # sudo service  networking restart  # 刷新, 上面的配置失效
+
+##################################################################
+## 配置永久固定 IP
+##################################################################
+sudo vim /etc/network/interfaces  # 进行如下配置
+# auto lo
+# iface lo inet loopback
+# auto enp4s0f2
+# iface enp4s0f2 inet static
+#     address 172.20.21.157
+#     netmask 255.255.255.0
+#     gateway 172.20.21.254
+

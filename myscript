@@ -1,10 +1,10 @@
 #!/bin/bash
 # alias 等号左右不能有空格
 # oneko & # 打开终端出现一只小猫
-# 变态的 oh-my-zsh 中有好多的 alias，又造轮子了 
+# 变态的 oh-my-zsh 中有好多的 alias，又造轮子了
 # alias test='test() { };test'
 ########################################
-## 系统操作 
+## 系统操作
 ########################################
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
@@ -24,12 +24,20 @@ alias lsv='ls -v'
 alias md5sum='test() { md5sum $1 | tr "a-z" "a-z" };test'
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias nau='nautilus .'
-alias netstatm='netstat -antp'
+alias netstatantp='netstat -antp'
+alias netstatantpg='netstat -antp | grep -in --color=always'
+alias netstatanup='netstat -anup'
+alias netstatanupg='netstat -anup | grep -in --color=always'
 alias nmapme='nmap localhost'  # sudo apt-get install nmap
 alias pbd='ping www.baidu.com'
 alias pbdip='ping 119.76.218.70'
-alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | xargs kill };test'
+alias pse='ps -e'
+alias pself='ps -elf'
+alias pseg='ps -e | grep -in --color=always'
+alias pselfg='ps -elf | grep -in --color=always'
+alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | sudo xargs kill -9 };test'  # -elf 会显示好多不需要的进程
 alias rmlatex="rm *.log *.aux *.pdf"
+alias speedtest='speedtest-cli --simple'  # sudo apt-get install speedtest-cli 测试上传下载速度
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias tcpdump='tcpdump -nn -XSltv'
 # 这个unzip的参数只有ubuntu默认有
@@ -45,7 +53,7 @@ alias snginx='sudo nginx -s stop'
 # Ubuntu 直接输入 可执行的 .py 文件不是执行它, 而是打开, 以前 14.04 还不是的啊
 # alias mcurl='python ~/github/shellscript/bin/curl.py'  # 是下面的 py=vi 搞得鬼
 # 开启 fgcgi, 用 nginx 和 php 时要开启
-alias sfcgi='sudo /usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -C 5 -u www-data -g www-data -f /usr/bin/php-cgi7.0 -P /var/run/fastcgi-php.pid' 
+alias sfcgi='sudo /usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -C 5 -u www-data -g www-data -f /usr/bin/php-cgi7.0 -P /var/run/fastcgi-php.pid'
 alias sphpserver='php -S localhost:9999'
 alias phpserver='google-chrome http://localhost:9999/'
 alias lnsphpmyadmin='sudo ln -s /usr/share/phpmyadmin /home/coder352/web/phpmyadmin'
@@ -60,21 +68,25 @@ alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
 alias pythonmsimpleserver="python ~/github/shellscript/bin/MySimpleHTTPServer.py"  # 仅开启本地8000端口
 
 ##################################################################
-## Python 
+## Python
 ##################################################################
 # ascii 和 char 之间转换
-alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pasc A  # 65
+alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65
 alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A
 # 进制转换
 alias phex='test() { python -c "print hex(int(\"$1\"))" };test'  # example: phex 16  # 0x10
 alias pbin='test() { python -c "print bin(int(\"$1\"))" };test'  # example: pbin 16  # 0b10000
 alias poct='test() { python -c "print oct(int(\"$1\"))" };test'  # example: poct 16  # 020
 alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pint16 0x10  # 16
+# 普通运行
+alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
 
 ##################################################################
-## mysql
+## mysql, memcache
 ##################################################################
 alias logmysql='mysql -u root -p'
+alias memcachedme='memcached -d -m 256 -u root -l localhost -c 256 -P /tmp/memcached.pid'  # 开启 Memcached
+alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 
 ##################################################################
 ## Matlab
@@ -98,7 +110,7 @@ alias mpm="ls > music.lst"
 ########################################
 alias cddel="cd ~/Documents/thiscandel"
 #alias cdhtml="cd /media/coder352/文档/HTML"
-alias cdhtml="cd ~/github/Some-Markdown-in-Sublime" 
+alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
@@ -106,11 +118,16 @@ alias cdjknowledge='cd ~/github/jKnowledge/'
 alias cdjpc="cd ~/github/jPC"
 alias cdjpcchromeextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
 alias cdjpctmux="cd ~/github/jPC/src/tmux"
+alias cdjqlcoder="cd ~/github/jqlcoder"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatepython="cd ~/github/jTemplate/python"
-alias cdjtemplatesql="cd ~/github/jTemplate/sql"
+alias cdjtemplatesrc='cd ~/github/jTemplate/src'
+alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
+alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
+alias cdjtemplatedatabasemysql="cd ~/github/jTemplate/database/mysql"
 alias cdjtemplatewebjavascript="cd ~/github/jTemplate/web/javascript"
+alias cdjtemplatewebjavascriptwebgl="cd ~/github/jTemplate/web/javascript/webgl"
 alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
 alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjvim="cd ~/github/jvim/vimrc"
@@ -160,7 +177,7 @@ alias gitinfo='git config --global -l'  # 显示git相关配置信息
 alias qrsync="~/github/others/qrsync/qrsync"
 
 ##################################################################
-## Java 
+## Java
 ##################################################################
 alias javac="javac -J-Dfile.encoding=utf8"
 
@@ -218,6 +235,12 @@ alias cstass="sudo sslocal -s 45.78.9.29 -p 443 -b 127.0.0.1 -l 1080 -k MzBhMDU4
 alias cstoss="sudo sslocal -s 45.78.9.29 -p 443 -b 127.0.0.1 -l 1080 -k MzBhMDU4YT -m aes-256-cfb -t 300 -d stop -v"
 alias staipt="sudo iptables -I OUTPUT -s 127.0.0.1 -p tcp --sport 1080"
 alias showipt="sudo iptables -n -v -L -t filter |grep -i 'spt:1080' |awk -F' ' '{print $2}'"
+# 设置防火墙, 每次开机后要重设
+alias staipt="sudo iptables -A INPUT -p tcp -s 0/0 --sport 1080 -d 45.78.9.29 --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT &&
+sudo iptables -A INPUT -p tcp -s 0/0 --sport 1080 -d 45.78.9.29 --dport 443 -m state --state ESTABLISHED,RELATED -j ACCEPT &&
+sudo iptables -A OUTPUT -p tcp -s 45.78.9.29 --sport 443 -d 0/0 --dport 1080 -m state --state ESTABLISHED -j ACCEPT"
+alias iptsta='sudo iptables -L -n | grep 1080'
+
 
 ##################################################################
 # Docker
@@ -229,14 +252,14 @@ alias docr='docker run -it --rm'
 alias docs='docker start -i'
 
 ########################################
-# 渗透 
+# 渗透
 ########################################
 #alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
 alias sqlmap="python ~/github/others/sqlmap-dev/sqlmap.py"
 alias sqlmapub="python ~/github/others/sqlmap-dev/sqlmap.py --current-user --current-db"
 
 ########################################
-# 无线AP 
+# 无线AP
 ########################################
 alias stawf="echo '$mypassword' | sudo ap-hotspot start"
 alias stowf="echo '$mypassword' | sudo ap-hotspot stop"

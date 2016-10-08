@@ -47,3 +47,10 @@ scp -r username@servername:remote_dir/ /tmp/local_dir
 scp -P port username@servername:/path/filename /tmp/local_destination
 
 }
+
+##################################################################
+## passwd + su
+##################################################################
+# sudo passwd  # 修改当前用户密码
+# su  # 默认进入 root
+# su coder352  # 切换到指定用户

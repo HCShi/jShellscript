@@ -16,6 +16,13 @@ export PROJECT_HOME=$HOME/workspace
 # source /usr/local/bin/virtualenvwrapper.sh
 
 ##################################################################
+## Go env
+##################################################################
+export GOPATH=$HOME/workspace
+export GOBIN=$HOME/workspace/bin
+export PATH=$PATH:$GOPATH/bin
+
+##################################################################
 ## ~/.zshrc see something in jpc/terminal_config
 ##################################################################
 eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件，即 ~/.dircolors
@@ -56,4 +63,4 @@ export EDITOR=/usr/bin/vim
 
 # 4. ~/.bashrc:该文件包含专用于你的bash shell的bash信息。
 
-# 5. ~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件. 
+# 5. ~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件.

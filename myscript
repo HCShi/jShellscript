@@ -19,7 +19,8 @@ alias grepf='test() { find -iname $2 | xargs grep -rin --color=always $1 };test'
 alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
 alias dush='du -sh'  # 查看当前所在的目录的大小
-alias llv='ll -v'
+# alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl
+alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
 alias md5sum='test() { md5sum $1 | tr "a-z" "a-z" };test'
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
@@ -116,6 +117,7 @@ alias mpm="ls > music.lst"
 alias cddel="cd ~/Documents/thiscandel"
 #alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
+alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
 alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
@@ -147,8 +149,8 @@ alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
 alias cdvedio="cd /media/coder352/文档/Share/视频"
 
 # snippets for vim
-alias cdvimultisnippets='cd ~/.vim/bundle/vim-snippets/UltiSnips/'  # snippets using UltiSnips format  # 优先级低
-alias cdvimsnippets='cd ~/.vim/bundle/vim-snippets/snippets/'  # snippets using snipMate format  # 优先级低
+alias cdvimultisnippets='cd ~/.vim/plugged/vim-snippets/UltiSnips/'  # snippets using UltiSnips format  # 优先级低
+alias cdvimsnippets='cd ~/.vim/plugged/vim-snippets/snippets/'  # snippets using snipMate format  # 优先级低
 # 上面还有一个jvimsnippte
 
 # Windows
@@ -166,6 +168,11 @@ alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 # alias updatephpfunlist='curl http://www.php.net/manual/en/indexes.functions.php | sed '/class="index"/!d' | grep -oP '>[^<]+</a> - .*</li>' | cut -b2- | sed 's~</a> - ~ ; ~; s~</li>$~~' > php-funclist.txt'
 # 下面这句话会在当前目录下生成一个 vim 启动时打开文件的顺序以及事件节点, 可以查看是哪里耗费启动时间
 # alias vimtimefile = "vim --startuptime timefile the_file_you_want_to_edit"
+
+##################################################################
+## tmux 还没测试
+##################################################################
+alias tmuxkill="tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill"
 
 ########################################
 ## git 相关操作 要被淘汰了 via oh my zsh

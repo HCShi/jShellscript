@@ -55,7 +55,6 @@ plugins=(autojump git git-flow debian grails rvm history-substring-search github
 
 # User configuration
 
-  export PATH="/home/${USER}/github/shellscript/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 . /home/${USER}/github/shellscript/myscript # 为了将自己的 alias 的优先级提高
 folder="/home/${USER}/.config/jshellscript"
-if [ -d "$folder" ] 
+if [ -d "$folder" ]
 then
     . /home/${USER}/.config/jshellscript/*.sh
 fi

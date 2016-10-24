@@ -9,6 +9,56 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 
 ##################################################################
+## Tmux 每次登陆进入到tmux
+##################################################################
+# 方法一:
+# 参考自: xuxiaodong/tmuxen
+# 该脚本先判断一个名为 codefun 的 tmux 会话是否存在，如果不存在则创建它，否则就附加到此会话。接下来，在新建会话之后的动作包括：
+# 创建窗口 1，并分为上下两个窗格，其中上窗格占 80% 空间，运行 Vim，下窗格占 20% 空间，运行 Pry
+# 创建窗口 2，运行 Mutt
+# 创建窗口 3，运行 Irssi
+# 创建窗口 4，运行 Cmus
+# 创建窗口 5，分左右两个窗格，各占 50% 空间，皆运行 Zsh
+# cmd=$(which tmux) # tmux path
+# session=codefun   # session name
+#
+# if [ -z $cmd ]; then
+#   echo "You need to install tmux."
+#   exit 1
+# fi
+#
+# $cmd has -t $session
+#
+# if [ $? != 0 ]; then
+#   $cmd new -d -n vim -s $session "vim"
+#   $cmd splitw -v -p 20 -t $session "pry"
+#   $cmd neww -n mutt -t $session "mutt"
+#   $cmd neww -n irssi -t $session "irssi"
+#   $cmd neww -n cmus -t $session "cmus"
+#   $cmd neww -n zsh -t $session "zsh"
+#   $cmd splitw -h -p 50 -t $session "zsh"
+#   $cmd selectw -t $session:5
+# fi
+#
+# $cmd att -t $session
+#
+# exit 0
+
+# 方法二:
+tmux_init(){
+    tmux new-session -s "jrp" -d -n "local"  # 开启一个会话
+    tmux new-window -n "other"               # 开启一个窗口
+    tmux split-window -h                     # 开启一个竖屏
+    # tmux split-window -v "top"               # 开启一个横屏,并执行top命令
+    tmux -2 attach-session -d                # tmux -2强制启用256color，连接已开启的tmux
+}
+
+# 判断是否已有开启的tmux会话，没有则开启
+if which tmux 2>&1 >/dev/null; then
+    test -z "$TMUX" && (tmux attach || tmux_init)
+fi
+
+##################################################################
 ## django & virtualenv
 ##################################################################
 export WORKON_HOME=$HOME/.virtualenvs
@@ -19,7 +69,6 @@ export PROJECT_HOME=$HOME/workspace
 ## Go env
 ##################################################################
 export GOPATH=$HOME/workspace
-export GOBIN=$HOME/workspace/bin
 export PATH=$PATH:$GOPATH/bin
 
 ##################################################################
@@ -49,18 +98,3 @@ export EDITOR=/usr/bin/vim
 # *)
 #     ;;
 # esac
-##################################################################
-## 科普 各种 profile 的作用
-##################################################################
-# 我们可以明白的是：针对于用户的配置，应该将配置信息写入~/.bashrc文件
-# 1. /etc/profile:此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.
-# 并从/etc/profile.d目录的配置文件中搜集shell的设置.此文件默认调用/etc/bash.bashrc文件。
-
-# 2. /etc/bashrc:为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.
-
-# 3. ~/.bash_profile:每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该
-# 文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件.
-
-# 4. ~/.bashrc:该文件包含专用于你的bash shell的bash信息。
-
-# 5. ~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件.

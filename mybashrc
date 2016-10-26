@@ -7,6 +7,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/home/${USER}/github/shellscript/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
+# export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
 ##################################################################
 ## UTF8
@@ -34,7 +35,7 @@ if [ $? != 0 ]; then
     $cmd new -d -n normal -s $session            # 最后的 "" 中的都是命令
     # $cmd splitw -v -p 20 -t $session "pry"  # 创建窗口 1，并分为上下两个窗格，其中上窗格占 80% 空间，运行 Vim，下窗格占 20% 空间，运行 Pry
     # $cmd neww -n mutt -t $session "mutt"    # 创建窗口 2，运行 Mutt
-    $cmd att -t $session                      # 第二个终端就不会进入 tmux 了
+    $cmd att -t $session                      # 第二个终端就不会进入 tmux 了, 最后才能进入 tmux
 fi
 # 另一种判断 tmux 是否已经运行的方法
 # if which tmux 2>&1 >/dev/null; then
@@ -64,3 +65,14 @@ export TERM=xterm-256color
 DEFAULT_USER=`whoami`
 export EDITOR=/usr/bin/vim
 
+##################################################################
+## Change Title of Terminal
+##################################################################
+function set-title(){
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
+# set-title "路尽隐香处 翩然雪海间"

@@ -19,7 +19,7 @@ alias grepf='test() { find -iname $2 | xargs grep -rin --color=always $1 };test'
 alias greps="grep -rin --color=always"  # example: greps hell
 alias grepsls='ls | grep'
 alias dush='du -sh'  # 查看当前所在的目录的大小
-# alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl
+alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
 alias md5sum='test() { md5sum $1 | tr "a-z" "a-z" };test'

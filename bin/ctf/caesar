@@ -1,0 +1,53 @@
+#!/usr/bin/python
+# coding: utf-8
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="argparse",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        默认是对每个字符进行变换, 变换后过滤掉含有 0 - 32(ascii) 的行
+        Usage Example:
+        --------------------------------
+        caesar 'U8Y]:8KdJHTXRI>XU#?bRH7YJH7YSH]*=93dVZ3^S8*$:8"&:9U]RH;g=8Y=j*$KH]ZSj&[S#!gU#*dK9\.'
+        # 倒数第六行很明显是 base64 加密
+        ''')
+parser.add_argument('string', type=str, nargs='?', help='decode the string')
+
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# encode & decode
+##################################################################
+def caesar(s):
+    res = []
+    for i in range(127):
+        s1 = ''
+        for ch in s:
+            tmp = chr((ord(ch) + i) % 127)
+            if 32 < ord(tmp) < 127:  # ascii 0-32 是控制字符或通信专用字符
+                s1 += tmp
+                flag = 1
+            else:
+                flag = 0
+                break
+        if flag == 1:
+            res.append(s1)
+    return res
+
+##################################################################
+# main
+##################################################################
+s = '''U8Y]:8KdJHTXRI>XU#?!K_ecJH]kJG*bRH7YJH7YSH]*=93dVZ3^S8*$:8"&:9U]RH;g=8Y!U92'=j*$KH]ZSj&[S#!gU#*dK9\.'''
+if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+
+    if args.string:
+        for i in caesar(args.string):
+            print i

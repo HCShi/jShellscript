@@ -69,11 +69,12 @@ def decode(msg):
 ##################################################################
 import sys
 if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+
     if len(sys.argv) == 2:  # morse .- 默认指定为 -d
         args.d = True
     if args.e and args.string:
         print encode(args.string)
     if args.d and args.string:
         print decode(args.string)
-    if args.autho:
-        print args.autho

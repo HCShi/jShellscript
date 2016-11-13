@@ -1,7 +1,16 @@
 #!/bin/bash
 
 ##################################################################
-## 当上一条命令忘记加 sudo 时，按两次 ESC 就行了
+## 仿真模式
+##################################################################
+# emulate bash  # 等效于 emulate sh, 执行一次下面的
+# sudo ln -sf /bin/zsh /bin/sh  # 用zsh来取代bash作为系统的/bin/sh
+# Zsh是与Bash兼容的。这种说法既对, 也不对, 因为Zsh本身作为一种脚本语言, 是与Bash不兼容的。符合Bash规范的脚本无法保证被Zsh解释器正确执行。
+# 但是, Zsh实现中包含了一个屌炸天的仿真模式（emulation mode）, 支持对两种主流的Bourne衍生版shell（bash、ksh）和C shell的仿真（csh的支持并不完整）。
+# 在Bash的仿真模式下, 可以使用与Bash相同的语法和命令集合, 从而达到近乎完全兼容的目的。为了激活对Bash的仿真, 需要显式执行
+
+##################################################################
+## 当上一条命令忘记加 sudo 时, 按两次 ESC 就行了
 ##################################################################
 sudo-command-line() {
     [[ -z $BUFFER ]] && zle up-history
@@ -27,7 +36,7 @@ bindkey '^N' history-search-forward
 ##################################################################
 
 ##################################################################
-## 配置 autojump，要先装上 sudo apt-get install autojump 介绍在 config 中
+## 配置 autojump, 要先装上 sudo apt-get install autojump 介绍在 config 中
 ##################################################################
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
@@ -35,55 +44,55 @@ bindkey '^N' history-search-forward
 ## color
 ##################################################################
 #color{{{
-autoload colors
-colors
-
-for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-eval _$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-eval $color='%{$fg[${(L)color}]%}'
-(( count = $count + 1 ))
-done
-FINISH="%{$terminfo[sgr0]%}"
+# autoload colors
+# colors
+#
+# for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+# eval _$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+# eval $color='%{$fg[${(L)color}]%}'
+# (( count = $count + 1 ))
+# done
+# FINISH="%{$terminfo[sgr0]%}"
 #}}}
 
 ##################################################################
 ## 语法高亮
 ##################################################################
-setopt extended_glob
-TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace' 'man')
-
-recolor-cmd() {
-    region_highlight=()
-    colorize=true
-    start_pos=0
-    for arg in ${(z)BUFFER}; do
-        ((start_pos+=${#BUFFER[$start_pos+1,-1]}\
-            -${#${BUFFER[$start_pos+1,-1]## #}}))
-        ((end_pos=$start_pos+${#arg}))
-        if $colorize; then
-            colorize=false
-            res=$(LC_ALL=C builtin type $arg 2>/dev/null)
-            case $res in
-                *'reserved word'*)   style="fg=magenta,bold";;
-                *'alias for'*)       style="fg=cyan,bold";;
-                *'shell builtin'*)   style="fg=yellow,bold";;
-                *'shell function'*)  style='fg=green,bold';;
-                *"$arg is"*)
-                    [[ $arg = 'sudo' ]] && style="fg=red,bold"\
-                                  || style="fg=blue,bold";;
-                *)                   style='none,bold';;
-            esac
-            region_highlight+=("$start_pos $end_pos $style")
-        fi
-        [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]]\
-            && colorize=true
-        start_pos=$end_pos
-    done
-}
-
-check-cmd-self-insert() { zle .self-insert && recolor-cmd }
-check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
-
-zle -N self-insert check-cmd-self-insert
-zle -N backward-delete-char check-cmd-backward-delete-char
-
+# setopt extended_glob
+# TOKENS_FOLLOWED_BY_COMMANDS=('|' '||' ';' '&' '&&' 'sudo' 'do' 'time' 'strace' 'man')
+#
+# recolor-cmd() {
+#     region_highlight=()
+#     colorize=true
+#     start_pos=0
+#     for arg in ${(z)BUFFER}; do
+#         ((start_pos+=${#BUFFER[$start_pos+1,-1]}\
+#             -${#${BUFFER[$start_pos+1,-1]## #}}))
+#         ((end_pos=$start_pos+${#arg}))
+#         if $colorize; then
+#             colorize=false
+#             res=$(LC_ALL=C builtin type $arg 2>/dev/null)
+#             case $res in
+#                 *'reserved word'*)   style="fg=magenta,bold";;
+#                 *'alias for'*)       style="fg=cyan,bold";;
+#                 *'shell builtin'*)   style="fg=yellow,bold";;
+#                 *'shell function'*)  style='fg=green,bold';;
+#                 *"$arg is"*)
+#                     [[ $arg = 'sudo' ]] && style="fg=red,bold"\
+#                                   || style="fg=blue,bold";;
+#                 *)                   style='none,bold';;
+#             esac
+#             region_highlight+=("$start_pos $end_pos $style")
+#         fi
+#         [[ ${${TOKENS_FOLLOWED_BY_COMMANDS[(r)${arg//|/\|}]}:+yes} = 'yes' ]]\
+#             && colorize=true
+#         start_pos=$end_pos
+#     done
+# }
+#
+# check-cmd-self-insert() { zle .self-insert && recolor-cmd }
+# check-cmd-backward-delete-char() { zle .backward-delete-char && recolor-cmd }
+#
+# zle -N self-insert check-cmd-self-insert
+# zle -N backward-delete-char check-cmd-backward-delete-char
+#

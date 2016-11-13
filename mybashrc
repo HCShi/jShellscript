@@ -4,9 +4,10 @@
 ## /etc/bash.bashrc
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/home/${USER}/github/shellscript/bin:$PATH
+export PATH=/home/${USER}/github/shellscript/bin:/home/${USER}/github/shellscript/bin/ctf:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
+export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
 ##################################################################

@@ -1,0 +1,79 @@
+#!/usr/bin/python
+# coding: utf-8
+##################################################################
+# set Dict and De_Dict
+##################################################################
+Code = {
+    'A': '.-', 'B': '-...', 'C': '-.-.',
+    'D': '-..', 'E': '.', 'F': '..-.',
+    'G': '--.', 'H': '....', 'I': '..',
+    'J': '.---', 'K': '-.-', 'L': '.-..',
+    'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.',
+    'S': '...', 'T': '-', 'U': '..-',
+    'V': '...-', 'W': '.--', 'X': '-..-',
+    'Y': '-.--', 'Z': '--..',
+
+    '0': '-----', '1': '.----', '2': '..---',
+    '3': '...--', '4': '....-', '5': '.....',
+    '6': '-....', '7': '--...', '8': '---..',
+    '9': '----.'
+}
+De_Code = {}
+for i in Code:
+    De_Code[Code[i]] = i
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="morse",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        Usage Example:
+        --------------------------------
+            morse abc -e
+            morse 'abc' -e
+            morse -e abc  # same result as below two
+            morse .-  # -d default
+            morse .- -d  # same as below
+            morse --autho
+        ''')
+parser.add_argument('string', nargs='?', help='decode the string')
+parser.add_argument('-d', action='store_true', help='decode the string [default]')
+parser.add_argument('-e', action='store_true', help='encode the string')
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# encode & decode
+##################################################################
+def encode(msg):
+    # msg = raw_input('morse: ')
+    res = ''
+    for char in msg:
+        if char == ' ':
+            res += '\n'
+        else:
+            res += Code[char.upper()]
+            res += ' '
+    return res
+def decode(msg):
+    msg = msg.split()
+    return ''.join(De_Code[i] for i in msg).lower()
+
+##################################################################
+# main
+##################################################################
+import sys
+if __name__ == "__main__":
+    if len(sys.argv) == 2:  # morse .- 默认指定为 -d
+        args.d = True
+    if args.e and args.string:
+        print encode(args.string)
+    if args.d and args.string:
+        print decode(args.string)
+    if args.autho:
+        print args.autho

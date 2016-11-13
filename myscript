@@ -14,10 +14,11 @@ alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"
 alias findname='find -iname'  # exapmle: findname "*.txt"
 alias fy='sdcv -c'  # sudo apt-get install sdcv
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
-alias grep="grep -i --color=always"
-alias grepf='test() { find -iname $2 | xargs grep -rin --color=always $1 };test'  # example: grepf hello "*.md"
-alias greps="grep -rin --color=always"  # example: greps hell
+alias grep="grep -iI --color=always"  # google: grep exclude binary file || grep ignore spcific directory
+alias grepf='test() { find -iname $2 | xargs grep -riIn --color=always $1 };test'  # example: grepf hello "*.md"
+alias greps="grep -riIn --color=always"  # example: greps hell
 alias grepsls='ls | grep'
+alias dub='du -b'  # ls du 等命令默认以 K 为单位, 很坑
 alias dush='du -sh'  # 查看当前所在的目录的大小
 alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
@@ -70,18 +71,27 @@ alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
 alias pythonmsimpleserver="python ~/github/shellscript/bin/MySimpleHTTPServer.py"  # 仅开启本地8000端口
 
 ##################################################################
+## Ctf & Tools
+##################################################################
+alias strflag='test() { strings $1 | grep $2 };test'  # strflag <filename> flag, <filename> 不能使用 *
+alias stegsolve='~/github/others/ctf-tools/stegsolve/bin/stegsolve.jar'
+alias gephi='~/github/others/gephi-0.9.1/bin/gephi'
+
+##################################################################
 ## Python
 ##################################################################
 # ascii 和 char 之间转换
-alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65
-alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A
+alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65  # ord(char/unichr)
+alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A  # chr(num)
+alias punichr='test() { python -c "print unichr(int(\"$1\"))" };test'  # example: pchr 65  # A  # unichr(0-65535)
 # 进制转换
 alias phex='test() { python -c "print hex(int(\"$1\"))" };test'  # example: phex 16  # 0x10
 alias pbin='test() { python -c "print bin(int(\"$1\"))" };test'  # example: pbin 16  # 0b10000
 alias poct='test() { python -c "print oct(int(\"$1\"))" };test'  # example: poct 16  # 020
-alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pint16 0x10  # 16
+alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pint16 0x10  # 16  # int('string', base)
 # 普通运行
-alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
+# alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
+alias pyte='cd ~/Documents/thiscandel && vim te.py'
 
 ##################################################################
 ## Ruby
@@ -115,6 +125,7 @@ alias mpm="ls > music.lst"
 ## cd 相关操作
 ########################################
 alias cddel="cd ~/Documents/thiscandel"
+alias cdesktop='cd ~/Desktop'  # cddesktop 会和 cddel 冲突
 #alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
@@ -168,6 +179,10 @@ alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 # alias updatephpfunlist='curl http://www.php.net/manual/en/indexes.functions.php | sed '/class="index"/!d' | grep -oP '>[^<]+</a> - .*</li>' | cut -b2- | sed 's~</a> - ~ ; ~; s~</li>$~~' > php-funclist.txt'
 # 下面这句话会在当前目录下生成一个 vim 启动时打开文件的顺序以及事件节点, 可以查看是哪里耗费启动时间
 # alias vimtimefile = "vim --startuptime timefile the_file_you_want_to_edit"
+
+# 简化配置
+alias vimclear="cp ~/.vimrc.clear ~/.vimrc"
+alias vimnormal="cp ~/.vimrc.normal ~/.vimrc"
 
 ##################################################################
 ## tmux 还没测试
@@ -248,6 +263,8 @@ alias restass='sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json.bak -d stop 
 alias stassr='sudo python ~/github/others/shadowsocks/shadowsocks/local.py -s 45.78.9.29 -p 443 -k 6irwnc8jck -m aes-256-cfb -d start'  # 后台运行
 alias stossr='sudo python ~/github/others/shadowsocks/shadowsocks/local.py -d stop'  # 停止
 # 别人的免费
+alias stassy="sudo -S sslocal -c ~/github/jPC/src/yshadowsocks.json -d start && exit"
+alias stossy="sudo -S sslocal -c ~/github/jPC/src/yshadowsocks.json -d stop && exit"
 alias stassother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d start && exit"
 alias stossother="sudo -S sslocal -c ~/github/jPC/src/shadowsocks.json -d stop && exit"
 alias lsofi1080='sudo lsof -i:1080'
@@ -263,7 +280,6 @@ alias staipt="sudo iptables -A INPUT -p tcp -s 0/0 --sport 1080 -d 45.78.9.29 --
 sudo iptables -A INPUT -p tcp -s 0/0 --sport 1080 -d 45.78.9.29 --dport 443 -m state --state ESTABLISHED,RELATED -j ACCEPT &&
 sudo iptables -A OUTPUT -p tcp -s 45.78.9.29 --sport 443 -d 0/0 --dport 1080 -m state --state ESTABLISHED -j ACCEPT"
 alias iptsta='sudo iptables -L -n | grep 1080'
-
 
 ##################################################################
 # Docker
@@ -286,6 +302,12 @@ alias sqlmapub="python ~/github/others/sqlmap-dev/sqlmap.py --current-user --cur
 ########################################
 alias stawf="echo '$mypassword' | sudo ap-hotspot start"
 alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
+
+##################################################################
+## tips
+##################################################################
+alias ascii='man 7 ascii'
+alias msources='man 5 sources.list'
 
 ##################################################################
 ## -s for zsh maybe error in bash

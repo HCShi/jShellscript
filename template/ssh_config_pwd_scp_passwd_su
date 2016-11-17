@@ -21,13 +21,16 @@ echo '$path/.ssh'
 ##################################################################
 #touch /root/.ssh/authorized_keys # 如果已经存在这个文件, 跳过这条)
 #chmod 600 ~/.ssh/authorized_keys  # 注意： 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥，可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
-#cat /root/.ssh/id_rsa.pub  >> /root/.ssh/authorized_keys # 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 > ，否则会清空原有的内容，使其他人无法使用原有的密钥登录)) 
+#cat /root/.ssh/id_rsa.pub  >> /root/.ssh/authorized_keys # 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 > ，否则会清空原有的内容，使其他人无法使用原有的密钥登录))
 
 ##################################################################
 ## 方法2 一句话搞定
 ##################################################################
 # ssh-copy-id -i .ssh/id_rsa.pub root@192.168.56.101 再输入一次密码就可以了，相当于下面一句话
 # ssh user@host ‘mkdir -p .ssh && cat >> .ssh/authorized_keys’ < ~/.ssh/id_rsa.pub
+
+# for banwagong
+# ssh-copy-id -i .ssh/id_rsa.pub root@45.78.9.29 -p 28484
 
 ##################################################################
 ## ssh 配置 github
@@ -40,17 +43,10 @@ echo '$path/.ssh'
 :||{
 
 # 1. 上传目录到服务器
-scp -r Documents root@192.168.56.101:~/root/ 
+scp -r Documents root@192.168.56.101:~/root/
 # 2. 从服务器下载整个目录
-scp -r username@servername:remote_dir/ /tmp/local_dir 
+scp -r username@servername:remote_dir/ /tmp/local_dir
 # 3. 从服务器下载文件
 scp -P port username@servername:/path/filename /tmp/local_destination
 
 }
-
-##################################################################
-## passwd + su
-##################################################################
-# sudo passwd  # 修改当前用户密码
-# su  # 默认进入 root
-# su coder352  # 切换到指定用户

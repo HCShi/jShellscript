@@ -1,4 +1,4 @@
-. /home/${USER}/github/shellscript/mybashrc
+. /home/${USER}/.config/shellscript/mybashrc
 # Path to your oh-my-zsh installation.
 export ZSH=/home/${USER}/.oh-my-zsh
 
@@ -83,10 +83,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-. /home/${USER}/github/shellscript/myscript # 为了将自己的 alias 的优先级提高
+. /home/${USER}/.config/shellscript/myscript # 为了将自己的 alias 的优先级提高
 folder="/home/${USER}/.config/jshellscript"
 if [ -d "$folder" ]
 then
     . /home/${USER}/.config/jshellscript/*.sh
 fi
-. /home/${USER}/github/shellscript/myzshrc
+. /home/${USER}/.config/shellscript/myzshrc

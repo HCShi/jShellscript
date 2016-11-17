@@ -1,0 +1,35 @@
+#!/bin/bash
+
+##################################################################
+## jvim/config
+##################################################################
+echo "正在初始化配置......"
+if [ ! -e $HOME/.vim/colors ];then mkdir -p $HOME/.vim/colors;fi
+curdir=`pwd`
+curdirname=${curdir##*/}  # 这里还不是很懂, 以后再说
+cp $curdir/.vimrc ~/  # curdir 和 ./.vimrc 相同
+cp $curdir/vimrc/* $HOME/.vim/jvim/vimrc/
+
+echo "在命令行输入：cd ~/.vim/jvim/$curdirname  进入到配置文件目录！"
+echo "初始化配置结束....."
+
+##################################################################
+## chrome_config
+##################################################################
+dir="/home/coder352/Documents/Software/Chrome_extend"
+if [ ! -e $dir ]
+then
+    mkdir -p $dir
+    echo "first configure"
+else
+    echo "not first configured!!"
+fi
+cp -r ./src/Chrome_extend/myExtends $dir
+
+##################################################################
+## startup_config
+##################################################################
+if [ ! -e /etc/rc.local.jbak ]; then
+    sudo cp /etc/rc.local /etc/rc.local.jbak
+fi
+sudo cp ./src/rc.local /etc/rc.local

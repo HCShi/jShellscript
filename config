@@ -1,12 +1,11 @@
 #!/bin/bash
-# 如果只是配置zshrc，不用sudo权限
-# 配置bashrc 需要速冻
-path=`pwd`
-#sudo echo ". $path/myscript" 
-#sudo echo ". $path/myscript" >> /etc/bash.bashrc                                                   
-#sudo echo ". $path/mybashrc" >> /etc/bash.bashrc                                                   
 # 因为 zsh 没有默认的配置文件，一般都是把 oh-my-zsh 中的直接扒下来，所以没有备份
+echo "正在初始化配置......"
+path=`pwd`
+if [ ! -e $HOME/.config/shellscript ];then mkdir -p $HOME/.config/shellscript;fi
 cp ./zshrc ~/.zshrc
+cp ./mybashrc ./myscript ./myzshrc $HOME/.config/shellscript
+echo "初始化配置结束....."
 
 ##################################################################
 ## 使用 Zsh 的十个理由 by 伯乐在线 http://blog.jobbole.com/28829/

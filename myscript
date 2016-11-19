@@ -203,6 +203,10 @@ alias gitdep='git clone --depth=1'  # git shallow clone --depth=1 表示只下�
 alias gitinfo='git config --global -l'  # 显示git相关配置信息
 alias githttp="git config --global http.proxy 'socks5://127.0.0.1:1080' && git config --global https.proxy 'socks5://127.0.0.1:1080'"  # 只针对 https://github.com/coder352/jvim.git 之类的
 alias githttpno="git config --global --unset http.proxy && git config --global --unset https.proxy"
+alias gitssh='mv ~/.ssh/jconfig ~/.ssh/config'
+alias gitsshno='mv ~/.ssh/config ~/.ssh/jconfig'
+alias gitgit='git config --global core.gitproxy "git-proxy"'  # 这个的意思是用上面两种代理中的一种
+alias gitgitno='git config --global --unset core.gitproxy'
 ##### 下面是 Github + Hexo + 七牛云
 alias qrsync="~/github/others/qrsync/qrsync"
 

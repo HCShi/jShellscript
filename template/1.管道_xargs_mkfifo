@@ -8,6 +8,9 @@ findname "*.db" | xargs rm  # 删除子文件的指定文件
 findname "*sqlmap*" | xargs -I {} cp {} ~/del  # 将 xargs 的结果作为第一个参数, 第一个 {} 是声明占位符
 echo `python -c "print 'a'*24"`  # `` 将命令执行结果不变的返回  # aaaaaaaaaaaaaaaaaaaaaaaa
 
+##################################################################
+## 错误重定向
+##################################################################
 # 1）默认地, 标准的输入为键盘, 但是也可以来自文件或管道（pipe |）。
 # 2）默认地, 标准的输出为终端（terminal), 但是也可以重定向到文件, 管道或后引号（backquotes `）。
 # 3) 默认地, 标准的错误输出到终端, 但是也可以重定向到文件。
@@ -19,8 +22,17 @@ ls dektop Desktop 2>&1            # 错误重定向到标准输出, 错误和标
 ls dektop Desktop 3>&2 2>&1 1>&3  # 标准输出和错误输出的交换, 没什么卵用
 ls dektop Desktop 2>&1 1>&2       # 不能实现标准输出和错误输出的交换。因为shell从左到右执行命令, 当执行完2>&1后, 错误输出已经和标准输出一样的, 再执行1>&2也没有意义
 
+ls dektop Desktop 2>&1 >tmp  # 错误输出到终端, 标准输出被重定向到文件file
+ls dektop Desktop >tmp 2>&1  # 标准输出被重定向到文件file, 然后错误输出也重定向到和标准输出一样, 所以也错误输出到文件file
+# File descriptor 1 is the standard output (stdout).
+# File descriptor 2 is the standard error (stderr).
+# Here is one way to remember this construct (although it is not entirely accurate):
+# at first, 2>1 may look like a good way to redirect stderr to stdout.
+# However, it will actually be interpreted as "redirect stderr to a file named 1".
+# & indicates that what follows is a file descriptor and not a filename. So the construct becomes: 2>&1.
+
 ##################################################################
-## mkfifo
+## 2. mkfifo
 ##################################################################
 mkfifo pipe1  # 创建管道
 ls -l pipe1  # prw-rw-r-- 1 coder352 coder352 0 Nov 17 20:31 pipe1, p 表示是管道, 大小为 0, 且一直为 0, 不占用本地磁盘

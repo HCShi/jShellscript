@@ -87,6 +87,7 @@ source $ZSH/oh-my-zsh.sh
 folder="/home/${USER}/.config/jshellscript"
 if [ -d "$folder" ]
 then
-    . /home/${USER}/.config/jshellscript/*.sh
+    for x in $folder/*.sh
+        . $x
 fi
 . /home/${USER}/.config/shellscript/myzshrc

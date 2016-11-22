@@ -1,0 +1,65 @@
+#!/usr/bin/python
+#coding: utf-8
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="jclip",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        Usage Example:
+        --------------------------------
+        echo 'hello' | jclip
+        echo 'hello' | jclip -o
+        jclip hello
+        jclip hello -o
+        jclip -o 'hello'  # similar result
+        # 以上格式经测试正确, 其它格式出错了我不背锅
+
+        Shortcoming:
+        --------------------------------
+        Third party pyperclip
+        sudo -H python -m pip install pyperclip
+        Ubuntu clipcopy 总是在末尾自己添加一个空格, 所以这里就有两种实现方法
+            1. pyperclip
+            2. clipcopy 处理(不需要第三方库, 还没想好怎么写)
+        ''')
+parser.add_argument('string', type=str, nargs='?', help='copy the string to clipboard')
+parser.add_argument('-o', action='store_true', help='copy the string to clipboard and echo')
+
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# copy to clipboard
+##################################################################
+def toclipboard(s):
+    import pyperclip
+    pyperclip.copy(s)
+def toclipboard2(s):
+    import os
+    command = 'echo ' + s.strip() + '| clipcopy'
+    os.system(command)
+
+##################################################################
+# main
+##################################################################
+import sys
+if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+
+    if len(sys.argv) == 1:  # echo 'hello' | jclip
+        s = raw_input()
+    if len(sys.argv) == 2 and args.o:  # echo 'hello' | jclip -o
+        s = raw_input()
+
+    if args.string:  # jclip 'hello' || jclip -o 'hello'
+        s = args.string
+
+    if args.o:
+        print s
+    toclipboard(s)

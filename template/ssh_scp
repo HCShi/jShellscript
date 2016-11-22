@@ -1,27 +1,71 @@
 #!/bin/bash
 
 ##################################################################
-## 1. ssh 公钥分发, SSH tunnel
+## 1. ssh 公钥分发
 ##################################################################
 # 方法一
 # 设置SSH Key A 端
 ssh-keygen -t rsa # 连续三次回车,即在本地生成了公钥和私钥,不设置密码)
-ssh root@192.168.56.101 "mkdir .ssh;chmod 0700 .ssh" # 需要输入服务器root密码， 注:必须将.ssh的权限设为700)
+ssh root@192.168.56.101 "mkdir .ssh;chmod 0700 .ssh" # 需要输入服务器root密码,  注:必须将.ssh的权限设为700)
 scp ~/.ssh/id_rsa.pub root@192.168.56.101:.ssh/id_rsa.pub # 需要输入服务器root密码)
 # 设置SSH Key B 端 服务器端
 touch /root/.ssh/authorized_keys # 如果已经存在这个文件, 跳过这条)
-chmod 600 ~/.ssh/authorized_keys  # 注意： 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥，可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
-cat /root/.ssh/id_rsa.pub  >> /root/.ssh/authorized_keys # 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 > ，否则会清空原有的内容，使其他人无法使用原有的密钥登录))
+chmod 600 ~/.ssh/authorized_keys  # 注意： 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥, 可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
+cat /root/.ssh/id_rsa.pub  >> /root/.ssh/authorized_keys # 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 > , 否则会清空原有的内容, 使其他人无法使用原有的密钥登录))
 
 # 方法2 一句话搞定
-ssh-copy-id -i .ssh/id_rsa.pub root@192.168.56.101 再输入一次密码就可以了，相当于下面一句话
+ssh-copy-id -i .ssh/id_rsa.pub root@192.168.56.101 再输入一次密码就可以了, 相当于下面一句话
 ssh user@host ‘mkdir -p .ssh && cat >> .ssh/authorized_keys’ < ~/.ssh/id_rsa.pub
 # for banwagong
 ssh-copy-id -i .ssh/id_rsa.pub root@45.78.9.29 -p 28484
 
 ##################################################################
-## SSH tunnel
+## SSH tunnel  host1: 机房(内网) host2: 实验室电脑(内网) host3: 阿里云(公网)  实现在机房上机时, ssh tunnel 到实验室
+## 参考: 阮一峰
 ##################################################################
+# 遵循一个原则, 下面提示符右侧出现的 host1, host2, host3 必须都是公网 IP, 没有出现的可以是内网
+# 一: 绑定本地端口
+ssh -D 8080 remote_user@remote_host  # SSH会建立一个socket, 去监听本地的8080端口
+# 一旦有数据传向那个端口, 就自动把它转移到SSH连接上面, 发往远程主机, 但是会发送到 22 端口
+# 可以想象, 如果8080端口原来是一个不加密端口, 现在将变成一个加密端口
+
+# 二: 本地端口转发
+# 绑定本地端口还不够, 还必须指定数据传送的目标主机, 从而形成点对点的"端口转发"
+# 假定host1是本地主机, host2是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台host3, 可以同时连通前面两台主机
+# 因此, 很自然的想法就是, 通过host3, 将host1连上host2, (host2, host3 都是公网, host1 随意)
+host1$ ssh -L 2121:host2:22 host3  # -L 参数一共接受三个值, 分别是"本地端口:目标主机:目标主机端口"
+host1$ ssh -p 2121 localhost  # 我们只要连接host1的2121端口, 就等于连上了host2的22端口
+host1$ ssh -L 2121:host2:21 host3  # 这是 ftp 服务器的例子
+host1$ ftp localhost:2121
+
+host1$ ssh -L 5900:localhost:5900 host3  # 有趣的例子, 本机的 5900 端口绑定 host3 的 5900 端口, localhost 指的是 host3, 因为目标主机是相对 host3 而言
+
+# 三: 远程端口转发 但这里只是实现我想要的功能, 其他的用到的时候再去学
+# 假定host1是本地主机, host2是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台host3, 可以同时连通前面两台主机
+host3$ ssh -R 2121:host2:21 host1  # R参数也是接受三个值, 分别是"远程主机端口:目标主机:目标主机端口"
+# 这条命令的意思, 就是让host1监听它自己的2121端口, 然后将所有数据经由host3, 转发到host2的21端口。由于对于host3来说, host1是远程主机,
+host1$ ftp localhost:2121  # 我们在 host1 就可以连接 host2 了
+
+# 四: 回到最初的目的, 机房 host1(内网: 172.19.0.2) 通过阿里云 host3(公网:115.28.247.19) 连接实验室电脑 host2(内网: 172.20.0.2), 用 第一种: 绑定本地端口 就可以了
+# 阿里云的端口被我禁掉了, 一直提示(remote port forwarding failed for listen port 19999), 所以换自己主机(172.18.140.158)
+# host1: 172.19.0.2; host2: 172.20.0.2; host3: 172.18.140.158; 自己电脑 host3 相当于 公网 IP, docker 中的两台相当于私网 IP
+host2$ service ssh start && useradd coder && passwd coder  # 密码随便了, asd 吧, 因为 docker 默认的 root 密码我一直没找到
+
+# 4.1 先实现 host3 ssh到 host2, 公网 ssh 内网
+host2$ ssh -CNR 19999:localhost:22 coder352@172.18.140.158  # 这里的 localhost 指的是 host2, 和 本地端口转发 中的 指向 host3 相反
+host3$ ssh -p 19999 coder@127.0.0.1  # 在自己电脑上测试一下, 还真连上了
+# -C 压缩数据
+# -N 不执行命令, 只是端口转发, 意思就是不会进入命令行模式, 直接阻塞了
+
+# 4.2 实现 host1 经过 host3 ssh到 host2
+host1$ ssh -CNL 10000:localhost:19999 coder352@172.18.140.158
+host1$ ssh -p 10000 coder@127.0.0.1
+# 其实这样有点麻烦了, 可以直接 host1 ssh上 host3, 再在 host3 上ssh到 host2
+
+##################################################################
+## SSH USAGE
+##################################################################
+ssh git@github.com
 
 ##################################################################
 ## 2. scp

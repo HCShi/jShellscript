@@ -3,6 +3,12 @@
 ##################################################################
 ls | wc -l  # 后一个命令在前一个的基础上运行
 ls > test  # 重定向, 写入
+
+# tee: read from standard input and write to standard output and files.
+# Copy standard input to each FILE, and also to standard output. If a FILE is -, copy again to standard output
+seq 5 | tee a b  # stdout 有输出, 新建两个文件 a b, 内容和输出一样
+echo 'hello' | tee - - - - -  # 有几个 - 重复几次, zsh 中不好用
+
 find -name *.py | xargs grep asdf  # 作为参数, 找 py 结尾的文件中的字符串
 findname "*.db" | xargs rm  # 删除子文件的指定文件
 findname "*sqlmap*" | xargs -I {} cp {} ~/del  # 将 xargs 的结果作为第一个参数, 第一个 {} 是声明占位符

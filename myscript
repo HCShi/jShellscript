@@ -6,6 +6,9 @@
 ########################################
 ## 系统操作
 ########################################
+alias bjclip='test() { b64 -e $1 | jclip };test'
+alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
+alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
 alias catms="cat ~/github/shellscript/myscript | more"
 alias cman='LANG="zh_CN.utf8" man'
@@ -23,30 +26,41 @@ alias dush='du -sh'  # 查看当前所在的目录的大小
 alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
-alias md5sum='test() { md5sum $1 | tr "a-z" "a-z" };test'
+alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
-alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
 alias nau='nautilus .'
-alias netstatantp='netstat -antp'
-alias netstatantpg='netstat -antp | grep -in --color=always'
-alias netstatanup='netstat -anup'
-alias netstatanupg='netstat -anup | grep -in --color=always'
-alias nmapme='nmap localhost'  # sudo apt-get install nmap
-alias pbd='ping www.baidu.com'
-alias pggip='ping 8.8.8.8'
+alias rmlatex="rm *.log *.aux *.pdf"
+alias suroot='sudo su root'
+alias terminalnew='gnome-terminal --working-directory=`pwd`'
+# 这个unzip的参数只有ubuntu默认有
+alias unzipo='unzip -O cp936'
+alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
+alias xopen="xdg-open"
+
+##################################################################
+## Program Manage
+##################################################################
 alias pse='ps -e'
 alias pself='ps -elf'
 alias pseg='ps -e | grep -in --color=always'
 alias pselfg='ps -elf | grep -in --color=always'
 alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | sudo xargs kill -9 };test'  # -elf 会显示好多不需要的进程
-alias rmlatex="rm *.log *.aux *.pdf"
+
+##################################################################
+## Network Manage 1.HostScan 2.PortScan(ServerScan) 3.RouteScan
+##################################################################
+alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
+alias ncme='nc -vz localhost 1-1024 2>&1 | grep succeeded'  # 查看 root 端口
+alias ncmeall='nc -vz localhost 1-65535 2>&1 | grep succeeded'  # 查看所有端口
+alias netstatantp='netstat -antp'
+alias netstatantpg='netstat -antp | grep -in --color=always'
+alias netstatanup='netstat -anup'
+alias netstatanupg='netstat -anup | grep -in --color=always'
+alias nmapme='nmap -v localhost'  # sudo apt-get install nmap
+alias pbd='ping www.baidu.com'
+alias pggip='ping 8.8.8.8'
 alias speedtest='speedtest-cli --simple'  # sudo apt-get install speedtest-cli 测试上传下载速度
-alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias tcpdump='tcpdump -nn -XSltv'
-# 这个unzip的参数只有ubuntu默认有
-alias unzipo='unzip -O cp936'
-alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
-alias xopen="xdg-open"
 
 ##################################################################
 ## Nginx PHP Server
@@ -85,6 +99,10 @@ alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pin
 # 普通运行
 # alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
 alias pyte='cd ~/Documents/thiscandel && vim te.py'
+
+# 安装 不用 sudo 权限容易有问题, -H 指定 HOME 目录为目标的
+alias pypyinstall='sudo -H pypy -m pip install'
+alias pythoninstall='sudo -H python -m pip install'
 
 ##################################################################
 ## Ruby
@@ -126,9 +144,11 @@ alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
 alias cdjknowledge='cd ~/github/jKnowledge/'
+alias cdjlife='cd ~/github/jLife'
 alias cdjpc="cd ~/github/jPC"
-alias cdjpcchromeextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
-alias cdjpctmux="cd ~/github/jPC/src/tmux"
+alias cdjpcsrc='cd ~/github/jPC/src'
+alias cdjpcsrcchromeextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
+alias cdjpcsrctmux="cd ~/github/jPC/src/tmux"
 alias cdjqlcoder="cd ~/github/jqlcoder"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
@@ -247,6 +267,7 @@ alias sshteacher="ssh r12@121.251.254.208" # username: root; passwd: 123456
 alias sshtencent='ssh root@115.159.88.186'
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
+
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
 alias scpbm='test() { scp mininet@192.168.56.101:$1 $2 };test'  # 向回传
 alias scpbanwagong='test() { scp -P 29318 $1 root@45.78.9.29:$2 };test'  # 带端口的
@@ -286,13 +307,23 @@ sudo iptables -A OUTPUT -p tcp -s 45.78.9.29 --sport 443 -d 0/0 --dport 1080 -m 
 alias iptsta='sudo iptables -L -n | grep 1080'
 
 ##################################################################
-# Docker
+# Docker 简写完以后仍然可一 Tab 补全
 ##################################################################
-alias doci='docker images'
-alias docps='docker ps -a'
-alias docpu='docker pull'
-alias docr='docker run -it --rm'
-alias docs='docker start -i'
+alias dattach='docker attach'
+alias dcp='docker cp'
+alias dimages='docker images'
+alias dinspectf="docker inspect -f '{{.Id}}'"
+alias dkill='docker kill'
+alias dnetworkinspect='docker network inspect'
+alias dnetworkinspectf="docker network inspect -f '{{range $con :=.IPAM.Config}} {{$con.Subnet}} {{end}}'"  # 不知道为什么错
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias dpull='docker pull'
+alias drm='docker rm'
+alias drmi='docker rmi'
+alias drunitrm='docker run -i -t --rm'  # -it 分开写, 要不然就没有补全了
+alias dstart='docker start -i'
+alias dstop='docker stop'
 
 ########################################
 # 渗透 & Ctf & Tools

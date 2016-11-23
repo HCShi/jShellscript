@@ -312,7 +312,9 @@ alias iptsta='sudo iptables -L -n | grep 1080'
 alias dattach='docker attach'
 alias dcp='docker cp'
 alias dimages='docker images'
-alias dinspectf="docker inspect -f '{{.Id}}'"
+alias dinspect='docker inspect'
+alias dinspectfid="docker inspect -f '{{.Id}}'"
+alias dinspectfimage="docker inspect -f '{{.Config.Image}}'"
 alias dkill='docker kill'
 alias dnetworkinspect='docker network inspect'
 alias dnetworkinspectf="docker network inspect -f '{{range $con :=.IPAM.Config}} {{$con.Subnet}} {{end}}'"  # 不知道为什么错
@@ -353,19 +355,20 @@ alias msources='man 5 sources.list'
 ##################################################################
 ## -s for zsh maybe error in bash
 ##################################################################
-alias -s log=cd # 省去 cd
-alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名，会在 vim 中打开,如果想用TextMate打开可以将vi改成mate
-alias -s rb=vi     # 在命令行直接输入 ruby 文件，会在 vim 中打开
-# alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
-# 被这个 py=vi 坑了好长时间
-alias -s js=vi
-alias -s c=vi
-alias -s java=vi
-alias -s txt=vi
-alias -s gz='tar -xzvf'  #表示自动解压后缀为 gz 的压缩包。
-alias -s tgz='tar -xzvf'
-alias -s zip='unzip'
-alias -s bz2='tar -xjvf'
+# 为了 bash 的兼容性, 注释之
+# alias -s log=cd # 省去 cd
+# alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名，会在 vim 中打开,如果想用textmate打开可以将vi改成mate
+# alias -s rb=vi     # 在命令行直接输入 ruby 文件，会在 vim 中打开
+# # alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+# # 被这个 py=vi 坑了好长时间, 以为自己写的脚本不能用了
+# alias -s js=vi
+# alias -s c=vi
+# alias -s java=vi
+# alias -s txt=vi
+# alias -s gz='tar -xzvf'  #表示自动解压后缀为 gz 的压缩包。
+# alias -s tgz='tar -xzvf'
+# alias -s zip='unzip'
+# alias -s bz2='tar -xjvf'
 
 # 使用时，前面加$就可以了
 # alias sshxm="ssh -X mininet@192.168.56.101" # Mininet 中last 不好用以后会注释掉了

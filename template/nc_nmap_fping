@@ -34,6 +34,12 @@ Host github.com
 nc -x localhost:1080 github.com 22  # 相当于翻译成这句话, 会显示 banner
 nc github.com 22  # 也会显示 banner, 和上面的 Chat Client 效果差不多
 nc github.com ssh  # 等同于 22
+nc -v www.baidu.com 80  # 接着进入交互模式, 输入下面命令
+GET /info HTTP/1.1  # 两次回车
+
+# sock 所有使用 C/S 模式的都可以用 类似的
+nc -U /var/run/docker.sock  # netcat 进行 UDP 链接, -U 表示是 UDP, 后面是 docker 的 sock 地址
+GET /info HTTP/1.1  # 紧接着在交互式的命令行中输入, 敲两次回车
 
 ##################################################################
 ## nmap

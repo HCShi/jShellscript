@@ -40,6 +40,7 @@ GET /info HTTP/1.1  # 两次回车
 # sock 所有使用 C/S 模式的都可以用 类似的
 nc -U /var/run/docker.sock  # netcat 进行 UDP 链接, -U 表示是 UDP, 后面是 docker 的 sock 地址
 GET /info HTTP/1.1  # 紧接着在交互式的命令行中输入, 敲两次回车
+GET / HTTP/1.1
 
 ##################################################################
 ## nmap

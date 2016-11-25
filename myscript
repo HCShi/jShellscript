@@ -111,7 +111,7 @@ alias pythoninstall='sudo -H python -m pip install'
 ##################################################################
 ## mysql, memcache
 ##################################################################
-alias logmysql='mysql -u root -p'
+alias logmysql='mysql -h 127.0.0.1 -u root -p'
 alias memcachedme='memcached -d -m 256 -u root -l localhost -c 256 -P /tmp/memcached.pid'  # 开启 Memcached
 alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 
@@ -309,23 +309,46 @@ alias iptsta='sudo iptables -L -n | grep 1080'
 ##################################################################
 # Docker 简写完以后仍然可一 Tab 补全
 ##################################################################
+# docker d开头
 alias dattach='docker attach'
 alias dcp='docker cp'
+# alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm centurylink/dockerfile-from-image"
 alias dimages='docker images'
 alias dinspect='docker inspect'
 alias dinspectfid="docker inspect -f '{{.Id}}'"
 alias dinspectfimage="docker inspect -f '{{.Config.Image}}'"
+alias dinspectfip="docker inspect -f '{{.NetworkSettings.IPAddress}}'"
+alias dinspectfport="docker inspect -f '{{.NetworkSettings.Ports}}'"
 alias dkill='docker kill'
+alias dkilla='docker kill $(docker ps -q)'
 alias dnetworkinspect='docker network inspect'
 alias dnetworkinspectf="docker network inspect -f '{{range $con :=.IPAM.Config}} {{$con.Subnet}} {{end}}'"  # 不知道为什么错
 alias dps='docker ps'
 alias dpsa='docker ps -a'
 alias dpull='docker pull'
 alias drm='docker rm'
+alias drma='docker rm $(docker ps -a -q)'
 alias drmi='docker rmi'
+alias drunit='docker run -i -t'
 alias drunitrm='docker run -i -t --rm'  # -it 分开写, 要不然就没有补全了
+# alias drunitrmsh='test() { docker run -i -t --rm $1 /bin/bash };test'  # 只要 run 后面 加 sh 或 /bin/bash, 就能进入 CLI
 alias dstart='docker start -i'
 alias dstop='docker stop'
+
+# docker-compose dc开头
+alias dcps='docker-compose ps'
+alias dcstop='docker-compose stop'
+alias dcup='docker-compose up'
+alias dcupd='docker-compose up -d'
+
+# 一些 Offical 操作 doc开头
+# ubuntu, debian 等操作系统直接 drunitrm 就行了
+alias docmysql="docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -i -t --rm mysql:5.7 /bin/bash -c 'nohup service mysql start && /bin/bash'"  # 据说 Docker 只能运行一个进程, 呵呵...
+alias docmysqlserver="docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7"  # 启动 Mysql 服务端, 端口 3306, Server 是打不开 CLI 的
+# 后台默认执行 mysqld --verbose --help
+# mysql -h 127.0.0.1 -u root -p 就可以通过 host 连接 mysql, 或者如果没装 mysql-client 的话, 用下面那条 alias
+alias docmysqlcli='exec docker run -it --link some-mysql:mysql --rm mysql:5.7 sh -c "mysql -h $(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-mysql) -P 3306 -u root -proot"'
+# 上面最外层一定要用单引号, -proot, 好尴尬
 
 ########################################
 # 渗透 & Ctf & Tools
@@ -334,8 +357,8 @@ alias dstop='docker stop'
 alias burpsuite='java -jar ~/github/others/ctf-tools/burpsuite/burp.jar'
 alias stegsolve='~/github/others/ctf-tools/stegsolve/bin/stegsolve.jar'
 #alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
-alias sqlmap="python ~/github/others//sqlmap.py"
-alias sqlmapub="python ~/github/others/sqlmap-dev/sqlmap.py --current-user --current-db"
+alias sqlmap="python ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py"
+alias sqlmapub="python ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py --current-user --current-db"
 
 alias strflag='test() { strings $1 | grep $2 };test'  # strflag <filename> flag, <filename> 不能使用 *
 alias gephi='~/github/others/gephi-0.9.1/bin/gephi'

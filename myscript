@@ -35,6 +35,7 @@ alias terminalnew='gnome-terminal --working-directory=`pwd`'
 # 这个unzip的参数只有ubuntu默认有
 alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
+alias wgetproxy='wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080'
 alias xopen="xdg-open"
 
 ##################################################################
@@ -152,6 +153,7 @@ alias cdjpcsrctmux="cd ~/github/jPC/src/tmux"
 alias cdjqlcoder="cd ~/github/jqlcoder"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
+alias cdjtemplatedocker='cd ~/github/jTemplate/docker'
 alias cdjtemplatepython="cd ~/github/jTemplate/python"
 alias cdjtemplatesrc='cd ~/github/jTemplate/src'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
@@ -278,7 +280,7 @@ alias scptencent='test() { scp $1 root@115.159.88.186:$2 };test'
 alias scpbtencent='test() { scp root@115.159.88.186:$1 $2 };test'
 
 ########################################
-## Shadowsocks 后面两个是统计和显示流量
+## Shadowsocks 后面两个是统计和显示流量 + Kcptun 加速
 ########################################
 # 搬瓦工自带 python
 alias stass="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.python.json -d start && exit"  # 这样默认是全局的, -d 会在后台运行
@@ -287,6 +289,14 @@ alias restass='sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.python.json
 # 搬瓦工 go
 alias stassgo="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go.json -d start && exit"
 alias stossgo="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go.json -d stop && exit"
+alias stassgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kcptun.json -d start && exit"
+alias stossgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kcptun.json -d stop && exit"
+# kcptun 参考 断流: https://github.com/xtaci/kcptun/issues/218
+# 手动参数设定: https://github.com/xtaci/kcptun/issues/137
+alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 &'
+# function stakcp() { nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 & }
+alias showkcp="ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'"  # 这里原意是只输出 PID, 可还是会输出整个命令, 也还行
+function stokcp() { kill `ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'` } # 直接 stokcp 既可以执行函数了
 # shadowsocksR
 alias stassr='sudo python ~/github/others/shadowsocks/shadowsocks/local.py -s 45.78.9.29 -p 443 -k 6irwnc8jck -m aes-256-cfb -d start'  # 后台运行
 alias stossr='sudo python ~/github/others/shadowsocks/shadowsocks/local.py -d stop'  # 停止
@@ -313,6 +323,7 @@ alias iptsta='sudo iptables -L -n | grep 1080'
 alias dattach='docker attach'
 alias dcp='docker cp'
 # alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm centurylink/dockerfile-from-image"
+alias dexecit='docker exec -i -t'
 alias dimages='docker images'
 alias dinspect='docker inspect'
 alias dinspectfid="docker inspect -f '{{.Id}}'"
@@ -343,12 +354,15 @@ alias dcupd='docker-compose up -d'
 
 # 一些 Offical 操作 doc开头
 # ubuntu, debian 等操作系统直接 drunitrm 就行了
+alias docdvwa='docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="root" citizenstig/dvwa'
+alias docsqli='docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="root" tuxotron/audi_sqli'
 alias docmysql="docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -i -t --rm mysql:5.7 /bin/bash -c 'nohup service mysql start && /bin/bash'"  # 据说 Docker 只能运行一个进程, 呵呵...
 alias docmysqlserver="docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7"  # 启动 Mysql 服务端, 端口 3306, Server 是打不开 CLI 的
 # 后台默认执行 mysqld --verbose --help
 # mysql -h 127.0.0.1 -u root -p 就可以通过 host 连接 mysql, 或者如果没装 mysql-client 的话, 用下面那条 alias
 alias docmysqlcli='exec docker run -it --link some-mysql:mysql --rm mysql:5.7 sh -c "mysql -h $(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-mysql) -P 3306 -u root -proot"'
 # 上面最外层一定要用单引号, -proot, 好尴尬
+alias docubuntu='docker run -i -t -v /home/coder352/:/home/coder352/ coder352/ubuntu:16.04'
 
 ########################################
 # 渗透 & Ctf & Tools

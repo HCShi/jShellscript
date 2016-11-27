@@ -17,19 +17,33 @@ sudo-command-line() {
     [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
     zle end-of-line
 }
-zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
+cmd=$(which bindkey)
+# 下面的 if else 为了兼容 Docker
+if [ -z $cmd ]; then
+    echo 'You are not in zsh'
+else
+    zle -N sudo-command-line
+    # bindkey "\e\e" sudo-command-line  # ESC
+    bindkey "" sudo-command-line  # 先随便写一个, 然后再替换的时候快捷键, 这里的^T不是两个字符
+fi
 
 ##################################################################
 ## 快捷键
 ##################################################################
+# man zshzle  # 查看相关操作
+# bindkey  # 终端命令, 看当前的绑定
+# bindkey -l  # will give you a list of existing keymap names.
 # export EDITOR="vim"
-bindkey -v
-# vi style incremental search
-bindkey '^R' history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
-bindkey '^P' history-search-backward
-bindkey '^N' history-search-forward
+if [ -z $cmd ]; then
+    echo 'You are not in zsh'
+else
+    bindkey -v
+    # vi style incremental search
+    bindkey '^R' history-incremental-search-backward
+    bindkey '^S' history-incremental-search-forward
+    bindkey '^P' history-search-backward
+    bindkey '^N' history-search-forward
+fi
 
 ##################################################################
 ## 下面的属于历史遗留问题

@@ -4,6 +4,7 @@ echo "正在初始化配置......"
 path=`pwd`
 if [ ! -e $HOME/.config/shellscript ];then mkdir -p $HOME/.config/shellscript;fi
 cp ./zshrc ~/.zshrc
+cp ./bashrc ~/.bashrc
 cp ./mybashrc ./myscript ./myzshrc $HOME/.config/shellscript
 echo "初始化配置结束....."
 

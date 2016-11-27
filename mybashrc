@@ -5,6 +5,7 @@
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/home/${USER}/github/shellscript/bin:/home/${USER}/github/shellscript/bin/ctf:$PATH
+export PATH="/home/coder352/github/others/ctf-tools/bin:$PATH"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
@@ -13,14 +14,15 @@ export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 ##################################################################
 ## UTF8
 ##################################################################
-LANG="en_US.UTF-8"
-LC_COLLATE="en_US.UTF-8"
-LC_CTYPE="en_US.UTF-8"
-LC_MESSAGES="en_US.UTF-8"
-LC_MONETARY="en_US.UTF-8"
-LC_NUMERIC="en_US.UTF-8"
-LC_TIME="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
+# 和 Docker 容器不兼容
+# LANG="en_US.UTF-8"
+# LC_COLLATE="en_US.UTF-8"
+# LC_CTYPE="en_US.UTF-8"
+# LC_MESSAGES="en_US.UTF-8"
+# LC_MONETARY="en_US.UTF-8"
+# LC_NUMERIC="en_US.UTF-8"
+# LC_TIME="en_US.UTF-8"
+# LC_ALL="en_US.UTF-8"
 
 ##################################################################
 ## Tmux 每次登陆进入到tmux
@@ -28,15 +30,16 @@ LC_ALL="en_US.UTF-8"
 cmd=$(which tmux) # tmux path
 if [ -z $cmd ]; then  # 判断是否已有开启的tmux会话，没有则开启
     echo "You need to install tmux."
-    exit 1
-fi
-session=`whoami`  # session name
-$cmd has -t $session  # has-session 不存在会报错, 并且返回 1, 存在返回 0
-if [ $? != 0 ]; then
-    $cmd new -d -n normal -s $session            # 最后的 "" 中的都是命令
-    # $cmd splitw -v -p 20 -t $session "pry"  # 创建窗口 1，并分为上下两个窗格，其中上窗格占 80% 空间，运行 Vim，下窗格占 20% 空间，运行 Pry
-    # $cmd neww -n mutt -t $session "mutt"    # 创建窗口 2，运行 Mutt
-    $cmd att -t $session                      # 第二个终端就不会进入 tmux 了, 最后才能进入 tmux
+    # exit 1
+else
+    session=`whoami`  # session name
+    $cmd has -t $session  # has-session 不存在会报错, 并且返回 1, 存在返回 0
+    if [ $? != 0 ]; then
+        $cmd new -d -n normal -s $session            # 最后的 "" 中的都是命令
+        # $cmd splitw -v -p 20 -t $session "pry"  # 创建窗口 1，并分为上下两个窗格，其中上窗格占 80% 空间，运行 Vim，下窗格占 20% 空间，运行 Pry
+        # $cmd neww -n mutt -t $session "mutt"    # 创建窗口 2，运行 Mutt
+        $cmd att -t $session                      # 第二个终端就不会进入 tmux 了, 最后才能进入 tmux
+    fi
 fi
 # 另一种判断 tmux 是否已经运行的方法
 # if which tmux 2>&1 >/dev/null; then

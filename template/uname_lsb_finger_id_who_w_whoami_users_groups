@@ -19,9 +19,13 @@ echo "id:"
 echo
 id coder352 # UID，GID
 echo
+echo "w:"
+echo
+w  # 查看当前用户
+echo
 echo "whoami:"
 echo
-whoami # 产看当前用户
+whoami # 查看当前用户
 echo
 echo "who:"
 echo

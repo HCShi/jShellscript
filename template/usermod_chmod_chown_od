@@ -1,9 +1,16 @@
+#!/bin/bash
+
+##################################################################
+## usermod chmod chown
+##################################################################
 sudo usermod -a -G root coder352
 
-sudo chmod 777 filename
-sudo chomd 600 filename
-
 sudo chown -R hadoop ./hadoop  # 将当前的 hadoop 文件夹的权限改为 hadoop 用户, -R 表示递归
+chown root:root aa             # 修改aa的用户和组
+
+chmod a-w aa  # 修改aa的那9个属性
+sudo chmod 777 filename
+sudo chmod 600 filename
 
 ##################################################################
 ## 代码 编码

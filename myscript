@@ -6,7 +6,11 @@
 ########################################
 ## 系统操作
 ########################################
+alias acd='apt-cache depends'
+alias acrd='apt-cache rdepends'
+alias alied='apt list --installed'
 alias bjclip='test() { b64 -e $1 | jclip };test'
+alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
@@ -153,12 +157,13 @@ alias cdjpcsrctmux="cd ~/github/jPC/src/tmux"
 alias cdjqlcoder="cd ~/github/jqlcoder"
 alias cdjserver="cd ~/github/jServer"
 alias cdjtemplate='cd ~/github/jTemplate'
-alias cdjtemplatedocker='cd ~/github/jTemplate/docker'
-alias cdjtemplatepython="cd ~/github/jTemplate/python"
-alias cdjtemplatesrc='cd ~/github/jTemplate/src'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
 alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
 alias cdjtemplatedatabasemysql="cd ~/github/jTemplate/database/mysql"
+alias cdjtemplatedocker='cd ~/github/jTemplate/docker'
+alias cdjtemplatepython="cd ~/github/jTemplate/python"
+alias cdjtemplatesrc='cd ~/github/jTemplate/src'
+alias cdjtemplatetex='cd ~/github/jTemplate/tex'
 alias cdjtemplatewebjavascript="cd ~/github/jTemplate/web/javascript"
 alias cdjtemplatewebjavascriptwebgl="cd ~/github/jTemplate/web/javascript/webgl"
 alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
@@ -272,7 +277,8 @@ alias sshtencent='ssh root@115.159.88.186'
 
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
 alias scpbm='test() { scp mininet@192.168.56.101:$1 $2 };test'  # 向回传
-alias scpbanwagong='test() { scp -P 29318 $1 root@45.78.9.29:$2 };test'  # 带端口的
+alias scpbanwagong='test() { scp -P 28484 $1 root@45.78.9.29:$2 };test'  # 带端口的
+alias scpbbanwagong='test() { scp -P 28484 root@45.78.9.29:$1 $2 };test'  # 带端口的
 alias scpaliyun='test() { scp $1 root@115.28.247.19:$2 };test'
 # exp: scpaliyun filename  或者  scpaliyun filename .  第二个是加了一个路径, 默认就是 . 家目录
 alias scpbaliyun='test() { scp root@115.28.247.19:$1 $2 };test'
@@ -293,7 +299,7 @@ alias stassgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kc
 alias stossgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kcptun.json -d stop && exit"
 # kcptun 参考 断流: https://github.com/xtaci/kcptun/issues/218
 # 手动参数设定: https://github.com/xtaci/kcptun/issues/137
-alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 &'
+alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 512 >/dev/null 2>&1 &'
 # function stakcp() { nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 & }
 alias showkcp="ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'"  # 这里原意是只输出 PID, 可还是会输出整个命令, 也还行
 function stokcp() { kill `ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'` } # 直接 stokcp 既可以执行函数了
@@ -323,7 +329,7 @@ alias iptsta='sudo iptables -L -n | grep 1080'
 alias dattach='docker attach'
 alias dcp='docker cp'
 # alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm centurylink/dockerfile-from-image"
-alias dexecit='docker exec -i -t'
+alias dexecit='docker exec -i -t'  # dexecit ubuntu /bin/bash 在已经运行的 container 上在开一个 bash
 alias dimages='docker images'
 alias dinspect='docker inspect'
 alias dinspectfid="docker inspect -f '{{.Id}}'"
@@ -342,6 +348,7 @@ alias drma='docker rm $(docker ps -a -q)'
 alias drmi='docker rmi'
 alias drunit='docker run -i -t'
 alias drunitrm='docker run -i -t --rm'  # -it 分开写, 要不然就没有补全了
+alias drunitrmp='docker run -i -t --rm -p 80:80 -p 3306:3306'
 # alias drunitrmsh='test() { docker run -i -t --rm $1 /bin/bash };test'  # 只要 run 后面 加 sh 或 /bin/bash, 就能进入 CLI
 alias dstart='docker start -i'
 alias dstop='docker stop'
@@ -362,7 +369,9 @@ alias docmysqlserver="docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PA
 # mysql -h 127.0.0.1 -u root -p 就可以通过 host 连接 mysql, 或者如果没装 mysql-client 的话, 用下面那条 alias
 alias docmysqlcli='exec docker run -it --link some-mysql:mysql --rm mysql:5.7 sh -c "mysql -h $(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-mysql) -P 3306 -u root -proot"'
 # 上面最外层一定要用单引号, -proot, 好尴尬
-alias docubuntu='docker run -i -t -v /home/coder352/:/home/coder352/ coder352/ubuntu:16.04'
+
+alias docjubuntuv='docker run -i -t --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
+alias docjubuntu='docker run -i -t --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
 
 ########################################
 # 渗透 & Ctf & Tools

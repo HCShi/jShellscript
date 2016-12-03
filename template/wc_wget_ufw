@@ -1,6 +1,6 @@
 # 求输出行数 带着 . 和 ..
 ls | wc -l
-wc whoiswoldy.txt  # 0 1 5586640 whoiswoldy.txt, 0行，1个词，55586640个字符，也就说文件里只有一个大字符串，字符数是千万级
+wc whoiswoldy.txt  # 0 1 5586640 whoiswoldy.txt, 0行, 1个词, 55586640个字符, 也就说文件里只有一个大字符串, 字符数是千万级
 
 ##################################################################
 ## wget 强大的功能
@@ -12,19 +12,27 @@ wget -r -p -np -mk http://xxx.edu.cn
 # -p 获得所有显示网页所需的元素,比如图片什么的.
 # -m 镜像
 
+wget -A html,pdf http://www.ccs.neu.edu -U Mozilla -r -w 5 --spider -D northeastern.edu,ccs.neu.edu
+# -A 爬虫接受的link类型, 如果不是-A指定的类型, 爬虫不会crawl
+# -U 在爬虫的HTTP请求中, 加入User-Agent类型, 以模拟真实浏览器访问。很多网站禁止无User-Agent类型的HTTP请求。
+# -r Recursive模式, 爬虫会分析当前页面所包含的link, 作为之后crawl的种子。据说同时使用-nv -r会更加稳定。
+# -w 指定访问页面的间隔, 过频访问会让爬虫变得不友好
+# --spider 打开spider模式, 即爬虫模式, 使得爬虫不保存访问过的页面至本地
+# --D 指定Domain Lists, 指定爬虫只访问指定的域名下的页面
+
 ##################################################################
 ## ufw Ubuntu 防火墙操作
 ##################################################################
-# 一般用户，只需如下设置：
+# 一般用户, 只需如下设置：
 sudo apt-get install ufw
 sudo ufw enable
 sudo ufw default deny  # 关闭所有外部对本机的访问, 但本机对外部访问正常
-# 以上三条命令已经足够安全了，如果你需要开放某些服务，再使用sudo ufw allow开启。
+# 以上三条命令已经足够安全了, 如果你需要开放某些服务, 再使用sudo ufw allow开启。
 sudo ufw enable|disable  # 关闭 / 开启 防火墙, 顺便开机启动, 禁用
 sudo ufw version
 # 3.开启/禁用
 sudo ufw allow|deny [service]
-# 打开或关闭某个端口，例如：
+# 打开或关闭某个端口, 例如：
 sudo ufw allow smtp  # 允许所有的外部IP访问本机的25/tcp (smtp)端口
 sudo ufw allow 22/tcp  # 允许所有的外部IP访问本机的22/tcp (ssh)端口
 sudo ufw allow 53  # 允许外部访问53端口(tcp/udp)
@@ -36,8 +44,8 @@ sudo ufw delete allow smtp  # 删除上面建立的某条规则
 sudo ufw status  # 查看防火墙状态
 sudo ufw logging on|off  # 转换日志状态
 sudo ufw default allow|deny  # 设置默认策略 (比如 “mostly open” vs “mostly closed”)
-sudo ufw allow|deny [service]  # 许可或者屏蔽端口 (可以在“status” 中查看到服务列表)。可以用“协议：端口”的方式指定一个存在于/etc/services中的服务名称，也可以通过包的meta-data。 ‘allow’ 参数将把条目加入 /etc/ufw/maps ，而 ‘deny’ 则相反
-sudo ufw status  # 显示防火墙和端口的侦听状态，参见 /var/lib/ufw/maps。括号中的数字将不会被显示出来。
+sudo ufw allow|deny [service]  # 许可或者屏蔽端口 (可以在“status” 中查看到服务列表)。可以用“协议：端口”的方式指定一个存在于/etc/services中的服务名称, 也可以通过包的meta-data。 ‘allow’ 参数将把条目加入 /etc/ufw/maps , 而 ‘deny’ 则相反
+sudo ufw status  # 显示防火墙和端口的侦听状态, 参见 /var/lib/ufw/maps。括号中的数字将不会被显示出来。
 # UFW 使用范例：
 sudo ufw allow 53  # 允许 53 端口
 sudo ufw delete allow 53  # 禁用 53 端口
@@ -47,19 +55,19 @@ sudo ufw allow smtp  # 允许 smtp 端口
 sudo ufw delete allow smtp  # 删除 smtp 端口的许可
 sudo ufw allow from 192.168.254.254  # 允许某特定 IP
 sudo ufw delete allow from 192.168.254.254  # 删除上面的规则
-# linux 2.4内核以后提供了一个非常优秀的防火墙工具：netfilter/iptables,他免费且功能强大，可以对流入、流出的信息进行细化控制，
-# 它可以 实现防火墙、NAT（网络地址翻译）和数据包的分割等功能。netfilter工作在内核内部，而iptables则是让用户定义规则集的表结构。
+# linux 2.4内核以后提供了一个非常优秀的防火墙工具：netfilter/iptables,他免费且功能强大, 可以对流入、流出的信息进行细化控制,
+# 它可以 实现防火墙、NAT（网络地址翻译）和数据包的分割等功能。netfilter工作在内核内部, 而iptables则是让用户定义规则集的表结构。
 #
-# 但是iptables的规则稍微有些“复杂”，因此ubuntu提供了ufw这个设定工具，以简化iptables的某些设定，其后台仍然是 iptables。
-# ufw 即uncomplicated firewall的简称，一些复杂的设定还是要去iptables。
+# 但是iptables的规则稍微有些“复杂”, 因此ubuntu提供了ufw这个设定工具, 以简化iptables的某些设定, 其后台仍然是 iptables。
+# ufw 即uncomplicated firewall的简称, 一些复杂的设定还是要去iptables。
 #
 # ufw相关的文件和文件夹有：
-# /etc /ufw/：里面是一些ufw的环境设定文件，如 before.rules、after.rules、sysctl.conf、ufw.conf，及 for ip6 的 before6.rule 及 after6.rules。
+# /etc /ufw/：里面是一些ufw的环境设定文件, 如 before.rules、after.rules、sysctl.conf、ufw.conf, 及 for ip6 的 before6.rule 及 after6.rules。
 # 这些文件一般按照默认的设置进行就ok。
 #
-# 若开启ufw之 后，/etc/ufw/sysctl.conf会覆盖默认的/etc/sysctl.conf文件，若你原来的/etc/sysctl.conf做了修 改，启动ufw后，
-# 若/etc/ufw/sysctl.conf中有新赋值，则会覆盖/etc/sysctl.conf的，否则还以/etc /sysctl.conf为准。
+# 若开启ufw之 后, /etc/ufw/sysctl.conf会覆盖默认的/etc/sysctl.conf文件, 若你原来的/etc/sysctl.conf做了修 改, 启动ufw后,
+# 若/etc/ufw/sysctl.conf中有新赋值, 则会覆盖/etc/sysctl.conf的, 否则还以/etc /sysctl.conf为准。
 # 当然你可以通过修改/etc/default/ufw中的“IPT_SYSCTL=”条目来设置使用哪个 sysctrl.conf.
 #
-# /var/lib/ufw/user.rules 这个文件中是我们设置的一些防火墙规则，打开大概就能看明白，有时我们可以直接修改这个文件，不用使用命令来设定。
+# /var/lib/ufw/user.rules 这个文件中是我们设置的一些防火墙规则, 打开大概就能看明白, 有时我们可以直接修改这个文件, 不用使用命令来设定。
 # 修改后记得ufw reload重启ufw使得新规则生效。

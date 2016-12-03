@@ -36,10 +36,10 @@ netstat -s
 　
 # 查看所有的服务端口（LISTEN，ESTABLISHED）
 sudo netstat -ap
- 
+
 # 查看8080端口，则可以结合grep命令：
 sudo netstat -ap | grep 8080
- 
+
 # 如查看8888端口，则在终端中输入：
 sudo lsof -i:8888 # 一定要用 sudo 权限
 # 这个命令也可以查出是哪个 进程 在占用8888 端口
@@ -50,15 +50,15 @@ sudo lsof -i:8888 # 一定要用 sudo 权限
 ##################################################################
 # CentOS 配置防火墙操作实例（启、停、开、闭端口）
 # 查询防火墙状态:
-service   iptables status<回车> 
+service   iptables status<回车>
 # 停止防火墙:
-service   iptables stop <回车> 
+service   iptables stop <回车>
 # 启动防火墙:
-service   iptables start <回车> 
+service   iptables start <回车>
 # 重启防火墙:
 service   iptables restart <回车>
 # 永久关闭防火墙:
-chkconfig   iptables off<回车> 
+chkconfig   iptables off<回车>
 # 永久关闭后启用:
 chkconfig   iptables on<回车>
 
@@ -97,30 +97,30 @@ iptables -A INPUT -p tcp -s 0/0 --sport 1024:65535 -d 115.28.247.19 --dport 20 -
 # results
 ```
 Chain INPUT (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     tcp  --  0.0.0.0/0            115.28.247.19        tcp spts:1024:65535 dpt:21 state NEW,ESTABLISHED
 ACCEPT     tcp  --  0.0.0.0/0            115.28.247.19        tcp spts:1024:65535 dpts:1024:65535 state RELATED,ESTABLISHED
 ACCEPT     tcp  --  0.0.0.0/0            115.28.247.19        tcp spts:1024:65535 dpt:20 state ESTABLISHED
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     tcp  --  115.28.247.19        0.0.0.0/0            tcp spt:21 dpts:1024:65535 state ESTABLISHED
 ACCEPT     tcp  --  115.28.247.19        0.0.0.0/0            tcp spts:1024:65535 dpts:1024:65535 state ESTABLISHED
 ACCEPT     tcp  --  115.28.247.19        0.0.0.0/0            tcp spt:20 dpts:1024:65535 state RELATED,ESTABLISHED
 ```
 
 ##################################################################
-## ps aux / ps -elf
+## ps faux / ps -elf
 ##################################################################
-sudo ps aux
+sudo ps faux
 sudo ps -elf
 # 常用命令选项
 # a：显示当前终端下的所有进程信息
 # u：使用以用户为主的格式输出进程信息
-# x：显示当前用户在所有终端下的进程信息 
+# x：显示当前用户在所有终端下的进程信息
 # -e：显示系统内的所有进程信息
 # -l：使用长格式显示进程信息
 # -f：使用完整的格式显示进程信息
@@ -145,7 +145,7 @@ ps -ef | grep nginx && kill -HUP pid  # 发送信号重启
 ## top 查看动态 进程 排名信息
 ##################################################################
 top
-# 按P键根据CPU占用情况对进程列表进行排序 
+# 按P键根据CPU占用情况对进程列表进行排序
 # 按M键根据内存占用情况进行排序
 # 按N键根据启动时间进行排序
 

@@ -14,7 +14,7 @@ alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 �
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
-alias catms="cat ~/github/shellscript/myscript | more"
+alias catms="cat ~/github/jShellscript/myscript | more"
 alias cman='LANG="zh_CN.utf8" man'
 alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"
 # alias day="/bin/date '+%Y-%m-%d'"  # 另一种形式
@@ -73,7 +73,7 @@ alias tcpdump='tcpdump -nn -XSltv'
 alias cnginx='sudo nginx -p $PWD'
 alias snginx='sudo nginx -s stop'
 # Ubuntu 直接输入 可执行的 .py 文件不是执行它, 而是打开, 以前 14.04 还不是的啊
-# alias mcurl='python ~/github/shellscript/bin/curl.py'  # 是下面的 py=vi 搞得鬼
+# alias mcurl='python ~/github/jShellscript/bin/curl.py'  # 是下面的 py=vi 搞得鬼
 # 开启 fgcgi, 用 nginx 和 php 时要开启
 alias sfcgi='sudo /usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -C 5 -u www-data -g www-data -f /usr/bin/php-cgi7.0 -P /var/run/fastcgi-php.pid'
 alias sphpserver='php -S localhost:9999'
@@ -87,7 +87,7 @@ alias loghexo='google-chrome http://localhost:4000'
 
 # Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
-alias pythonmsimpleserver="python ~/github/shellscript/bin/MySimpleHTTPServer.py"  # 仅开启本地8000端口
+alias pythonmsimpleserver="python ~/github/jShellscript/bin/MySimpleHTTPServer.py"  # 仅开启本地8000端口
 
 ##################################################################
 ## Python
@@ -156,6 +156,11 @@ alias cdjpcsrcchromeextend='cd ~/github/jPC/src/Chrome_extend/myExtends'
 alias cdjpcsrctmux="cd ~/github/jPC/src/tmux"
 alias cdjqlcoder="cd ~/github/jqlcoder"
 alias cdjserver="cd ~/github/jServer"
+alias cdjshellscript="cd ~/github/jShellscript"
+alias cdjshellscriptbin='cd ~/github/jShellscript/bin'
+alias cdjshellscriptbinctf='cd ~/github/jShellscript/bin/ctf'
+alias cdjshellscripttemplate="cd ~/github/jShellscript/template"
+alias cdjshellscripttemplatescript="cd ~/github/jShellscript/template/script/"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
 alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
@@ -169,16 +174,12 @@ alias cdjtemplatewebjavascriptwebgl="cd ~/github/jTemplate/web/javascript/webgl"
 alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
 alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjtemplatewebwebgl="cd ~/github/jTemplate/web/webgl"
-alias cdjvim="cd ~/github/jvim/vimrc"
-alias cdjvimsnippets="cd ~/github/jvim/UltiSnips"
-alias cdshare="cd /media/coder352/文档/Share"
-alias cdshareshipin="cd /media/coder352/文档/Share/视频/"
-alias cdshareshiyanlou="cd /media/coder352/文档/Share/实验楼"
-alias cdshellscript="cd ~/github/shellscript"
-alias cdshellscriptbin='cd ~/github/shellscript/bin'
-alias cdshellscriptbinctf='cd ~/github/shellscript/bin/ctf'
-alias cdshellscripttemplate="cd ~/github/shellscript/template"
-alias cdshellscripttemplatescript="cd ~/github/shellscript/template/script/"
+alias cdjvim="cd ~/github/jVim/vimrc"
+alias cdjvimhome="cd ~/.vim/jVim/vimrc"
+alias cdjvimsnippets="cd ~/github/jVim/UltiSnips"
+alias cdshare="cd /media/coder352/Documents/Share"
+alias cdshareshipin="cd /media/coder352/Documents/Share/视频/"
+alias cdshareshiyanlou="cd /media/coder352/Documents/Share/实验楼"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
 alias cdvedio="cd /media/coder352/文档/Share/视频"
 
@@ -193,7 +194,7 @@ alias cdwendang="cd /media/coder352/文档"
 ##################################################################
 ## vim 相关操作  进目录是为了退出时能够 git
 ##################################################################
-alias vimms="cd ~/github/shellscript && vim myscript"
+alias vimms="cd ~/github/jShellscript && vim myscript"
 alias vimjpcpcconfig="cd ~/github/jPC && vim pc_config"
 alias vimjpcchromeconfig="cd ~/github/jPC && vim chrome_config"
 alias vimtmuxshorcuts="cd ~/github/jPC/src/tmux && vim README.md"

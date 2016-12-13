@@ -1,0 +1,3 @@
+#!/bin/bash
+convert -density 300 file.pdf page_%04d.jpg  # 保证质量
+convert -density 300 file.jpg he.pdf

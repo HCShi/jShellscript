@@ -6,6 +6,7 @@
 tar -xvzf xxx                  # 解压 .tar.gz 压缩包到当前目录
 tar -xvjf xxx                  # 解压 .tar.bz 到当前文件
 tar -cvzf shell.tar.gz shell/  # 将shell目录压缩
+tar -xvf xxx -C ~/hello        # 指定解压目录
 
 dd if=/dev/zero of=test bs=1 count=8
 zip -P 12345 test.zip test          # zip -P password dst src

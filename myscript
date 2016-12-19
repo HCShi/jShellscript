@@ -18,6 +18,8 @@ alias catms="cat ~/github/jShellscript/myscript | more"
 alias cman='LANG="zh_CN.utf8" man'
 alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"
 # alias day="/bin/date '+%Y-%m-%d'"  # 另一种形式
+alias dub='du -b'  # ls du 等命令默认以 K 为单位, 很坑
+alias dush='du -sh'  # dush 当前目录大小, dush a.txt 文件大小, dush directory 目录大小
 alias findname='find -iname'  # exapmle: findname "*.txt"
 alias fy='sdcv -c'  # sudo apt-get install sdcv
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
@@ -25,9 +27,14 @@ alias grep="grep -iI --color=always"  # google: grep exclude binary file || grep
 alias grepf='test() { find -iname $2 | xargs grep -riIn --color=always $1 };test'  # example: grepf hello "*.md"
 alias greps="grep -riIn --color=always"  # example: greps hell
 alias grepsls='ls | grep'
-alias dub='du -b'  # ls du 等命令默认以 K 为单位, 很坑
-alias dush='du -sh'  # 查看当前所在的目录的大小
+alias pdfgrepinr='test() { pdfgrep -inr $1 * };test'
+ju8(){
+    # iconv -f ISO-8859-1 -t UTF-8 $1 > $1.tmp  # file $1 显示的是 ISO-8859, 但没用
+    iconv -f gbk -t utf-8 $1 > $1.tmp  # gbk 中文通用
+    mv $1.tmp $1
+}  # example: ju8 file, file from Windows
 alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
+alias kkm='make clean'
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
 alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
@@ -36,6 +43,7 @@ alias nau='nautilus .'
 alias rmlatex="rm *.log *.aux *.pdf"
 alias suroot='sudo su root'
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
+alias tes='texstudio'
 # 这个unzip的参数只有ubuntu默认有
 alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
@@ -45,6 +53,12 @@ alias xopen="xdg-open"
 ##################################################################
 ## Program Manage
 ##################################################################
+alias killport='test() { sudo kill $(sudo lsof -t -i:$1) };test'
+# 下面是查看端口进程
+alias lsofi='test() { sudo lsof -i :$1 };test'  # 得到的是 PID, 交给下面 psfp 处理, 用 sudo, 否则显示不全
+alias psfp='ps -fp'  # psfp 25 查看 25 号 PID 的程序
+alias psfplsofi='test() { sudo ps -fp $(sudo lsof -t -i :$1) };test'
+
 alias pse='ps -e'
 alias pself='ps -elf'
 alias pseg='ps -e | grep -in --color=always'
@@ -55,8 +69,8 @@ alias qkill='test() { ps -e | grep $1 | cut -c 1-5 | sudo xargs kill -9 };test' 
 ## Network Manage 1.HostScan 2.PortScan(ServerScan) 3.RouteScan
 ##################################################################
 alias myip="ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v 192.168.56.1|grep -v inet6|awk '{print $2}'|tr -d 'addr:'"
-alias ncme='nc -vz localhost 1-1024 2>&1 | grep succeeded'  # 查看 root 端口
-alias ncmeall='nc -vz localhost 1-65535 2>&1 | grep succeeded'  # 查看所有端口
+alias ncme='netcat -vz localhost 1-1024 2>&1 | grep succeeded'  # 查看 root 端口
+alias ncmeall='netcat -vz localhost 1-65535 2>&1 | grep succeeded'  # 查看所有端口
 alias netstatantp='netstat -antp'
 alias netstatantpg='netstat -antp | grep -in --color=always'
 alias netstatanup='netstat -anup'
@@ -109,9 +123,14 @@ alias pyte='cd ~/Documents/thiscandel && vim te.py'
 alias pypyinstall='sudo -H pypy -m pip install'
 alias pythoninstall='sudo -H python -m pip install'
 
+# help package
+function pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
+
 ##################################################################
-## Ruby
+## JavaScript
 ##################################################################
+alias npmhttp='sudo npm config set proxy http://localhost:1080 -g && sudo npm config set https-proxy http://localhost:1080 -g'
+alias npmnohttp='sudo npm config rm proxy -g'
 
 ##################################################################
 ## mysql, memcache
@@ -123,8 +142,10 @@ alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 ##################################################################
 ## Matlab
 ##################################################################
-alias mmatlabr="matlab -nosplash -nodesktop -r"
-alias mmatlab="matlab -nosplash -nodesktop"
+alias mmatlabr="matlab -nosplash -nodesktop -r"  # mmatlabr '1 + 2'
+alias mmatlab="matlab -nosplash -nodesktop"  # 进入命令行
+alias mmatlabrs='test() { matlab -nosplash -nodesktop -nodisplay -r "$1" };test'  # mmatlabrs 1.m, 适合没有图像操作的
+alias mmatlabrsgui='test() { matlab -r "$1" };test'  # mmatlabrsgui 1.m, 适合有图形操作的, 会进入图形界面
 # -nosplash表示不加载启动界面
 # -nodesktop表示不加载GUI界面
 # -r表示运行Matlab命令行（MATLAB_command）
@@ -176,6 +197,7 @@ alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjtemplatewebwebgl="cd ~/github/jTemplate/web/webgl"
 alias cdjvim="cd ~/github/jVim/vimrc"
 alias cdjvimhome="cd ~/.vim/jVim/vimrc"
+alias cdjvimlatex="cd ~/github/jVim/ftplugin/latex-suite/templates"
 alias cdjvimsnippets="cd ~/github/jVim/UltiSnips"
 alias cdshare="cd /media/coder352/Documents/Share"
 alias cdshareshipin="cd /media/coder352/Documents/Share/视频/"
@@ -266,6 +288,7 @@ alias ovscsc='sudo ovs-vsctl set-controller'
 ########################################
 ## SSH SCP
 ########################################
+# VPS
 alias sshaliyun="ssh root@115.28.247.19"  # 管理终端密码 367692
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105" # passwd: asd
@@ -273,9 +296,11 @@ alias sshredhat="ssh root@192.168.56.101" # passwd: 123456
 alias sshruanjianbei="ssh jrp@211.87.185.53 -p 22222" # passwd: Yr1Uwud6yH87kcJ8
 alias sshteacher="ssh r12@121.251.254.208" # username: root; passwd: 123456
 alias sshtencent='ssh root@115.159.88.186'
+alias sshdocker='ssh root@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" $(docker ps -a -q))'
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
 
+# SCP
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
 alias scpbm='test() { scp mininet@192.168.56.101:$1 $2 };test'  # 向回传
 alias scpbanwagong='test() { scp -P 28484 $1 root@45.78.9.29:$2 };test'  # 带端口的
@@ -285,6 +310,10 @@ alias scpaliyun='test() { scp $1 root@115.28.247.19:$2 };test'
 alias scpbaliyun='test() { scp root@115.28.247.19:$1 $2 };test'
 alias scptencent='test() { scp $1 root@115.159.88.186:$2 };test'
 alias scpbtencent='test() { scp root@115.159.88.186:$1 $2 };test'
+
+# Proxy
+# alias sshrdoc='ssh -CNR 1080:localhost:1080 coder352@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-ubuntu-vim)'  # 这种方法太针对性了
+alias sshrdoc='ssh -CNR 1080:localhost:1080 coder352@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" $(docker ps -q))'
 
 ########################################
 ## Shadowsocks 后面两个是统计和显示流量 + Kcptun 加速
@@ -298,9 +327,11 @@ alias stassgo="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go.json -d 
 alias stossgo="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go.json -d stop && exit"
 alias stassgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kcptun.json -d start && exit"
 alias stossgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kcptun.json -d stop && exit"
+alias stassgokcptunall='stakcp stassgokcptun'  # OnO...
 # kcptun 参考 断流: https://github.com/xtaci/kcptun/issues/218
 # 手动参数设定: https://github.com/xtaci/kcptun/issues/137
 alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 512 >/dev/null 2>&1 &'
+# 有时候不行了就改 mtu, 512, 1024 两个换着来
 # function stakcp() { nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 & }
 alias showkcp="ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'"  # 这里原意是只输出 PID, 可还是会输出整个命令, 也还行
 function stokcp() { kill `ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'` } # 直接 stokcp 既可以执行函数了
@@ -364,6 +395,7 @@ alias dcupd='docker-compose up -d'
 # ubuntu, debian 等操作系统直接 drunitrm 就行了
 alias docdvwa='docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="root" citizenstig/dvwa'
 alias docsqli='docker run -d -p 80:80 -p 3306:3306 -e MYSQL_PASS="root" tuxotron/audi_sqli'
+
 alias docmysql="docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=root -i -t --rm mysql:5.7 /bin/bash -c 'nohup service mysql start && /bin/bash'"  # 据说 Docker 只能运行一个进程, 呵呵...
 alias docmysqlserver="docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7"  # 启动 Mysql 服务端, 端口 3306, Server 是打不开 CLI 的
 # 后台默认执行 mysqld --verbose --help
@@ -371,8 +403,29 @@ alias docmysqlserver="docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PA
 alias docmysqlcli='exec docker run -it --link some-mysql:mysql --rm mysql:5.7 sh -c "mysql -h $(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-mysql) -P 3306 -u root -proot"'
 # 上面最外层一定要用单引号, -proot, 好尴尬
 
+# 这里使用的 打开SSH服务 的方法, 跟 exec 的方法不太一样了
+alias docredhat='docker run --name some-redhat9 -p 2233:22 -i -t -d apiemont/redhat9 /bin/bash -c \
+    "echo "root:jk" | chpasswd \
+    && /usr/sbin/sshd -D"'  # echo -e "jk\njk" | passwd root --stdin  # 这种修改密码的方法改的密码竟然不是 jk
+# alias docredhatssh='ssh root@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-redhat9)'
+alias docredhatssh='ssh -p 2233 root@localhost'  # 和上面那种方法相同, 两种写法, 也可以用 sshdocker(只适用于一个 container)
+
+alias docmssql="docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=My@Super@Secret' -p 1433:1433 -d microsoft/mssql-server-linux"
+alias docmssqlcli="sqlcmd -S localhost -U SA -P 'My@Super@Secret'"  # Install: https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools#ubuntu
+
 alias docjubuntuv='docker run -i -t --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
 alias docjubuntu='docker run -i -t --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
+alias docjubuntuvim='docker run -i -t --rm --name some-ubuntu-vim \
+    -v /home/coder352/Documents/thiscandel/vim/vimrc:/home/coder352/.vimrc:rw \
+    -v /home/coder352/.config/shellscript/myscript:/home/coder352/myscript:ro \
+    -v /home/coder352/Documents/thiscandel/vim:/home/coder352/.vim:rw \
+    coder352/ubuntu:16.04 /bin/bash -c "echo \". /home/coder352/myscript\" >> /home/coder352/.bashrc \
+    && mkdir /var/run/sshd \
+    && chmod 0755 /var/run/sshd \
+    && service ssh start \
+    && cd /home/coder352 \
+    && su coder352"'
+# /usr/sbin/sshd -D, 这个在 Ubuntu 中不好用, 而且不用 /bin/bash, 只有第一个 -v 可以实时同步, 其他的只能在　container 中写才能同步
 
 ########################################
 # 渗透 & Ctf & Tools

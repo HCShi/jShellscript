@@ -6,7 +6,7 @@ echo
 uname -a # 查看所有系统信息 --help 查看uname功能
 echo
 echo "lsb_release:"
-cat /etc/issue  # 有些系统上没有 lsb_release 命令
+cat /etc/issue  # 有些系统上没有 lsb_release 命令, 或者 不太好用的, eg. Redhat
 cat /proc/version  # 和 uname -a 差不多
 echo
 lsb_release -a # 查看Ubuntu版本

@@ -1,0 +1,72 @@
+#!/usr/bin/python
+# coding: utf-8
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="jiconv",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        Usage Example (for zip/rar in Windows to Linux):
+        --------------------------------
+        jiconv                      # iconv -f gbk -t utf-8 file > file (Current Dir)
+        jiconv -r                   # iconv -f gbk -t utf-8 file > file (Current Dir and SubDir)
+        jiconv -r iso-8859-1 utf-8  # iconv -f iso-8859-1 -t utf-8 file > file (Current Dir and SubDir)
+        这里是对解压缩后的中文部分乱码文件批处理, 单个文件可以用 ju8 命令, 也是我写的 (GBK 是通用的)
+        ''')
+parser.add_argument('encode_from', type=str, nargs='?', help='encode from file')  # nargs='?', so the string1 can be empty
+parser.add_argument('encode_to', type=str, nargs='?', help='encode to file')
+#  parser.add_argument('-r', action='store_true', help='decode the string [default]')
+parser.add_argument('-r', action='store_true', help='Dir adn SubDir')
+
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# encode & decode
+##################################################################
+import os
+from os import system
+def iconv(encode_from, encode_to, recursively):
+    if recursively:
+        for root, dirs, files in os.walk(os.getcwd()):  # 这样, root 返回的是 绝对路径, dirs 是当前目录下的文件夹, files 是当前路径下的文件
+            for name in files:
+                #  print name  # 子目录中的文件只显示文件名, 但是下面的路径会显示全
+                #  print os.path.join(root, name)
+                from_name = os.path.join(root, name)
+                #  to_name = from_name + 'utf-8'
+                to_name = from_name + '.tmp'
+                system('iconv -f {} -t {} {} > {}'.format(encode_from, encode_to, from_name, to_name))
+                system('rm {}'.format(from_name))
+                system('mv {} {}'.format(to_name, from_name))
+    else:
+        for name in os.listdir(os.getcwd()):  # 只处理当前目录
+            from_name = os.path.join(os.getcwd(), name)
+            #  to_name = from_name + 'utf-8'
+            to_name = from_name + '.tmp'
+            if os.path.isfile(os.path.join(from_name)):
+                system('iconv -f {} -t {} {} > {}'.format(encode_from, encode_to, from_name, to_name))
+                system('rm {}'.format(from_name))
+                system('mv {} {}'.format(to_name, from_name))
+
+##################################################################
+# main
+##################################################################
+import sys
+if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+
+    encode_from = 'gbk'
+    encode_to = 'utf-8'
+    recursively = 0
+    if args.r:
+        recursively = 1
+    if args.encode_from and args.encode_to:
+        encode_from = args.encode_from
+        encode_to = args.encode_to
+    iconv(encode_from, encode_to, recursively)
+

@@ -24,7 +24,7 @@ if [ -z $cmd ]; then
 else
     zle -N sudo-command-line
     # bindkey "\e\e" sudo-command-line  # ESC
-    bindkey "" sudo-command-line  # 先随便写一个, 然后再替换的时候快捷键, 这里的^T不是两个字符
+    bindkey "^E" sudo-command-line  # 先随便写一个, 然后再替换的时候快捷键, 这里的^T不是两个字符
 fi
 
 ##################################################################

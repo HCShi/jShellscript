@@ -4,10 +4,12 @@
 ## /etc/bash.bashrc
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/home/${USER}/github/shellscript/bin:/home/${USER}/github/shellscript/bin/ctf:$PATH
-export PATH="/home/coder352/github/others/ctf-tools/bin:$PATH"
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=/home/${USER}/github/jShellscript/bin:$PATH
+export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
+export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
+export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 

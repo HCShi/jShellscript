@@ -15,8 +15,8 @@ parser = argparse.ArgumentParser(
 
         Usage Example:
         --------------------------------
-        curl
-        curl 8989
+        jcurl
+        jcurl 8989
         ''')
 parser.add_argument('port', type=str, nargs='?', help='curl localhost:port')
 

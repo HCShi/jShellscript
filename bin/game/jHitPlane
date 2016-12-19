@@ -1,0 +1,240 @@
+#!/usr/bin/python
+# coding: utf-8
+import curses
+import random
+
+class Game1():
+    def __init__(self):
+        # Line Specific Stuff
+        self.GunLine = 22               #Row where our gun lives
+        self.GunPosition = 39           #Where the gun starts on GunLine
+        self.LetterLine = 2             #Where our letter runs right to left 上面字符刚出来时的位置
+        self.ScoreLine = 1              #Where we are going to display the score
+        self.ScorePosition = 50         #Where the score column is
+        self.LivesPosition = 65         #Where the lives column is
+        # Letter Specific Stuff
+        self.CurrentLetter = "A"        #A dummy Holder Variable
+        self.CurrentLetterPosition = 78 #Where the letter will start on the LetterLine
+        self.DropPosition = 10          #A dummy Holder Variable
+        self.DroppingLetter = 0         #Flag - Is the letter dropping?
+        self.CurrentLetterLine = 3      #A dummy Holder Variable
+        self.LetterWaitCount = 15       #How many times should we loop before actually working?
+        # Bullet Specific Stuff
+        self.Shooting = 0               #Flag - Is the gun shooting?
+        self.BulletRow = self.GunLine - 1
+        self.BulletColumn = self.GunPosition
+        # Other Stuff
+        self.LoopCount = 0              #How many loops have we done in MoveLetter
+        self.GameScore = 0              #Current Game Score
+        self.Lives = 3                  #Default number of lives
+        self.CurrentColor = 1           #A dummy Holder Variable
+        self.DecScoreOnMiss = 0         #Set to 1 if you want to decrement the
+                                        #score every time the letter hits the
+                                        #bottom row # 这个规则自己制定，是否字符到底下但没碰到抢，减不减分
+
+    def MoveLetter(self,scrn): # 是由main里的 stdsrc 传过来的
+        # IF we are moving to the left...
+        if self.LoopCount == self.LetterWaitCount:
+            self.LoopCount = 0 # 15个是 一个循环
+            if self.DroppingLetter == 0: # 0表示字符还没到要下落的位置
+                scrn.addch(self.LetterLine, self.CurrentLetterPosition," ")
+                curses.napms(50) # Sleep for n milliseconds 睡 50ms，50ms的空白符号
+                if self.CurrentLetterPosition > 2: # 如果没到最左边，减 1 向左移一位
+                    self.CurrentLetterPosition -= 1
+                scrn.addch(self.LetterLine,self.CurrentLetterPosition,self.CurrentLetter,curses.color_pair(1))
+                if self.CurrentLetterPosition == self.DropPosition: # 上面移动字符的当前位置
+                    self.DroppingLetter = 1 # 字符准备下落
+                self.CurrentLetterLine = self.LetterLine # 字符刚出来时的行数，因为这时还没开始下降
+                self.CheckForHit(scrn)
+            else:
+                # THEN we are dropping down to the bottom of the screen...
+                scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition," ")
+                curses.napms(50)
+                if self.CurrentLetterLine < self.GunLine:
+                    self.CurrentLetterLine += 1
+                    scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition,self.CurrentLetter,curses.color_pair(1))
+                    self.CheckForHit(scrn)
+                else:
+                    if self.DecScoreOnMiss == 1: # 1 表示字符到底下后会减分，不管是不是碰到抢，默认是0
+                        self.Explode(scrn)
+                        self.GameScore -= 1
+                        self.Lives -= 1
+                        self.PrintScore(scrn)
+                        self.ResetForNew()
+                    else:
+                        if self.CurrentLetterPosition == self.GunPosition:
+                            self.Explode(scrn)
+                            self.GameScore -= 1
+                            self.Lives -= 1
+                            self.PrintScore(scrn)
+                            self.ResetForNew()
+                        else:
+                            self.Explode(scrn) # 字符没碰到枪着地了，自动爆炸，不减分
+                            self.ResetForNew()
+        else:
+            self.LoopCount += 1 # 可能原本想15个一循环的吧
+        if self.Shooting == 1: # 1 表示枪射击了
+            self.MoveBullet(scrn)
+            self.CheckForHit(scrn)
+        scrn.refresh
+
+    def MoveBullet(self,scrn):
+        scrn.addch(self.BulletRow,self.BulletColumn," ")
+        if self.BulletRow > self.LetterLine: # 子弹在字符初始行(最上面)下面的时候，这里用不是字符当前行
+            self.CheckForHit(scrn)
+            self.BulletRow -= 1
+            scrn.addch(self.BulletRow,self.BulletColumn,"|")
+        else:
+            self.CheckForHit(scrn)
+            scrn.addch(self.BulletRow,self.BulletColumn," ")
+            self.BulletRow = self.GunLine - 1
+            self.Shooting = 0 # 改为没有发射状态
+
+    def Explode(self,scrn):
+        scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition,"X",curses.color_pair(5))
+        curses.napms(100)
+        scrn.refresh()
+        scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition,"|",curses.color_pair(5))
+        curses.napms(100)
+        scrn.refresh()
+        scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition,"-",curses.color_pair(5))
+        curses.napms(100)
+        scrn.refresh()
+        scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition,".",curses.color_pair(5))
+        curses.napms(100)
+        scrn.refresh()
+        scrn.addch(self.CurrentLetterLine,self.CurrentLetterPosition," ")
+        scrn.addch(self.GunLine,self.GunPosition,self.GunChar,curses.color_pair(2) | curses.A_BOLD)
+        scrn.refresh()
+
+    def ResetForNew(self):
+        self.CurrentLetterLine = self.LetterLine
+        self.CurrentLetterPosition = 78
+        self.DroppingLetter = 0 # 字符的状态是没有下降
+        self.PickALetter()
+        self.PickDropPoint()
+
+    def PickALetter(self):
+        random.seed()
+        char = random.randint(65,90)
+        self.CurrentLetter = chr(char)
+
+    def CheckKeys(self,scrn,keyin):
+        if keyin == 260: # left arrow -  NOT on keypad
+            self.MoveGun(scrn,0) # 0 代表left
+            curses.flushinp()  #Flush out the input buffer for safety.
+        elif keyin == 261: # right arrow - NOT on keypad # 中间键盘上的方向键
+            self.MoveGun(scrn,1)
+            curses.flushinp()  #Flush out the input buffer for safety.
+        elif keyin == 52:  # left arrow  ON keypad
+            self.MoveGun(scrn,0)
+            curses.flushinp()  #Flush out the input buffer for safety.清空所有的输入缓冲
+        elif keyin == 54:  # right arrow ON keypad
+            self.MoveGun(scrn,1)
+            curses.flushinp()  #Flush out the input buffer for safety.
+        elif keyin == 32:  #space
+            if self.Shooting == 0:
+                self.Shooting = 1
+                self.BulletColumn = self.GunPosition
+                scrn.addch(self.BulletRow,self.BulletColumn,"|")
+                curses.flushinp()  #Flush out the input buffer for safety.
+
+    def MoveGun(self,scrn,direction):
+        scrn.addch(self.GunLine,self.GunPosition," ")
+        if direction == 0:     # left
+            if self.GunPosition > 0:
+                self.GunPosition -= 1
+        elif direction == 1:  # right
+            if self.GunPosition < 79:
+                self.GunPosition += 1
+        scrn.addch(self.GunLine,self.GunPosition,self.GunChar,curses.color_pair(2) | curses.A_BOLD)
+
+    def PickDropPoint(self):
+        random.seed()
+        self.DropPosition = random.randint(3,78)
+
+    def GameLoop(self,scrn):
+        test = 1             #Set the loop
+        while test == 1:
+            curses.napms(20)
+            self.MoveLetter(scrn)
+            keyin = scrn.getch(self.ScoreLine,self.ScorePosition)
+            if keyin == ord('Q') or keyin == 27:  # 'Q' or <Esc>
+                break
+            else:
+                self.CheckKeys(scrn,keyin)
+            self.PrintScore(scrn)
+            if self.Lives == 0:
+                break
+        curses.flushinp()
+        scrn.clear()
+
+    def NewGame(self,scrn):
+        self.GunChar = curses.ACS_SSBS
+        scrn.addch(self.GunLine,self.GunPosition,self.GunChar,curses.color_pair(2) | curses.A_BOLD)
+        scrn.nodelay(1)    #Don't wait for a keystroke...just cache it.
+        self.ResetForNew()
+        self.GameScore = 0
+        self.Lives = 3
+        self.PrintScore(scrn)
+        scrn.move(self.ScoreLine,self.ScorePosition)
+
+    def PrintScore(self,scrn):
+        scrn.addstr(self.ScoreLine,self.ScorePosition,"SCORE: %d" % self.GameScore)
+        scrn.addstr(self.ScoreLine,self.LivesPosition,"LIVES: %d" % self.Lives)
+
+    def CheckForHit(self,scrn):
+        if self.Shooting == 1: # 判断是否碰到子弹
+            if self.BulletRow == self.CurrentLetterLine: # 子弹行 = 字符行
+                if self.BulletColumn == self.CurrentLetterPosition: # 子弹列 = 字符列
+                    scrn.addch(self.BulletRow,self.BulletColumn," ") # 用白色 字符 填充
+                    self.ExplodeBullet(scrn)
+                    self.GameScore += 1
+                    self.ResetForNew()
+
+    def ExplodeBullet(self,scrn):
+        scrn.addch(self.BulletRow,self.BulletColumn,"X",curses.color_pair(5))
+        scrn.refresh()
+        curses.napms(200)
+        scrn.addch(self.BulletRow,self.BulletColumn,"|",curses.color_pair(5))
+        scrn.refresh()
+        curses.napms(200)
+        scrn.addch(self.BulletRow,self.BulletColumn,"-",curses.color_pair(5))
+        scrn.refresh()
+        curses.napms(200)
+        scrn.addch(self.BulletRow,self.BulletColumn,".",curses.color_pair(5))
+        scrn.refresh()
+        curses.napms(200)
+        scrn.addch(self.BulletRow,self.BulletColumn," ",curses.color_pair(5))
+        scrn.refresh()
+        curses.napms(200)
+
+    def main(self,stdscr):
+        curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_GREEN) # 前4个颜色对将用于随机显示，而第5个颜色对将用于表示爆炸
+        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK)
+        curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLUE)
+        curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLUE)
+        curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_RED)
+        stdscr.addstr(11,28,"Welcome to Letter Attack")
+        stdscr.addstr(13,28,"Press a key to begin...")
+        stdscr.getch()
+        stdscr.clear()
+        PlayLoop = 1
+        while PlayLoop == 1:
+            self.NewGame(stdscr)
+            self.GameLoop(stdscr)
+            stdscr.nodelay(0) # 参数是1的话，getch()会处于非阻塞状态
+            curses.flushinp()
+            stdscr.addstr(11,35,"Game Over")
+            stdscr.addstr(13,23,"Do you want to play again? (Y/N)")
+            keyin = stdscr.getch(14,56)
+            if keyin == ord("N") or keyin == ord("n"):
+                break
+            else:
+                stdscr.clear()
+
+    def StartUp(self):
+        curses.wrapper(self.main)
+
+g = Game1()
+g.StartUp()

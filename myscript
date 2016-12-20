@@ -11,6 +11,7 @@ alias acrd='apt-cache rdepends'
 alias alied='apt list --installed'
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
+alias enw='emacs -nw'
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
@@ -122,6 +123,7 @@ alias pyte='cd ~/Documents/thiscandel && vim te.py'
 # 安装 不用 sudo 权限容易有问题, -H 指定 HOME 目录为目标的
 alias pypyinstall='sudo -H pypy -m pip install'
 alias pythoninstall='sudo -H python -m pip install'
+alias python3install='sudo -H python3 -m pip install'
 
 # help package
 function pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
@@ -140,16 +142,21 @@ alias memcachedme='memcached -d -m 256 -u root -l localhost -c 256 -P /tmp/memca
 alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 
 ##################################################################
-## Matlab
+## Matlab && Octave
 ##################################################################
 alias mmatlabr="matlab -nosplash -nodesktop -r"  # mmatlabr '1 + 2'
 alias mmatlab="matlab -nosplash -nodesktop"  # 进入命令行
-alias mmatlabrs='test() { matlab -nosplash -nodesktop -nodisplay -r "$1" };test'  # mmatlabrs 1, 适合没有图像操作的
+alias mmatlabrs='test() { matlab -nosplash -nodesktop -nodisplay -r "$1" };test'  # mmatlabrs 1, 不要后缀, 适合没有图像操作的
 alias mmatlabrsgui='test() { matlab -r "$1" };test'  # mmatlabrsgui 1, 不要后缀, 适合有图形操作的, 会进入图形界面
 # -nosplash表示不加载启动界面
 # -nodesktop表示不加载GUI界面
 # -r表示运行Matlab命令行（MATLAB_command）
 # file_base_name表示文件名，但不包含文件扩展名
+alias moctave='octave --no-gui'  # 进入命令行, 比 Matlab 友好多了
+alias moctaveq='octave --no-gui -q'
+# alias moctaver='octave --no-gui'  # 因为 Octave 启动速度非常快, 所以就没有执行单条命令的 alias
+alias moctavers='octave --no-gui -q --persist'  # moctavers 1.m, 这个要带后缀
+alias moctaversgui='octave -q --persist'  # 带后缀
 
 ##################################################################
 ## player
@@ -318,6 +325,7 @@ alias sshrdoc='ssh -CNR 1080:localhost:1080 coder352@$(docker inspect -f "{{.Net
 ########################################
 ## Shadowsocks 后面两个是统计和显示流量 + Kcptun 加速
 ########################################
+alias sslog='tail /var/log/shadowsocks.log'
 # 搬瓦工自带 python
 alias stass="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.python.json -d start && exit"  # 这样默认是全局的, -d 会在后台运行
 alias stoss="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.python.json -d stop && exit"
@@ -330,7 +338,7 @@ alias stossgokcptun="sudo -S sslocal -c ~/.config/jshadowsocks/shadowsocks.go_kc
 alias stassgokcptunall='stakcp stassgokcptun'  # OnO...
 # kcptun 参考 断流: https://github.com/xtaci/kcptun/issues/218
 # 手动参数设定: https://github.com/xtaci/kcptun/issues/137
-alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 512 >/dev/null 2>&1 &'
+alias stakcp='nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18384" -l ":11080" -mode fast2 -mtu 512 >/dev/null 2>&1 &'
 # 有时候不行了就改 mtu, 512, 1024 两个换着来
 # function stakcp() { nohup ~/Downloads/client_linux_amd64 -r "45.78.9.29:18383" -l ":11080" -mode fast2 -mtu 256 >/dev/null 2>&1 & }
 alias showkcp="ps -ef | grep client_linux_amd64 | grep -v grep | awk '{print $2}'"  # 这里原意是只输出 PID, 可还是会输出整个命令, 也还行
@@ -451,6 +459,11 @@ alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
 ##################################################################
 alias ascii='man 7 ascii'
 alias msources='man 5 sources.list'
+
+##################################################################
+## Others: VIBes(法国高科)
+##################################################################
+alias vibesviewer='~/github/others/VIBES/viewer/build/VIBes-viewer'
 
 ##################################################################
 ## -s for zsh maybe error in bash

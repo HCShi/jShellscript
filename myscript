@@ -144,8 +144,8 @@ alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 ##################################################################
 alias mmatlabr="matlab -nosplash -nodesktop -r"  # mmatlabr '1 + 2'
 alias mmatlab="matlab -nosplash -nodesktop"  # 进入命令行
-alias mmatlabrs='test() { matlab -nosplash -nodesktop -nodisplay -r "$1" };test'  # mmatlabrs 1.m, 适合没有图像操作的
-alias mmatlabrsgui='test() { matlab -r "$1" };test'  # mmatlabrsgui 1.m, 适合有图形操作的, 会进入图形界面
+alias mmatlabrs='test() { matlab -nosplash -nodesktop -nodisplay -r "$1" };test'  # mmatlabrs 1, 适合没有图像操作的
+alias mmatlabrsgui='test() { matlab -r "$1" };test'  # mmatlabrsgui 1, 不要后缀, 适合有图形操作的, 会进入图形界面
 # -nosplash表示不加载启动界面
 # -nodesktop表示不加载GUI界面
 # -r表示运行Matlab命令行（MATLAB_command）

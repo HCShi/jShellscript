@@ -11,6 +11,7 @@ alias acrd='apt-cache rdepends'
 alias alied='apt list --installed'
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
+alias eng='emacs --debug-init'
 alias enw='emacs -nw'
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
@@ -27,6 +28,7 @@ export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 alias grep="grep -iI --color=always"  # google: grep exclude binary file || grep ignore spcific directory
 alias grepf='test() { find -iname $2 | xargs grep -riIn --color=always $1 };test'  # example: grepf hello "*.md"
 alias greps="grep -riIn --color=always"  # example: greps hell
+alias grepsd="grep -riIn --color=always --exclude-dir"  # example: grepsd .git hello
 alias grepsls='ls | grep'
 alias pdfgrepinr='test() { pdfgrep -inr $1 * };test'
 ju8(){
@@ -50,6 +52,7 @@ alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias wgetproxy='wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080'
 alias xopen="xdg-open"
+alias zd='youdao'
 
 ##################################################################
 ## Program Manage
@@ -202,6 +205,7 @@ alias cdjtemplatewebjavascriptwebgl="cd ~/github/jTemplate/web/javascript/webgl"
 alias cdjtemplatewebjquery="cd ~/github/jTemplate/web/jquery"
 alias cdjtemplatewebphp="cd ~/github/jTemplate/web/php"
 alias cdjtemplatewebwebgl="cd ~/github/jTemplate/web/webgl"
+alias cdjemacs='cd ~/github/jEmacs/emacsd'
 alias cdjvim="cd ~/github/jVim/vimrc"
 alias cdjvimhome="cd ~/.vim/jVim/vimrc"
 alias cdjvimlatex="cd ~/github/jVim/ftplugin/latex-suite/templates"

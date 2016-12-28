@@ -1,0 +1,14 @@
+##################################################################
+## fc
+##################################################################
+fc-list :lang=zh
+# /usr/share/fonts/opentype/noto/NotoSansCJK.ttc: Noto Sans CJK KR,Noto Sans CJK KR Bold:style=Bold,Regular
+# <字体文件路径>: <字体标示名1>, <字体表示名2>:Style=<字体类型>
+
+##################################################################
+## hostname /etc/hosts
+##################################################################
+# Linux 系统在向 DNS 服务器发出域名解析请求之前会查询 /etc/hosts 文件, 如果里面有相应的记录, 就会使用 hosts 里面的记录.
+# /etc/hosts 文件通常里面包含这一条记录
+# 127.0.0.1    localhost.localdomain   localhost
+# hosts 文件格式是一行一条记录, 分别是 IP 地址 hostname aliases, 三者用空白字符分隔, aliases 可选

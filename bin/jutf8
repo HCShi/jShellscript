@@ -6,21 +6,17 @@
 ##################################################################
 import argparse
 parser = argparse.ArgumentParser(
-    prog="jconvert",
+    prog="jutf8",
     formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
     description='''\
         Usage Example:
         --------------------------------
-        jconvert pdf jpg            # convert -density 600 file.pdf file.jpg (Current Dir)
-        jconvert pdf png            # convert -density 600 file.pdf file.png (Current Dir)
-        jconvert -r pdf jpg         # convert -density 600 file.pdf file.jpg (Current Dir and SubDir)
-        jconvert -r -d 100 pdf jpg  # convert -density 100 file.pdf file.jpg (Current Dir and SubDir)
+        jutf8 java     # iconv -f gbk -t utf-8 *.java > *.java.tmp
+        jutf8 -r java  # iconv -f gbk -t utf-8 *.java > *.java.tmp (Current Dir and SubDir)
         ''')
-parser.add_argument('string1', type=str, nargs='?', help='convert from string1')  # nargs='?', so the string1 can be empty
-parser.add_argument('string2', type=str, nargs='?', help='convert to string2')
+parser.add_argument('string', type=str, nargs='?', help='convert from string')  # nargs='?', so the string1 can be empty
 #  parser.add_argument('-r', action='store_true', help='decode the string [default]')
 parser.add_argument('-r', action='store_true', help='convert file.1 in current Dir adn SubDir to file.2')
-parser.add_argument('-d', type=int, help='convert -density [default 600]')
 
 parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
@@ -30,24 +26,32 @@ args = parser.parse_args()
 # encode & decode
 ##################################################################
 import os
+import chardet
 from os import system
-def convert(filetype1, filetype2, recursively, density):
+def conv(filetype, recursively):
     if recursively:
         for root, dirs, files in os.walk(os.getcwd()):  # 这样, root 返回的是 绝对路径, dirs 是当前目录下的文件夹, files 是当前路径下的文件
             for name in files:
-                if name.endswith(filetype1):
+                if name.endswith(filetype):
                     #  print name  # 子目录中的文件只显示文件名, 但是下面的路径会显示全
                     #  print os.path.join(root, name)
                     from_name = os.path.join(root, name)
-                    to_name = from_name.rsplit(filetype1)[0] + filetype2
-                    system('convert -density {} {} {}'.format(density, from_name, to_name))
+                    to_name = from_name + '.tmp'
+
+                    en = chardet.detect(open(from_name).read())
+                    if en['encoding'].startswith('GB') or en['encoding'].startswith('ISO-8859'):
+                        system('iconv -f gbk -t utf-8 {} > {}'.format(from_name, to_name))
+                        system('mv {} {}'.format(to_name, from_name))
     else:
         for name in os.listdir(os.getcwd()):  # 只处理当前目录
-            if name.endswith(filetype1):
+            if name.endswith(filetype):
                 from_name = os.path.join(os.getcwd(), name)
-                to_name = from_name.rsplit(filetype1)[0] + filetype2
+                to_name = from_name + '.tmp'
                 if os.path.isfile(os.path.join(from_name)):
-                    system('convert -density {} {} {}'.format(density, from_name, to_name))
+                    en = chardet.detect(open(from_name).read())
+                    if en['encoding'].startswith('GB') or en['encoding'].startswith('ISO-8859'):
+                        system('iconv -f gbk -t utf-8 {} > {}'.format(from_name, to_name))
+                        system('mv {} {}'.format(to_name, from_name))
 
 ##################################################################
 # main
@@ -58,11 +62,8 @@ if __name__ == "__main__":
         print args.autho
 
     recursively = 0
-    density = 600
     if args.r:
         recursively = 1
-    if args.d:
-        density = args.d
-    if args.string1 and args.string2:
-        convert(args.string1, args.string2, recursively, density)
+    if args.string:
+        conv(args.string, recursively)
 

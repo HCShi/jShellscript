@@ -1,6 +1,0 @@
-##################################################################
-## fc
-##################################################################
-fc-list :lang=zh
-# /usr/share/fonts/opentype/noto/NotoSansCJK.ttc: Noto Sans CJK KR,Noto Sans CJK KR Bold:style=Bold,Regular
-# <字体文件路径>: <字体标示名1>, <字体表示名2>:Style=<字体类型>

@@ -40,6 +40,7 @@ def convert(filetype1, filetype2, recursively, density):
                     #  print os.path.join(root, name)
                     from_name = os.path.join(root, name)
                     to_name = from_name.rsplit(filetype1)[0] + filetype2
+                    print "正在处理 " + from_name + " ..."
                     system('convert -density {} {} {}'.format(density, from_name, to_name))
     else:
         for name in os.listdir(os.getcwd()):  # 只处理当前目录
@@ -47,6 +48,7 @@ def convert(filetype1, filetype2, recursively, density):
                 from_name = os.path.join(os.getcwd(), name)
                 to_name = from_name.rsplit(filetype1)[0] + filetype2
                 if os.path.isfile(os.path.join(from_name)):
+                    print "正在处理 " + from_name + " ..."
                     system('convert -density {} {} {}'.format(density, from_name, to_name))
 
 ##################################################################

@@ -40,6 +40,7 @@ def conv(filetype, recursively):
 
                     en = chardet.detect(open(from_name).read())
                     if en['encoding'].startswith('GB') or en['encoding'].startswith('ISO-8859'):
+                        print "正在处理 " + from_name + " ..."
                         system('iconv -f gbk -t utf-8 {} > {}'.format(from_name, to_name))
                         system('mv {} {}'.format(to_name, from_name))
     else:
@@ -50,6 +51,7 @@ def conv(filetype, recursively):
                 if os.path.isfile(os.path.join(from_name)):
                     en = chardet.detect(open(from_name).read())
                     if en['encoding'].startswith('GB') or en['encoding'].startswith('ISO-8859'):
+                        print "正在处理 " + from_name + " ..."
                         system('iconv -f gbk -t utf-8 {} > {}'.format(from_name, to_name))
                         system('mv {} {}'.format(to_name, from_name))
 

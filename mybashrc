@@ -7,10 +7,14 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
+export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
+export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
+export PROJECT_HOME=$HOME/workspace  # virtualenvwrapper 的工作路径, mkproject 使用
+source /usr/local/bin/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
 ##################################################################

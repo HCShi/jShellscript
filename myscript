@@ -54,7 +54,7 @@ alias unzipo='unzip -O cp936'
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias wgetproxy='wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080'
 alias xopen="xdg-open"
-# alias zd='youdao'  # 界面有点丑, 但挺快
+# alias zd='youdao'  # 界面有点丑, 但挺快 sudo pip install youdaodict
 alias zd='python ~/github/others/ydcv/ydcv.py'  # zd hello, zd 'hello world'
 
 ##################################################################
@@ -132,10 +132,11 @@ alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pin
 # alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
 alias pyte='cd ~/Documents/thiscandel && vim te.py'
 
-# 安装 不用 sudo 权限容易有问题, -H 指定 HOME 目录为目标的
+# 安装 不用 sudo 权限容易有问题, -H 指定 HOME 目录为目标的, 默认是 阿里源
 alias pypyinstall='sudo -H pypy -m pip install'
 alias pythoninstall='sudo -H python -m pip install'
 alias python3install='sudo -H python3 -m pip install'
+alias pipali='pip install --index http://mirrors.aliyun.com/pypi/simple/'
 
 # help package
 function pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
@@ -279,7 +280,7 @@ alias gitsshno='mv ~/.ssh/config ~/.ssh/jconfig'
 alias gitgit='git config --global core.gitproxy "git-proxy"'  # 这个的意思是用上面两种代理中的一种
 alias gitgitno='git config --global --unset core.gitproxy'
 ##### 下面是 Github + Hexo + 七牛云
-alias qrsync="~/github/others/qrsync/qrsync"
+alias qrsync="~/github/others/qrsync/qrsync"  # 任意目录下执行
 
 ##################################################################
 ## Java && Opengl
@@ -441,6 +442,8 @@ alias docredhatssh='ssh -p 2233 root@localhost'  # 和上面那种方法相同, 
 
 alias docmssql="docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=My@Super@Secret' -p 1433:1433 -d microsoft/mssql-server-linux"
 alias docmssqlcli="sqlcmd -S localhost -U SA -P 'My@Super@Secret'"  # Install: https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools#ubuntu
+
+alias docdjango='docker run --name some-django-app -v "$PWD":/usr/src/app -w /usr/src/app -p 8000:8000 -d django bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"'
 
 alias docjubuntuv='docker run -i -t --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
 alias docjubuntu='docker run -i -t --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'

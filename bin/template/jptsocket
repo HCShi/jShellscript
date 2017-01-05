@@ -1,0 +1,83 @@
+#!/usr/bin/python
+#coding: utf-8
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="jsocket",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        Usage Example:
+        --------------------------------
+        jsocket
+        jsocket --easy
+        jsocket --hard
+        jsocket -l1
+        jsocket -l2  # 多线程
+        # 以上格式经测试正确, 其它格式出错了我不背锅
+
+        --------------------------------
+        一个 socket 快速练手的程序
+        ''')
+parser.add_argument('--easy', action='store_true', help='python simple socket [default]')
+parser.add_argument('-l1', action='store_true', help='same to easy')
+
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# copy to clipboard
+##################################################################
+def l1():
+    print """
+======================================== Server (bla sc)
+    import socket
+    sock = socket.socket()          # 可以不用声明 IPv4 和 TCP, 生成一个 socketobject, 和下面的 socke 类型相同
+    sock.bind(('127.0.0.1', 1234))  # 里面传的的 (元组)
+    sock.listen(4)                  # 设立最大连接数, 这句话必须有
+    while True:                     # 一般下面的 socke 会写成 conn, 但我认为那样不好, 很难想到 conn 和 socket 是同一种东西
+        socke, addr = sock.accept() # 阻塞式监听, 应该用一个 list/dict 来存放连接, socke 是一个新的 socket, 并且和客户端的 sock 不是同一个
+        print addr                  # addr 还是一个元组 ('127.0.0.1', 45678)
+        socke.send('hello')         # 数据传输
+        socke.close()               # 关闭 socket, type(socke) -> socket._socketobject
+======================================== Client (cr)
+    import socket
+    sock = socket.socket()
+    sock.connect(('127.0.0.1', 1234))
+    print sock.recv(1024)  # 必须指定缓冲大小
+"""
+def l2():
+    print """
+======================================== Server (客户端见 l1)
+    import socket
+    import threading
+    sock = socket.socket()
+    sock.bind(('127.0.0.1', 1234))
+    sock.listen(4)
+    while True:
+        socke, addr = sock.accept()
+        print addr
+        socke.send('hello')
+        socke.close()
+"""
+
+##################################################################
+# main
+##################################################################
+import sys
+if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+
+    if len(sys.argv) == 1:
+        l1()
+        exit(0)
+    if args.l1:
+        l1()
+        exit(0)
+    if args.easy:
+        l1()
+        exit(0)

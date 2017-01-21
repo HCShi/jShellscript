@@ -14,7 +14,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace  # virtualenvwrapper 的工作路径, mkproject 使用
-source /usr/local/bin/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
 ##################################################################

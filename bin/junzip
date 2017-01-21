@@ -1,0 +1,59 @@
+#!/usr/bin/python
+#coding: utf-8
+
+##################################################################
+# argparse
+##################################################################
+import argparse
+parser = argparse.ArgumentParser(
+    prog="junzip",
+    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
+    description='''\
+        Usage Example:
+        --------------------------------
+        junzip hello.zip  # 先双击打开确定预览有乱码
+        # 解压到当前目录, 和预览的效果相同
+        # 以上格式经测试正确, 其它格式出错了我不背锅
+
+        Shortcoming:
+        --------------------------------
+        ''')
+parser.add_argument('string', type=str, nargs='?', help='unzip the file')
+
+parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
+parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+args = parser.parse_args()
+
+##################################################################
+# unzip file
+##################################################################
+def unzip(s):
+    import os
+    import zipfile
+
+    #  print "Processing File " + sys.argv[1]
+    print "Processing File " + s
+    file = zipfile.ZipFile(s, "r")
+    for name in file.namelist():
+        utf8name = name.decode('gbk')
+        print "Extracting " + utf8name
+        pathname = os.path.dirname(utf8name)
+        if not os.path.exists(pathname) and pathname != "":
+            os.makedirs(pathname)
+        data = file.read(name)
+        if not os.path.exists(utf8name):
+            fo = open(utf8name, "w")
+            fo.write(data)
+            fo.close
+    file.close()
+
+##################################################################
+# main
+##################################################################
+import sys
+if __name__ == "__main__":
+    if args.autho:
+        print args.autho
+    if args.string:  # jclip 'hello' || jclip -o 'hello'
+        s = args.string
+    unzip(s)

@@ -1,3 +1,6 @@
+### 安装
+一定要把这个目录放到:
+~/github/jShellscript/bin/template/
 ### 介绍
 一些常用的快速编程
 在自己创建了 jTemplate 这个代码笔记类的 Git 项目后, 发现还是没时间看

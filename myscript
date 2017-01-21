@@ -46,6 +46,8 @@ alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias nau='nautilus .'
 alias rmlatex="rm *.log *.aux *.pdf"
+alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
+# shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
 alias suroot='sudo su root'
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias tes='texstudio'
@@ -146,6 +148,8 @@ function pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argpar
 ##################################################################
 alias npmhttp='sudo npm config set proxy http://localhost:1080 -g && sudo npm config set https-proxy http://localhost:1080 -g'
 alias npmnohttp='sudo npm config rm proxy -g'
+alias lnsbootstrap='ln -s ~/github/jCDN/bootstrap .'  # 进项目的根目录执行
+alias lnsjquery='ln -s ~/github/jCDN/jquery .'
 
 ##################################################################
 ## mysql, memcache
@@ -200,6 +204,7 @@ alias cdjserver="cd ~/github/jServer"
 alias cdjshellscript="cd ~/github/jShellscript"
 alias cdjshellscriptbin='cd ~/github/jShellscript/bin'
 alias cdjshellscriptbinctf='cd ~/github/jShellscript/bin/ctf'
+alias cdjshellscriptbintemplate='cd ~/github/jShellscript/bin/template'
 alias cdjshellscripttemplate="cd ~/github/jShellscript/template"
 alias cdjshellscripttemplatescript="cd ~/github/jShellscript/template/script/"
 alias cdjtemplate='cd ~/github/jTemplate'
@@ -218,9 +223,11 @@ alias cdjtemplatewebwebgl="cd ~/github/jTemplate/web/webgl"
 alias cdjemacs='cd ~/github/jEmacs/emacsd'
 alias cdjemacslisp='cd ~/github/jEmacs/emacsd/lisp'
 alias cdjvim="cd ~/github/jVim/vimrc"
-alias cdjvimhome="cd ~/.vim/jVim/vimrc"
+alias cdjvimhome="cd ~/.vim/jvim/vimrc"
 alias cdjvimlatex="cd ~/github/jVim/ftplugin/latex-suite/templates"
 alias cdjvimsnippets="cd ~/github/jVim/UltiSnips"
+alias cdjvscode="cd ~/github/jVSCode/User"
+alias cdjvscodehome="cd ~/.config/Code/User/"
 alias cdshare="cd /media/coder352/Documents/Share"
 alias cdshareshipin="cd /media/coder352/Documents/Share/视频/"
 alias cdshareshiyanlou="cd /media/coder352/Documents/Share/实验楼"

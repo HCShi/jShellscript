@@ -13,6 +13,7 @@ find -name *.py | xargs grep asdf  # 作为参数, 找 py 结尾的文件中的�
 findname "*.db" | xargs rm  # 删除子文件的指定文件
 findname "*sqlmap*" | xargs -I {} cp {} ~/del  # 将 xargs 的结果作为第一个参数, 第一个 {} 是声明占位符
 echo `python -c "print 'a'*24"`  # `` 将命令执行结果不变的返回  # aaaaaaaaaaaaaaaaaaaaaaaa
+find / -name virtualenvwrapper.sh  # 全局查找, 很给力
 
 ##################################################################
 ## 错误重定向

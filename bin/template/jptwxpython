@@ -6,20 +6,18 @@
 ##################################################################
 import argparse
 parser = argparse.ArgumentParser(
-    prog="jptsocket",
+    prog="jptwxpython",
     formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
     description='''\
         Usage Example:
         --------------------------------
-        jptsocket
-        jptsocket --easy
-        jptsocket --hard
-        jptsocket -l1
-        jptsocket -l2  # 多线程
+        jptwxpython
+        jptwxpython --easy
+        jptwxpython --hard
+        jptwxpython -l1    # simple frame
         # 以上格式经测试正确, 其它格式出错了我不背锅
 
         --------------------------------
-        一个 socket 快速练手的程序
         ''')
 parser.add_argument('--easy', action='store_true', help='python simple socket [default]')
 parser.add_argument('-l1', action='store_true', help='same to easy')
@@ -39,15 +37,11 @@ cfg.read(user_path + '/github/jShellscript/bin/template/config.ini')
 path = cfg.get('PATH', 'current_path')
 separator = cfg.get('MISC', 'separator')
 def l1():
-    print separator + ' Server (bla sc)'
-    f = open(path + '/src/jptsocket/l1_server.py')
+    print separator + ' frame'
+    f = open(path + '/src/jptwxpython/l1_simple_frame.py')
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
-    print separator + ' Client (cr)'
-    f = open(path + '/src/jptsocket/l1_client.py')
-    for line in f.readlines()[2:]:
-        print ' ' * 4 + line,
 def l2():
     pass
 
@@ -61,7 +55,10 @@ if __name__ == "__main__":
 
     if len(sys.argv) == 1:
         l1()
+        exit(0)
     if args.l1:
         l1()
+        exit(0)
     if args.easy:
         l1()
+        exit(0)

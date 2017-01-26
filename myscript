@@ -130,6 +130,12 @@ alias phex='test() { python -c "print hex(int(\"$1\"))" };test'  # example: phex
 alias pbin='test() { python -c "print bin(int(\"$1\"))" };test'  # example: pbin 16  # 0b10000
 alias poct='test() { python -c "print oct(int(\"$1\"))" };test'  # example: poct 16  # 020
 alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pint16 0x10  # 16  # int('string', base)
+
+# 生成随机字符
+prans() { python -c "import random, string; print ''.join(random.sample(string.ascii_letters, $1))" }  # prans 32
+pransd() { python -c "import random, string; print random.choice(string.ascii_letters) + \
+    ''.join(random.sample(string.ascii_letters + string.digits, int(\"$1\") - 1))" }  # 以字母开头, pransd 32
+
 # 普通运行
 # alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
 alias pyte='cd ~/Documents/thiscandel && vim te.py'
@@ -141,7 +147,12 @@ alias python3install='sudo -H python3 -m pip install'
 alias pipali='pip install --index http://mirrors.aliyun.com/pypi/simple/'
 
 # help package
-function pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
+pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
+
+##################################################################
+## IDE
+##################################################################
+alias pycharm='/home/coder352/JetBrains/pycharm-2016.3.2/bin/pycharm.sh'
 
 ##################################################################
 ## JavaScript
@@ -205,6 +216,7 @@ alias cdjshellscript="cd ~/github/jShellscript"
 alias cdjshellscriptbin='cd ~/github/jShellscript/bin'
 alias cdjshellscriptbinctf='cd ~/github/jShellscript/bin/ctf'
 alias cdjshellscriptbintemplate='cd ~/github/jShellscript/bin/template'
+alias cdjshellscriptbintemplatesrc='cd ~/github/jShellscript/bin/template/src'
 alias cdjshellscripttemplate="cd ~/github/jShellscript/template"
 alias cdjshellscripttemplatescript="cd ~/github/jShellscript/template/script/"
 alias cdjtemplate='cd ~/github/jTemplate'

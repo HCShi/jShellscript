@@ -18,6 +18,7 @@ parser = argparse.ArgumentParser(
         --------------------------------
         ''')
 parser.add_argument('-l1', action='store_true', help='md5 sha1 sha256 [default]')
+parser.add_argument('-l2', action='store_true', help='aes')
 
 parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
@@ -34,13 +35,17 @@ cfg.read(user_path + '/github/jShellscript/bin/template/config.ini')
 path = cfg.get('PATH', 'current_path')
 separator = cfg.get('MISC', 'separator')
 def l1():
-    print separator + ' demo'
-    f = open(path + '/src/jptpasswd/l1_sha_md5_base64.py')
+    print separator + ' l1_sha_md5_base64'
+    f = open(path + './src/jptpasswd/l1_sha_md5_base64.py'.lstrip('.'))
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
 def l2():
-    pass
+    print separator + ' aes'
+    f = open(path + './src/jptpasswd/l2_AES.py'.lstrip('.'))
+    for line in f.readlines()[2:]:  # 去掉开头两行相同的
+        print ' ' * 4 + line,
+    print
 
 ##################################################################
 # main
@@ -54,3 +59,5 @@ if __name__ == "__main__":
         l1()
     if args.l1:
         l1()
+    if args.l2:
+        l2()

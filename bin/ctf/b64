@@ -11,10 +11,12 @@ parser = argparse.ArgumentParser(
     description='''\
         Usage Example:
         --------------------------------
-        b64 -e hellojrp      # aGVsbG9qcnA=
-        b64 aGVsbG9qcnA=     # hellojrp
-        b64 -d aGVsbG9qcnA=  # hellojrp
-        b64 aGVsbG9qcnA= -d  # hellojrp
+        b64 -e hellojrp            # aGVsbG9qcnA=
+        b64 aGVsbG9qcnA=           # hellojrp, 输入参数默认是解密
+        b64 -d aGVsbG9qcnA=        # hellojrp
+        b64 aGVsbG9qcnA= -d        # hellojrp
+        echo 'aGVsbG9qcnA=' | b64  # hellojrp, 传参默认是解密
+        echo 'hellojrp' | b64 -e   # aGVsbG9qcnA=, 传参加密
         ''')
 parser.add_argument('string', type=str, nargs='?', help='decode the string')
 parser.add_argument('-d', action='store_true', help='decode the string [default]')
@@ -40,10 +42,22 @@ import sys
 if __name__ == "__main__":
     if args.autho:
         print args.autho
-
-    if len(sys.argv) == 2:  # morse .- 默认指定为 -d
+        exit(0)
+    if len(sys.argv) == 1:  # echo 'aGVsbG9qcnA' | jclip, 默认是解密
+        s = raw_input()
+        print decode(s)
+        exit(0)
+    if len(sys.argv) == 2 and args.e:
+        args.string = raw_input()  # echo 'aGVsbG9qcnA' | jclip -d
+        print encode(args.string)
+        exit(0)
+    if len(sys.argv) == 2 and args.string:  # b64 str 默认指定为 -d, 解密
         args.d = True
+        print decode(args.string)
+        exit(0)
     if args.e and args.string:
         print encode(args.string)
+        exit(0)
     if args.d and args.string:
         print decode(args.string)
+        exit(0)

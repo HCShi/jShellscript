@@ -4,6 +4,7 @@
 ## /etc/bash.bashrc
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export PATH=/home/${USER}/github/jLife/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH

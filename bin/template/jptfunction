@@ -6,24 +6,25 @@
 ##################################################################
 import argparse
 parser = argparse.ArgumentParser(
-    prog="jptspider",
+    prog="jptfunction",
     formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
     description='''\
         Usage Example:
         --------------------------------
-        jptspider
-        jptspider -l1
-        jptspider -l2
+        jptfunction
+        jptfunction -l1
+        jptfunction -l2
         # 以上格式经测试正确, 其它格式出错了我不背锅
 
         --------------------------------
-        一个 socket 快速练手的程序
         ''')
-parser.add_argument('-l1', action='store_true', help='(.*?) (\d+) findall search [default]')
-parser.add_argument('-l2', action='store_true', help='xpath')
-parser.add_argument('-l3', action='store_true', help='pool map request.get')
-parser.add_argument('-l4', action='store_true', help='headers cookies')
-parser.add_argument('-l5', action='store_true', help='re')
+parser.add_argument('-l1', action='store_true', help='random string')
+parser.add_argument('-l2', action='store_true', help='configparser')
+parser.add_argument('-l3', action='store_true', help='sys os')
+parser.add_argument('-l4', action='store_true', help='list tuple encode')
+parser.add_argument('-l5', action='store_true', help='dict json')
+parser.add_argument('-l6', action='store_true', help='prettytable termcolor')
+parser.add_argument('-l7', action='store_true', help='doc toy_grammer')
 
 parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
 parser.add_argument('--version', action='version', version='%(prog)s 1.0')
@@ -40,41 +41,47 @@ cfg.read(user_path + '/github/jShellscript/bin/template/config.ini')
 path = cfg.get('PATH', 'current_path')
 separator = cfg.get('MISC', 'separator')
 def l1():
-    print separator + ' (.*?) (\d+) findall search'
-    f = open(path + './src/jptspider/l1_re_findall_search_sub.py'.lstrip('.'))
+    print separator + ' random string'
+    f = open(path + '/src/jptfunction/l1_random_string.py')
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
 def l2():
-    print separator + ' html'
-    f = open(path + '/src/jptspider/l2.html')
-    for line in f.readlines()[1:]:  # 去掉开头
-        print ' ' * 4 + line,
-    print
-    print separator + ' xpath'
-    f = open(path + '/src/jptspider/l2_xpath.py')
-    for line in f.readlines()[2:]:  # 去掉开头
+    print separator + ' configparser'
+    f = open(path + './src/jptfunction/l2_configparser.py'.lstrip('.'))
+    for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
 def l3():
-    print separator + ' pool map request_get'
-    f = open(path + '/src/jptspider/l3_pool_map_request_get.py')
+    print separator + ' sys os'
+    f = open(path + './src/jptfunction/l3_sys_os.py'.lstrip('.'))
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
 def l4():
-    print separator + ' headers cookies'
-    f = open(path + '/src/jptspider/l4_headers_cookies.py')
+    print separator + ' list tuple'
+    f = open(path + './src/jptfunction/l4_list_tuple_pprint_encode.py'.lstrip('.'))
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
 def l5():
-    print separator + ' re'
-    f = open(path + './src/jptspider/l5_re.py'.lstrip('.'))
+    print separator + ' dict json'
+    f = open(path + './src/jptfunction/l5_dict_json.py'.lstrip('.'))
     for line in f.readlines()[2:]:  # 去掉开头两行相同的
         print ' ' * 4 + line,
     print
-
+def l6():
+    print separator + ' prettytable termcolor'
+    f = open(path + './src/jptfunction/l6_prettytable_termcolor.py'.lstrip('.'))
+    for line in f.readlines()[2:]:  # 去掉开头两行相同的
+        print ' ' * 4 + line,
+    print
+def l7():
+    print separator + ' doc toy_grammer'
+    f = open(path + './src/jptfunction/l7_doc_toy_grammar.py'.lstrip('.'))
+    for line in f.readlines()[2:]:  # 去掉开头两行相同的
+        print ' ' * 4 + line,
+    print
 
 ##################################################################
 # main
@@ -96,3 +103,7 @@ if __name__ == "__main__":
         l4()
     if args.l5:
         l5()
+    if args.l6:
+        l6()
+    if args.l7:
+        l7()

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # coding: utf-8
 from prettytable import *
 from termcolor import colored
@@ -15,7 +15,7 @@ row.add_row(["Brisbane", 5905, 1857594, 1146.4])
 row.add_row(["Melbourne", 1566, 3806092, 646.9])
 row.add_row([colored("Perth", 'red'), 5386, 1554769, 869.4])  # 这样改变颜色
 row.del_row(2)  # 没有排序时可以按插入的顺序删除
-print row
+print(row)
 
 # 通过列添加
 col = PrettyTable()
@@ -24,9 +24,9 @@ col.add_column("Area", [1295, 5905, 112, 1357, 2058])
 col.add_column("Population", [1158259, 1857594, 120900, 205556, 4336374])
 col.add_column("Annual Rainfall", [600.5, 1146.4, 1714.7, 619.5, 1214.8])
 col.del_row(4)  # 没有 del_column
-print col
+print(col)
 # 还可以行列混淆输入, 但不常用
 
 # 清空, row 和 col 相同
-print row.clear()       # output: None
-print row.clear_rows()  # output: None
+print(row.clear())       # output: None
+print(row.clear_rows())  # output: None

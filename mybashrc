@@ -11,6 +11,7 @@ export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
+export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/pythonpath
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量

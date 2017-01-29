@@ -121,6 +121,9 @@ alias pythonmsimpleserver="python ~/github/jShellscript/bin/MySimpleHTTPServer.p
 ##################################################################
 ## Python
 ##################################################################
+alias python='python3'
+alias bpython='bpython3'
+alias pip='pip3'
 # ascii 和 char 之间转换
 alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65  # ord(char/unichr)
 alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A  # chr(num)

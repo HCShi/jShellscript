@@ -6,9 +6,11 @@
 ### 命令行解析工具 优秀样例
 ``` zsh
 # argparse, 灵活, 功能较多 | 代码量大, 难学
-./jpassword  # 一个函数, 根据参数的不同分辨(用 click 更好)
-./ctf/b64  # 形式比较多
+./jpassword             # 一个函数, 根据参数的不同分辨(用 click 更好)
+./ctf/b64               # 形式比较多
+./template/jptfunction  # 让 argparse 重新焕发生机 ...
 
-# docopt, 珍爱生命, 原离 argparse
-./template/jptinteresting  # 为了和 argparse 区别, 开始使用 -abcdefg...
+# docopt, 珍爱生命, 远离 argparse
+# 同时纪念一下开始 python 3
+
 ```

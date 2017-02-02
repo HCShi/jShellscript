@@ -1,29 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
-from jtemplate import template_print, template_argparse
-import os  # 每次只要改下面的路径就可以了, 可以适当的在 template_argparse 中添加评论
-dir_path = os.path.expanduser('~') + '~/github/jShellscript/bin/template/src/jptfunction'.lstrip('~')
-##################################################################
-# argparse
-##################################################################
+from jtemplate import template_argparse, template_main, template_dir_path, template_generate_func
+dir_path = template_dir_path()
 args = template_argparse(dir_path)
-
-##################################################################
-# 装饰器 生成 l1(), l2(), l3() ...
-##################################################################
-for pre in [x.split('_')[0] for x in os.listdir(dir_path) if x.endswith('py')]:
-    @template_print
-    def _f(url): pass
-    globals()[pre] = _f
-    del _f
-
-##################################################################
-# main
-##################################################################
-import sys
+template_generate_func(dir_path)
 if __name__ == "__main__":
-    if args.autho:  # -h --version 这些不会执行这些 if 判断
-        print(args.autho)
-        exit(0)
-    if len(sys.argv) == 1: sys.argv[1] = '-l1'
-    getattr(sys.modules[__name__], sys.argv[1].lstrip('-'))(dir_path, sys.argv[1].lstrip('-'))
+    template_main(args, dir_path)

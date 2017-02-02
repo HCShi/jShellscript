@@ -10,6 +10,20 @@
 # 在Bash的仿真模式下, 可以使用与Bash相同的语法和命令集合, 从而达到近乎完全兼容的目的。为了激活对Bash的仿真, 需要显式执行
 
 ##################################################################
+## for tmux
+##################################################################
+# precmd () {
+#     if [ -n "$TMUX" ]; then
+#         if [ -n "$VIM" ]; then
+#             echo 'helo'
+#         else
+#             tmux set-window-option -q window-status-format "#[bg=cyan, fg=#ffffff] [#I] ${PWD##/*/}"
+#             tmux set-window-option -q window-status-current-format "#[fg=#ffffff, bg=black, bold] *[#I] ${PWD##/*/}*"
+#         fi
+#     fi
+# }
+
+##################################################################
 ## 当上一条命令忘记加 sudo 时, 按两次 ESC 就行了
 ##################################################################
 sudo-command-line() {

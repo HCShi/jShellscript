@@ -121,9 +121,9 @@ alias pythonmsimpleserver="python ~/github/jShellscript/bin/MySimpleHTTPServer.p
 ##################################################################
 ## Python
 ##################################################################
-alias python='python3'
-alias bpython='bpython3'
-alias pip='pip3'
+# alias python='python3'
+# alias bpython='bpython3'
+# alias pip='pip3'
 # ascii 和 char 之间转换
 alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65  # ord(char/unichr)
 alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A  # chr(num)
@@ -243,6 +243,7 @@ alias cdjvimlatex="cd ~/github/jVim/ftplugin/latex-suite/templates"
 alias cdjvimsnippets="cd ~/github/jVim/UltiSnips"
 alias cdjvscode="cd ~/github/jVSCode/User"
 alias cdjvscodehome="cd ~/.config/Code/User/"
+alias cdjwebtemplatesrc='cd ~/github/jWeb/template/src'
 alias cdshare="cd /media/coder352/Documents/Share"
 alias cdshareshipin="cd /media/coder352/Documents/Share/视频/"
 alias cdshareshiyanlou="cd /media/coder352/Documents/Share/实验楼"
@@ -408,7 +409,7 @@ alias dattach='docker attach'
 alias dcp='docker cp'
 # alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm centurylink/dockerfile-from-image"
 alias dexecit='docker exec -i -t'  # dexecit ubuntu /bin/bash 在已经运行的 container 上在开一个 bash
-alias dimages='docker images'
+alias dimages='docker images'  # 查看所有镜像
 alias dinspect='docker inspect'
 alias dinspectfid="docker inspect -f '{{.Id}}'"
 alias dinspectfimage="docker inspect -f '{{.Config.Image}}'"
@@ -418,8 +419,8 @@ alias dkill='docker kill'
 alias dkilla='docker kill $(docker ps -q)'
 alias dnetworkinspect='docker network inspect'
 alias dnetworkinspectf="docker network inspect -f '{{range $con :=.IPAM.Config}} {{$con.Subnet}} {{end}}'"  # 不知道为什么错
-alias dps='docker ps'
-alias dpsa='docker ps -a'
+alias dps='docker ps'  # 后台运行容器
+alias dpsa='docker ps -a'  # 后台所有容器
 alias dpull='docker pull'
 alias drm='docker rm'
 alias drma='docker rm $(docker ps -a -q)'
@@ -428,7 +429,7 @@ alias drunit='docker run -i -t'
 alias drunitrm='docker run -i -t --rm'  # -it 分开写, 要不然就没有补全了
 alias drunitrmp='docker run -i -t --rm -p 80:80 -p 3306:3306'
 # alias drunitrmsh='test() { docker run -i -t --rm $1 /bin/bash };test'  # 只要 run 后面 加 sh 或 /bin/bash, 就能进入 CLI
-alias dstart='docker start -i'
+alias dstart='docker start -i'  # 打开一个已经关闭的容器
 alias dstop='docker stop'
 
 # docker-compose dc开头
@@ -469,6 +470,9 @@ alias docdjango='docker run --name some-django-app -v "$PWD":/usr/src/app -w /us
 
 alias docjubuntuv='docker run -i -t --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
 alias docjubuntu='docker run -i -t --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
+alias docjubuntualias='docker run -i -t -u coder352 -w /home/coder352 --rm \
+    -v /home/coder352/.config/shellscript/myscript:/home/coder352/myscript \
+    coder352/ubuntu:16.04 /bin/bash -c "echo \". /home/coder352/myscript\" >> /home/coder352/.bashrc \'
 alias docjubuntuvim='docker run -i -t --rm --name some-ubuntu-vim \
     -v /home/coder352/Documents/thiscandel/vim/vimrc:/home/coder352/.vimrc:rw \
     -v /home/coder352/.config/shellscript/myscript:/home/coder352/myscript:ro \

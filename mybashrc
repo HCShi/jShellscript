@@ -9,6 +9,7 @@ export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH
+export PATH=/home/${USER}/github/jWeb/template:$PATH
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/pythonpath
@@ -16,6 +17,8 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace  # virtualenvwrapper 的工作路径, mkproject 使用
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
@@ -46,6 +49,8 @@ else
         $cmd new -d -n normal -s $session            # 最后的 "" 中的都是命令
         # $cmd splitw -v -p 20 -t $session "pry"  # 创建窗口 1，并分为上下两个窗格，其中上窗格占 80% 空间，运行 Vim，下窗格占 20% 空间，运行 Pry
         # $cmd neww -n mutt -t $session "mutt"    # 创建窗口 2，运行 Mutt
+        # 下面这句话并没有用
+        $cmd set -g automatic-rename-format '#(pwd="#{pane_current_path}"; echo ${pwd####*/})'
         $cmd att -t $session                      # 第二个终端就不会进入 tmux 了, 最后才能进入 tmux
     fi
 fi

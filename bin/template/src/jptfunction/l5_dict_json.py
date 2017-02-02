@@ -5,6 +5,8 @@ import json
 # 格式化
 print(json.dumps([{'a': "A"}], indent=2))  # type(json) 是 str
 print('\n'.join([x + ': ' +  y for x, y in {'a': 'A', 'b': 'B'}.items()]))
+for x, y in {'a': 'A', 'b': 'B'}.items(): print(str(x) + ':\t' + str(y))  # 有时候上面那种方法在 [] 列表化时类型问题报错
+import pprint; pprint.pprint({'a': {'b': 'B'}}, indent=1)  # 效果不是很好
 
 # file  # {"normal_count": 1} 带缩进的, 如果是 [{"normal_count": 1}], 下面就是 str 了
 print(json.loads('{"a": "A"}'))  # 将 python str 类型转化为 python dict

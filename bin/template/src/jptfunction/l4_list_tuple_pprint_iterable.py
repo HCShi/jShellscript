@@ -16,6 +16,11 @@ import sys, pprint;
 pprint.pprint(sys.path, indent=4)  # 另一种自动格式化的输出方法
 st = pprint.pformat(sys.path)  # 将 pprint 的输出重定向到变量
 
+# 去重
+lis = [1, 3, 2, 2, 4]; from functools import reduce
+print(list(set(lis)))  # 没有保持原来的顺序
+print(reduce(lambda x, y: x if y in x else x + [y], lis, []))  # 保持原来顺序
+
 # 可以直接作用于 for 循环的对象统称为可迭代对象: Iterable, 包括两类
 # 一类是集合数据类型, 如 list、tuple、dict、set、str 等, 一类是 generator, 包括生成器和带 yield 的 generator function
 from collections import Iterable; print(isinstance([], Iterable))  # 判断是否是 Iterable

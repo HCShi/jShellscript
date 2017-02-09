@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
+# asyncio 可以实现单线程并发 IO 操作. 如果仅用在客户端, 发挥的威力不大. 如果把 asyncio 用在服务器端
+# 例如 Web 服务器, 由于 HTTP 连接就是 IO 操作, 因此可以用单线程 +coroutine 实现多用户的高并发支持.
+# asyncio实现了TCP、UDP、SSL等协议, aiohttp则是基于asyncio实现的HTTP框架
 import asyncio
 from aiohttp import web
 async def index(request):

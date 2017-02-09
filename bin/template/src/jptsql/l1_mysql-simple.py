@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
+# sudo apt install ython3-mysqldb
 import MySQLdb as mdb
 db = mdb.connect(host='127.0.0.1', user='root', password='root', db='myapp')
 cursor = db.cursor()                      # 创建游标

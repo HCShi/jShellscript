@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
+import time
+time.sleep(1)  # 程序暂停
+
 from datetime import datetime
 print(datetime.now())  # 当前时间
 print(datetime(2015, 4, 19, 12, 20))  # 2015-04-19 12:20:00, 年月日时分

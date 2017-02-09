@@ -9,6 +9,7 @@ export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH
+export PATH=/home/${USER}/github/jShellscript/template:$PATH
 export PATH=/home/${USER}/github/jWeb/template:$PATH
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH

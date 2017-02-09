@@ -221,7 +221,7 @@ alias cdjshellscriptbinctf='cd ~/github/jShellscript/bin/ctf'
 alias cdjshellscriptbintemplate='cd ~/github/jShellscript/bin/template'
 alias cdjshellscriptbintemplatesrc='cd ~/github/jShellscript/bin/template/src'
 alias cdjshellscripttemplate="cd ~/github/jShellscript/template"
-alias cdjshellscripttemplatescript="cd ~/github/jShellscript/template/script/"
+alias cdjshellscripttemplatesrc="cd ~/github/jShellscript/template/src"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
 alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
@@ -450,6 +450,7 @@ alias docmysqlserver="docker run --name some-mysql \
     -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7"  # 启动 Mysql 服务端, 端口 3306, Server 是打不开 CLI 的
 # 后台默认执行 mysqld --verbose --help, server端其实不用挂 share, client 端挂就行了
 # mysql -h 127.0.0.1 -u root -p 就可以通过 host 连接 mysql, 或者如果没装 mysql-client 的话, 用下面那条 alias
+# alias logmysql = mysql -h 127.0.0.1 ...
 alias docmysqlcli='exec docker run -it \
     -v /home/coder352/Documents/thiscandel/share:/j \
     --link some-mysql:mysql --rm mysql:5.7 sh -c \
@@ -501,8 +502,9 @@ alias gephi='~/github/others/gephi-0.9.1/bin/gephi'
 ########################################
 # 无线AP
 ########################################
-alias stawf="echo '$mypassword' | sudo ap-hotspot start"
-alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
+# alias stawf="echo '$mypassword' | sudo ap-hotspot start"  # Ubuntu 16.04 已经不好用了
+# alias stowf="echo '$mypassword' | sudo ap-hotspot stop"
+alias mcreate_ap="sudo create_ap wlp3s0 wlp3s0 jrp 123456jrp"  # github, oblique/create_ap 有安装步骤
 
 ##################################################################
 ## tips

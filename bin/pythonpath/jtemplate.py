@@ -21,6 +21,8 @@ def template_print(filetype='py'):  # 装饰器
                 print(separator + ' ' + f_name)  # 第一行的分隔符
                 if filetype == 'py':
                     print('\n'.join([' ' * 4 + line.rstrip('\n') for line in open(args[0] + '/' + f_name).readlines()[2:]]))  # 去掉开头两行相同的
+                elif filetype == 'sh':
+                    print('\n'.join([' ' * 4 + line.rstrip('\n') for line in open(args[0] + '/' + f_name).readlines()[1:]]))  # 去掉开头一行相同的
                 elif filetype == 'html':
                     print('\n'.join([' ' * 2 + line for line in \
                                      re.split(r'<body>|</body>', open(args[0] + '/' + f_name).read())[1].strip('\n').split('\n')]))
@@ -37,6 +39,8 @@ def template_generate_func(dir_path, filetype='py'):  # 根据文件夹中的文
 def template_dir_path(filetype='py'):  # 得到根据执行的文件名得到对应的文件夹的位置, 必须通过调用的文件生成
     if filetype == 'py':
         return os.path.expanduser('~') + '~/github/jShellscript/bin/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
+    if filetype == 'sh':
+        return os.path.expanduser('~') + '~/github/jShellscript/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
     elif filetype == 'html':
         return os.path.expanduser('~') + '~/github/jWeb/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
 

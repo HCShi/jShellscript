@@ -12,6 +12,7 @@ hello(name='jrp')  # []['name=jrp']
 
 print('hello {}, {}'.format('jrp', 'beijing')), ('hello %s, %s' % ('jrp', 'beijing'))
 print(r'\\\\t')  # r 内部字符串不转义
+print(b'A' == 'A', b'A' == b'\x41')  # False, True
 print('''hello
     world'''); print('hello\nworld')  # 两种换行方式
 print('ab' in ['ab', 'cd'])

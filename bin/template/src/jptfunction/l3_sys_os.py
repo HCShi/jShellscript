@@ -16,3 +16,4 @@ os.chdir('/home/coder352/')  # 切换目录
 
 import sys
 print(sys.path)  # 当前 python 的模板路径
+sys.stdout.write(str(99) + '\n')  # print() 可以自动转化为 str, 并且带 \n

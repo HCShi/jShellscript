@@ -15,6 +15,8 @@ print('\n'.join(['{!s:<10}{!s:<20}{!s:<}'.format(a, b, c) for (a, b, c) in list(
 import sys, pprint;
 pprint.pprint(sys.path, indent=4)  # 另一种自动格式化的输出方法
 st = pprint.pformat(sys.path)  # 将 pprint 的输出重定向到变量
+print("%s\n %-*s | %-*s | %-*s \n%s" % ("-" * 33, 6, "WIFIID", 13, "SSID OR BSSID", 6, "KEYNUM", "=" * 33))  # 类似于 prettytable
+print('%s %%' % 'hello')  # 一个占位符, 后面不用加括号; %% 对 % 进行转义
 
 # 去重
 lis = [1, 3, 2, 2, 4]; from functools import reduce
@@ -27,3 +29,12 @@ from collections import Iterable; print(isinstance([], Iterable))  # 判断是�
 # 可以被 next() 函数调用并不断返回下一个值的对象称为迭代器: Iterator
 # 生成器都是 Iterator 对象, 但 list、dict、str 虽然是 Iterable, 却不是 Iterator. 可以用 iter() 函数进行转换
 from collections import Iterator; print(isinstance((x for x in range(10)), Iterator), isinstance(iter([]), Iterable))
+
+import itertools
+for n in itertools.count(2):
+    if(n == 5): break;  # 会创建一个无限的迭代器, 从 传入参数开始 打印自然数序列
+    print(n)
+# for n in itertools.cycle('ABC'): print(n)  # 字符 'A', 'B', 'C' 循环输出
+for n in itertools.repeat('A', 3): print(n)  # 重复某一个字符, 可控制次数
+
+

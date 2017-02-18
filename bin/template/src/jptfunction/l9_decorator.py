@@ -12,6 +12,7 @@ def log(func):
 @log
 def now(): print('hello')
 now()  # call now(): hello
+print(now.__name__)  # wrapper, 已经把名字改了, 可以通过下面的方式改回来
 
 # 三层装饰器, 如果 decorator 本身需要传入参数, 那就需要编写一个返回 decorator 的高阶函数, 写出来会更复杂, 比如, 要自定义log的文本
 def log(text):  # 为了传一个参数, 加一层闭包

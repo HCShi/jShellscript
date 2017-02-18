@@ -1,0 +1,15 @@
+graph node_settings {
+    // DOT中, 节点可以不用声明直接使用; 每个节点首次出现的名称做为该节点的唯一标识
+    // 属性设置: 对节点可以设置的常见通用属性有 shape、label、style、color、fillcolor、rank 等
+    // 对于不同的形状, 可能还有不同的属性可以设置, 如对于多边形可以设置边数等
+    // 节点属性设置时, node 用于设置默认属性(对设置位置之后的点有效), 在点后面用[]设置单独一个点的属性
+    node [shape = "box", style = "filled", color = "black", fillcolor = "green"]  // 设置节点的默认形状, 类型, 颜色, 填充颜色
+    a [shape = "ellipse", color = "red", label = "this is a"]  // 设置节点a的颜色, 注意默认节点类型是filled, 所以这里的color只是设置a的边框颜色
+    b [label = "two\nlines"]  // label 支持 '\n' 换行
+    a -- b
+    a -- c  // 如果不需要设置 c 的属性, 可以不用声明 c 而直接使用
+    node [shape = "circle"]
+    d [label = "cicle"]
+    c -- d  // d 使用之前最后出现的 node 设置, 形状为 circle
+    {rank = same a, d}  // 设置 a 和 d 在同一层
+}

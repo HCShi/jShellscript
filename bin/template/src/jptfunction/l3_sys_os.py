@@ -1,10 +1,11 @@
 #!/usr/bin/python
 # coding: utf-8
 import os
-# os.walk(), os.system(), os.path.join(), os.chdir(), os.getcwd(), os.listdir()
+# os.walk(), os.system(), os.path.join(), os.chdir(), os.getcwd(), os.expanduser(), os.listdir()
 os.system('pwd')  # 执行 terminal 命令
 print(os.getcwd())  # 得到当前路径
 print(os.path.expanduser('~'))  # 当前家目录
+print(os.path.abspath('.'))  # 当前的绝对路径
 for root, dirs, files in os.walk(os.getcwd()):  # 递归遍历当前目录
     print(root, dirs, files)  # 根据上面的语句决定, 所有目录的名字(没有为空), 所有文件的名字
     print([os.path.join(root, name) for name in dirs])  # 目录的绝对路径

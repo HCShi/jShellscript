@@ -1,14 +1,17 @@
 #!/usr/bin/python
 # coding: utf-8
-def hello(*args, **kw):  # args 传的是 list, kw 传的是 dict
-    """hello"""
-    print([x for x in args], end="")
-    print([key + '=' + value for key, value in kw.items()])
-print(hello.__doc__)
-# print(help(str)), (dir(str))  # 帮助文档, 属性
+print(help(str)), (dir(str))  # 帮助文档, 属性
+class Jrp():
+    def hello(*args, **kw):  # args 传的是 list, kw 传的是 dict
+        """hello"""
+        print([x for x in args], end="")
+        print([key + '=' + value for key, value in kw.items()])
+jrp = Jrp()
+print(jrp.hello.__doc__)
 print('123'.__len__())  # 等同于 len(str)
-hello('hello', 'world')  # ['hello', 'world'][]
-hello(name='jrp')  # []['name=jrp']
+jrp.hello('hello', 'world')  # ['hello', 'world'][]
+jrp.hello(name='jrp')  # []['name=jrp']
+print(jrp.__class__, jrp.__class__.__name__)  # <class '__main__.Jrp'> Jrp
 
 print('hello {}, {}'.format('jrp', 'beijing')), ('hello %s, %s' % ('jrp', 'beijing'))
 print(r'\\\\t')  # r 内部字符串不转义

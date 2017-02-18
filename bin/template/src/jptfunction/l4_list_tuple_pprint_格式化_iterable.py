@@ -36,5 +36,3 @@ for n in itertools.count(2):
     print(n)
 # for n in itertools.cycle('ABC'): print(n)  # 字符 'A', 'B', 'C' 循环输出
 for n in itertools.repeat('A', 3): print(n)  # 重复某一个字符, 可控制次数
-
-

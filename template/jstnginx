@@ -1,0 +1,8 @@
+#!/usr/bin/python3
+# coding: utf-8
+from jtemplate import template_argparse, template_main, template_dir_path, template_generate_func
+dir_path = template_dir_path(filetype='sh')
+args = template_argparse(dir_path, filetype='sh')
+template_generate_func(dir_path, filetype='sh')
+if __name__ == "__main__":
+    template_main(args, dir_path)

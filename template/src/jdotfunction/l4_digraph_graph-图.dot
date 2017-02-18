@@ -1,0 +1,27 @@
+digraph graph_settings {
+    // 从前面的例子中已经可以看出, DOT 语言可以描述无向图和有向图两种图, graph 标识无向图, digraph 标识有向图
+    // 属性设置: 在一个图的开头写入属性即可设置图形的属性, 常用的图形属性有 size、label、labelloc、labeljust、bgcolor、rankdir 等
+    // 子图, 可以进行和 "父图" 类似的设置, 唯一注意的是子图必须以 "cluster" 做为名称的开始
+    start [shape = "Mdiamond"]  // 生命 start end 节点及其形状
+    end [shape = "Msquare"]
+
+    subgraph cluster_sub1 {
+        label = "process #1"
+        labelloc = "t"
+        bgcolor = "gray55"
+        node [style = "filled", color = "white"]
+        a0 -> a1 -> a2 -> a3 -> a0
+    }
+    subgraph cluster_sub2 {
+        label = "process #2"
+        labelloc = "t"
+        color = "blue"
+        node [style = "filled", color = "black", fillcolor = "gray55"]
+        b0 -> b1 -> b2 -> b3
+    }
+
+    start -> {a0, b0}
+    a1 -> b3
+    b2 -> a3
+    {a3, b3} -> end
+}

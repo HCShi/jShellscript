@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # coding: utf-8
 # 这就是传说中的ORM技术: Object-Relational Mapping, 把关系数据库的表结构映射到对象上, 在 Python 中, 最有名的 ORM 框架是 SQLAlchemy
+# 一个表映射成一个类, 一行映射为一个对象
 from sqlalchemy import Column, String, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -9,7 +10,7 @@ class User(Base):                              # 定义 User 对象
     __tablename__ = 'user'                     # 表的名字
     id = Column(String(20), primary_key=True)  # 表的结构 id, name
     name = Column(String(20))
-engine = create_engine('mysql+mysqlconnector://root:root@localhost:3306/test')  # 初始化数据库连接
+engine = create_engine('mysql+mysqlconnector://root:root@localhost:3306/test')  # 初始化数据库连接, 需要安装 python3-mysql.connector
 DBSession = sessionmaker(bind=engine)                                           # 创建 DBSession 类型
 # create database test && create table user (id varchar(20) primary key, name varchar(20))
 # '数据库类型+数据库驱动名称://用户名:口令@机器地址:端口号/数据库名'

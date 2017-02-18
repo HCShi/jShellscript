@@ -116,7 +116,6 @@ alias loghexo='google-chrome http://localhost:4000'
 
 # Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
-alias pythonmsimpleserver="python ~/github/jShellscript/bin/MySimpleHTTPServer.py"  # 仅开启本地8000端口
 
 ##################################################################
 ## Python
@@ -158,19 +157,24 @@ pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
 alias pycharm='/home/coder352/JetBrains/pycharm-2016.3.2/bin/pycharm.sh'
 
 ##################################################################
-## JavaScript
+## JavaScript, ln -s
 ##################################################################
 alias npmhttp='sudo npm config set proxy http://localhost:1080 -g && sudo npm config set https-proxy http://localhost:1080 -g'
 alias npmnohttp='sudo npm config rm proxy -g'
-alias lnsbootstrap='ln -s ~/github/jCDN/bootstrap .'  # 进项目的根目录执行
-alias lnsjquery='ln -s ~/github/jCDN/jquery .'
+alias lnsbootstrap='ln -s ~/github/jWeb/CDN/bootstrap .'  # 进项目的根目录执行
+alias lnsjquery='ln -s ~/github/jWeb/CDN/jquery .'
+alias lnspure='ln -s ~/github/jWeb/CDN/pure .'
+alias lnsuikit='ln -s ~/github/jWeb/CDN/uikit .'
+alias lnsvue='ln -s ~/github/jWeb/CDN/vue .'
+alias lnsimage='ln -s ~/github/jImage .'
 
 ##################################################################
-## mysql, memcache
+## mysql, memcache, redis
 ##################################################################
 alias logmysql='mysql -h 127.0.0.1 -u root -p'
 alias memcachedme='memcached -d -m 256 -u root -l localhost -c 256 -P /tmp/memcached.pid'  # 开启 Memcached
 alias telmemcached='telnet localhost 11211'  # 默认是11211端口
+# redis-cli 就可以直接连接本地的数据库了, apt install redis-tools
 
 ##################################################################
 ## Matlab && Octave
@@ -201,7 +205,9 @@ alias mpm="ls > music.lst"
 ########################################
 alias cddel="cd ~/Documents/thiscandel"
 alias cdesktop='cd ~/Desktop'  # cddesktop 会和 cddel 冲突
-#alias cdhtml="cd /media/coder352/文档/HTML"
+# alias cdhistory="cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'`"
+cdhistory() { cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'` }  # 已弃用, 刚写出来就弃用了
+# alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
 alias cdjhexo="cd ~/github/jHexo"
@@ -450,12 +456,15 @@ alias docmysqlserver="docker run --name some-mysql \
     -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7"  # 启动 Mysql 服务端, 端口 3306, Server 是打不开 CLI 的
 # 后台默认执行 mysqld --verbose --help, server端其实不用挂 share, client 端挂就行了
 # mysql -h 127.0.0.1 -u root -p 就可以通过 host 连接 mysql, 或者如果没装 mysql-client 的话, 用下面那条 alias
+# 要等会才能连上, 等后台服务起来了
 # alias logmysql = mysql -h 127.0.0.1 ...
 alias docmysqlcli='exec docker run -it \
     -v /home/coder352/Documents/thiscandel/share:/j \
     --link some-mysql:mysql --rm mysql:5.7 sh -c \
     "mysql -h $(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-mysql) -P 3306 -u root -proot"'  # 在已经打开的 docker 上开 Client
 # 上面最外层一定要用单引号, -proot, 好尴尬, 这个第一次用的时候会退出, 在打开就好了
+
+alias docredis='docker run -p 6379:6379 --name some-redis -d redis:3'
 
 # 这里使用的 打开SSH服务 的方法, 跟 exec 的方法不太一样了
 alias docredhat='docker run --name some-redhat9 -p 2233:22 -i -t -d apiemont/redhat9 /bin/bash -c \
@@ -469,12 +478,14 @@ alias docmssqlcli="sqlcmd -S localhost -U SA -P 'My@Super@Secret'"  # Install: h
 
 alias docdjango='docker run --name some-django-app -v "$PWD":/usr/src/app -w /usr/src/app -p 8000:8000 -d django bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"'
 
-alias docjubuntuv='docker run -i -t --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
-alias docjubuntu='docker run -i -t --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
-alias docjubuntualias='docker run -i -t -u coder352 -w /home/coder352 --rm \
+alias docmininet='docker run -i -t --privileged barbaracollignon/ubuntu-mininet'  # mininet 不加 privileged 就无法用 sudo mn
+
+alias docjubuntuv='docker run -i -t --privileged --rm -v /home/coder352/:/home/coder352/ -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
+alias docjubuntu='docker run -i -t --privileged --rm -u coder352 -w /home/coder352 coder352/ubuntu:16.04'
+alias docjubuntualias='docker run -i -t --privileged -u coder352 -w /home/coder352 --rm \
     -v /home/coder352/.config/shellscript/myscript:/home/coder352/myscript \
     coder352/ubuntu:16.04 /bin/bash -c "echo \". /home/coder352/myscript\" >> /home/coder352/.bashrc \'
-alias docjubuntuvim='docker run -i -t --rm --name some-ubuntu-vim \
+alias docjubuntuvim='docker run -i -t --privileged --rm --name some-ubuntu-vim \
     -v /home/coder352/Documents/thiscandel/vim/vimrc:/home/coder352/.vimrc:rw \
     -v /home/coder352/.config/shellscript/myscript:/home/coder352/myscript:ro \
     -v /home/coder352/Documents/thiscandel/vim:/home/coder352/.vim:rw \
@@ -516,6 +527,11 @@ alias msources='man 5 sources.list'
 ## Others: VIBes(法国高科)
 ##################################################################
 alias vibesviewer='~/github/others/VIBES/viewer/build/VIBes-viewer'
+
+##################################################################
+## 零碎的
+##################################################################
+alias jpasswordqq='jpassword qq | jclip'
 
 ##################################################################
 ## -s for zsh maybe error in bash

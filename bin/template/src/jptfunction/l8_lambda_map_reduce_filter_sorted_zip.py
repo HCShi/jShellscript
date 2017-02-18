@@ -4,6 +4,7 @@ fn = lambda x: x * x; print(fn(3))  # 匿名函数
 from functools import reduce
 # map() 接收两个参数, 函数 和 Iterable, map() 将传入的函数依次作用到序列的每个元素, 并把结果作为新的 Iterator 返回
 print(list(map(lambda x: x * x, list(range(1, 4)))))  # [1, 4, 9], Iterator 是惰性序列, list() 让它把整个序列都计算并返回一个 list
+day, month, year = map(int, '2017-02-10'.split('-')); print(day, month, year)
 
 # reduce() 接收两个参数, 函数 和 Iterable, reduce() 把函数作用在一个序列 [x1, x2, x3, ...] 上, reduce 把结果继续和序列的下一个元素做累积计算
 # reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
@@ -27,3 +28,4 @@ print(list(zip(range(1, 3), range(3, 5))))
 # 2. map(), filter(), reduce() 三个函数的参数都是 (fn, Iterable)
 # 3. map(), filter(), zip(), range() 四个函数的返回值是 惰性的Iterable, 使用时没区别, 打印时需要 list(), ''.join() 的强制转型
 # 4. 函数原型: map(lambda x:, Iterable), reduce(lambda x, y:, Iterable), filter(lambda x: Ture or Flase, Iterable)
+# 5. lambda 只能写函数定义和返回值

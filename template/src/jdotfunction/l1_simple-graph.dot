@@ -1,0 +1,6 @@
+graph graphname {  // graph 表示是无向图, 紧跟其后的是 graphname
+    a -- b  // 节点之间连线, 每个节点首次出现的名称做为该节点的唯一标识
+    b -- c
+    b -- d
+    d -- a
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
-import os, time, random
+import sys, os, time, random
 print('fork: \nProcess (%s) start...' % os.getpid())
 pid = os.fork()  # fork 轻松创建子进程
 if pid == 0:  # 子进程返回 0, 父进程返回子进程的 id, getppid() 得到父进程 pid
@@ -34,3 +34,7 @@ p = subprocess.Popen(['nslookup'], stdin=subprocess.PIPE, stdout=subprocess.PIPE
 output, err = p.communicate(b'set q=mx\npython.org\nexit\n')  # 相当于下面三条命令: set q=mx; python.org; exit
 print(output.decode('utf-8'))
 print('Exit code:', p.returncode)
+p = subprocess.Popen(['nslookup'], stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr)
+p.wait()  # 加上这句话才能在终端等待输入...
+p.kill()
+print(p.returncode)  # 手动结束的话不会执行到这里, 执行到 kill() 后就会报错 KeyboardInterrupt

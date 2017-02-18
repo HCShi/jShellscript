@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # coding: utf-8
 import logging
-logging.basicConfig(level=logging.INFO)  # debug, info, warning, error 几个级别
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')  # debug, info, warning, error 几个级别
 def foo(s): return 10 / int(s)
 def bar(s): return foo(s) * 2
 def main():

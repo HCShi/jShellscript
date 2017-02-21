@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(
     description='''\
         Usage Example:
         --------------------------------
+        # ImageMagick 软件附带工具
         jconvert pdf jpg            # convert -density 600 file.pdf file.jpg (Current Dir)
         jconvert pdf png            # convert -density 600 file.pdf file.png (Current Dir)
         jconvert -r pdf jpg         # convert -density 600 file.pdf file.jpg (Current Dir and SubDir)

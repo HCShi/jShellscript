@@ -8,6 +8,7 @@ export PATH=/home/${USER}/github/jLife/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
+export PATH=/home/${USER}/miniconda3/bin:$PATH                    # for miniconda
 export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH  # for python
 export PATH=/home/${USER}/github/jShellscript/template:$PATH      # for shellscript
 export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, css, js, jquery ...
@@ -20,7 +21,9 @@ export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace  # virtualenvwrapper 的工作路径, mkproject 使用
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
+# export HTTP_PROXY='http://192.168.1.13:8080'
+# 下面的 source 用 virtualenvwrapper 的时候取消注释, 用 miniconda3 的时候要注释掉
+# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 
 ##################################################################

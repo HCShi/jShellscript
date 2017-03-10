@@ -30,5 +30,3 @@ vim ~/.zshrc
 3. ~/.bash_profile:每个用户都可使用该文件输入专用于自己使用的shell信息,用户登录时,文件仅执行一次!默认情况下,设置一些环境变量,执行用户的.bashrc文件
 4. ~/.bashrc:该文件包含专用于你的bash shell的bash信息。
 5. ~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件.
-
-

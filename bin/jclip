@@ -50,7 +50,7 @@ def toclipboard2(s):
 import sys
 if __name__ == "__main__":
     if args.autho:
-        print args.autho
+        print(args.autho)
 
     if len(sys.argv) == 1:  # echo 'hello' | jclip
         s = raw_input()
@@ -61,5 +61,5 @@ if __name__ == "__main__":
         s = args.string
 
     if args.o:
-        print s
+        print(s)
     toclipboard(s)

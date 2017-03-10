@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "正在初始化配置......"
+sudo cp ./os_env /etc/environment
+

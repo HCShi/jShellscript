@@ -174,6 +174,8 @@ alias cnpm="npm --registry=https://registry.npm.taobao.org \
 --disturl=https://npm.taobao.org/dist \
 --userconfig=$HOME/.cnpmrc"
 # npm config get proxy; npm config set proxy null; npm config delete proxy; npm config set https-proxy null; npm config set strict-ssl false
+# npm config set registry http://registry.npmjs.org/  # 就是这句和下面那句帮我修复了 npm
+# npm cache clean
 
 ##################################################################
 ## mysql, memcache, redis

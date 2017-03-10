@@ -19,9 +19,13 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace  # virtualenvwrapper 的工作路径, mkproject 使用
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
-# export HTTP_PROXY='http://192.168.1.13:8080'
+export PYENV_ROOT="$HOME/.pyenv"  # pyenv 用到的环境变量
+export PATH=$PYENV_ROOT/bin:$PATH  # pyenv 可执行文件
+eval "$(pyenv init -)"  # enable shims and autocompletion
+# export LC_ALL="en_US.UTF-8"
+# export LC_CTYPE="en_US.UTF-8"
+export LC_CTYPE=zh_CN.UTF-8  # emacs GUI 输入中文要用这个, 终端里本来就可以输入中文, 放到 /etc/environment (Ubuntu 16.04 后才有的文件)
+# export HTTP_PROXY='http://192.168.1.13:8080'  # 编辑 System Setting -> Network -> proxy 会自动保存到 /etc/environment
 # 下面的 source 用 virtualenvwrapper 的时候取消注释, 用 miniconda3 的时候要注释掉
 # source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了

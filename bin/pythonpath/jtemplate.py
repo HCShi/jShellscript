@@ -34,9 +34,7 @@ def template_print(filetype='py'):  # 装饰器
                                      # re.split(r'<body>|</body>', open(args[0] + '/' + f_name).read())[1].strip('\n').split('\n')]))
                     os.chdir(args[0])
                     os.system('vim --noplugin ' + f_name)
-                elif filetype == 'js':
-                    print('\n'.join([' ' * 4 + line.rstrip('\n') for line in open(args[0] + '/' + f_name).readlines()]))
-                elif filetype == 'dot':
+                else:  # 针对其他所有情况
                     print('\n'.join([' ' * 4 + line.rstrip('\n') for line in open(args[0] + '/' + f_name).readlines()]))
         return wrapper
     return decorate
@@ -59,14 +57,10 @@ def template_generate_func(dir_path, filetype='py'):  # 根据文件夹中的文
 def template_dir_path(filetype='py'):  # 得到根据执行的文件名得到对应的文件夹的位置, 必须通过调用的文件生成
     if filetype == 'py':
         return os.path.expanduser('~') + '~/github/jShellscript/bin/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
-    if filetype == 'sh':
+    elif filetype == 'sh' or filetype == 'dot':
         return os.path.expanduser('~') + '~/github/jShellscript/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
-    if filetype == 'html':
+    elif filetype == 'html' or filetype == 'js' or filetype == 'svg':
         return os.path.expanduser('~') + '~/github/jWeb/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
-    if filetype == 'js':
-        return os.path.expanduser('~') + '~/github/jWeb/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
-    if filetype == 'dot':
-        return os.path.expanduser('~') + '~/github/jShellscript/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
 
 def template_main(args, dir_path):  # main 函数
     if args.autho:  # -h --version 这些不会执行这些 if 判断

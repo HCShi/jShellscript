@@ -61,6 +61,8 @@ def template_dir_path(filetype='py'):  # 得到根据执行的文件名得到对
         return os.path.expanduser('~') + '~/github/jShellscript/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
     elif filetype == 'html' or filetype == 'js' or filetype == 'svg':
         return os.path.expanduser('~') + '~/github/jWeb/template/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
+    elif filetype == 'el':
+        return os.path.expanduser('~') + '~/github/jTemplate/lisp/elisp/src/'.lstrip('~') + sys.argv[0].split('/')[-1]
 
 def template_main(args, dir_path):  # main 函数
     if args.autho:  # -h --version 这些不会执行这些 if 判断

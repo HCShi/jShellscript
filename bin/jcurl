@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(
         Description:
         --------------------------------
         curl localhost for Web test
+        127.0.0.1  jrp  # 添加到 /etc/hosts 中就可以用 jrp 来代替 localhost
 
         Usage Example:
         --------------------------------

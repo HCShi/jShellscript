@@ -12,9 +12,10 @@ alias alied='apt list --installed'
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias eng='emacs --debug-init'
-alias engq='emacs --debug-init -q'
+alias engq='emacs --debug-init -q'  # -q 是不加载配置文件
 alias enw='emacs -nw'
 alias enwq='emacs -nw -q'
+alias ens='emacs --no-site-file --script'
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
@@ -116,11 +117,12 @@ alias loghexo='google-chrome http://localhost:4000'
 
 # Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
+alias python3httpserver ='python3 -m http.server'  # open 8000 port
 
 ##################################################################
 ## Python
 ##################################################################
-alias python='/usr/bin/python2'
+# alias python='/usr/bin/python2'
 # alias python='python3'
 # alias bpython='bpython3'
 # alias pip='pip3'
@@ -165,6 +167,7 @@ alias lnsjquery='ln -s ~/github/jWeb/CDN/jquery .'
 alias lnspure='ln -s ~/github/jWeb/CDN/pure .'
 alias lnsuikit='ln -s ~/github/jWeb/CDN/uikit .'
 alias lnsvue='ln -s ~/github/jWeb/CDN/vue .'
+alias lnsd3='ln -s ~/github/jWeb/CDN/d3 .'
 alias lnsimage='ln -s ~/github/jImage .'
 alias npmhttpfr='sudo npm config set proxy http://192.168.1.13:8080 -g && sudo npm config set https-proxy http://192.168.1.13:8080 -g'
 alias npmhttp='sudo npm config set proxy http://localhost:1080 -g && sudo npm config set https-proxy http://localhost:1080 -g'
@@ -276,6 +279,7 @@ alias cdwendang="cd /media/coder352/文档"
 ##################################################################
 ## vim 相关操作  进目录是为了退出时能够 git
 ##################################################################
+alias vimq='vim -u NONE'  # 不加载配置文件
 alias vimms="cd ~/github/jShellscript && vim myscript"
 alias vimjpcpcconfig="cd ~/github/jPC && vim pc_config"
 alias vimjpcchromeconfig="cd ~/github/jPC && vim chrome_config"

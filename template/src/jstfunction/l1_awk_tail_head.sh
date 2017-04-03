@@ -1,6 +1,7 @@
-### grep egrep sed (参见 Blog: Regular_express_grep_sed.md)
+#!/bin/bash
 ##################################################################
-### awk (awk + action)
+## awk (awk + action)
+##################################################################
 # 读入有'\n'换行符分割的一条记录, 然后将记录按指定的域分隔符划分域, 填充域, **$0则表示所有域**, $1表示第一个域, $n表示第n个域
 # -F 指定分隔符, 默认域分隔符是"空白键" 或 "[tab]键"
 last -n 5 | awk  '{print $1}'  # 只显示最近登录的5个帐号
@@ -17,6 +18,7 @@ awk -F : '{printf("filename:%10s,linenumber:%s,columns:%s,linecontent:%s\n",FILE
 ifconfig wlan0 | awk '/inet addr/{gsub(/addr:/,"");print $2}'  # 输出无线网IP地址
 ##################################################################
 ## tail & head & sed & awk
+##################################################################
 cat filename | tail -n +3000 | head -n 1000  # 从第3000行开始, 显示1000行, 即显示3000~3999行
 cat filename | head -n 3000 | tail -n +1000  # 显示1000行到3000行
 echo '(+ 1 2)' | mit-scheme | tail -n +12 | head -n -3  # 前 12 行是没用的 startup report of versions and copyrights
@@ -27,4 +29,3 @@ echo '(+ 1 2)' | mit-scheme | tail -n +12 | head -n -3  # 前 12 行是没用的
 # head -n 1000: 显示前面1000行
 sed -n '5,10p' filename  # 这样你就可以只查看文件的第5行到第10行
 tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'  # 倒数第二行的路径
-

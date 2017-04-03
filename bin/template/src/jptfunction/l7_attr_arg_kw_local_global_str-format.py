@@ -1,13 +1,17 @@
 #!/usr/bin/python
 # coding: utf-8
+"""world"""
 print(help(str)), (dir(str))  # 帮助文档, 属性
+def empty():
+    """ jrp """
+    pass
 class Jrp():
     def hello(*args, **kw):  # args 传的是 list, kw 传的是 dict
         """hello"""
         print([x for x in args], end="")
         print([key + '=' + value for key, value in kw.items()])
 jrp = Jrp()
-print(jrp.hello.__doc__)
+print(jrp.hello.__doc__, __doc__, empty.__doc__)  # hello world jrp
 print('123'.__len__())  # 等同于 len(str)
 jrp.hello('hello', 'world')  # ['hello', 'world'][]
 jrp.hello(name='jrp')  # []['name=jrp']

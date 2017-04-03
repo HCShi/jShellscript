@@ -10,6 +10,26 @@
 # 在Bash的仿真模式下, 可以使用与Bash相同的语法和命令集合, 从而达到近乎完全兼容的目的。为了激活对Bash的仿真, 需要显式执行
 
 ##################################################################
+## Emacs
+##################################################################
+# if [[ $TERM = dumb ]]; then
+#   unset zle_bracketed_paste
+# fi
+# [[ $EMACS = t ]] && unsetopt zle
+# if [ -n "$INSIDE_EMACS" ]; then
+if [ -n "$INSIDE_EMACS" ]; then
+    chpwd() { print -P "\033AnSiTc %d" }
+    print -P "\033AnSiTu %n"
+    print -P "\033AnSiTc %d"
+fi
+if [[ $EMACS = t ]]; then
+    export ZSH_THEME="rawsyntax"
+else
+    export ZSH_THEME="robbyrussell"
+fi
+export TERM=xterm-256color
+
+##################################################################
 ## for tmux
 ##################################################################
 # precmd () {

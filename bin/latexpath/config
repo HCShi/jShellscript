@@ -1,0 +1,13 @@
+##################################################################
+## Author:    Jia Ruipeng
+## 也可以用ln -s 进行软连接， 感觉没有安全感...
+##################################################################
+echo "正在初始化配置......"
+if [ ! -e $HOME/texmf/tex/latex/local/ ];then mkdir -p $HOME/texmf/tex/latex/local/;fi
+
+curdir=`pwd`
+cp $curdir/*.cls ~/texmf/tex/latex/local
+cp $curdir/*.sty ~/texmf/tex/latex/local
+
+echo "初始化配置结束....."
+

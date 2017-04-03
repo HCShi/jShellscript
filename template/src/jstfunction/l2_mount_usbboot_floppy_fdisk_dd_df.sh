@@ -2,7 +2,7 @@
 ## 刚插上去的U盘挂载时, 不会提示忙, 只可能会提示权限问题, U 盘(sdb), iso(cdrom), 软盘(fd)
 ##################################################################
 # 五种查看 mount 挂载的命令
-sudo fdisk -l
+sudo fdisk -l  # perfect
 df -h  # 这个可以查到 Android 设备挂载到 /run/user/<user-id>/gvfs/ 中
 df -ia
 mount
@@ -13,7 +13,10 @@ mount /dev/sdb4 /mnt/usb && mount /dev/cdrom /mnt/cdrom
 umount -l /dev/sdb  # 要在挂载点以外的目录执行, -l lazy, just unmount, delete date not immediately
 umount -l /dev/cdrom
 eject  # 弹出光驱
-# install desktop from LiveCD, too interesting
+##################################################################
+## install desktop from LiveCD, too interesting
+##################################################################
+sudo fdisk -l  # check which dev to mount
 sudo mount /dev/sda5 /mnt
 sudo mount -o bind /dev /mnt/dev  # same to ln -s, but can not use ln -s because of chroot below
 sudo mount -o bind /dev/pts /mnt/dev/pts
@@ -21,6 +24,7 @@ sudo mount -o bind /proc /mnt/proc
 sudo mount -o bind /sys /mnt/sys
 sudo cp /etc/resolv.conf /mnt/etc/resolv.conf
 sudo chroot /mnt  # set /mnt to new /root
+# System Setting -> Network -> Proxy -> Manual, to make apt access the network
 apt-get install ubuntu-desktop && exit  # install and exit root
 sudo umount /mnt/dev/pts
 sudo umount /mnt/dev

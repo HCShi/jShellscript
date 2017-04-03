@@ -1,6 +1,14 @@
 #!/bin/bash
 
 ##################################################################
+## Proxy (/etc/environment 可以 System->Network->Proxy 生成, 也可以手动添加, 手动添加要去掉 export)
+##################################################################
+export ALL_PROXY="https://192.168.1.13:8080/"  # 可以是小写
+export HTTP_PROXY="http://192.168.1.13:8080/"
+export HTTPS_PROXY="https://192.168.1.13:8080/"
+export FTP_PROXY="ftp://192.168.1.13:8080/"
+export SOCKS_PROXY="socks://192.168.1.13:8080/"
+##################################################################
 ## /etc/bash.bashrc
 ##################################################################
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
@@ -8,10 +16,10 @@ export PATH=/home/${USER}/github/jLife/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
 export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
-export PATH=/home/${USER}/miniconda3/bin:$PATH                    # for miniconda
 export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH  # for python
 export PATH=/home/${USER}/github/jShellscript/template:$PATH      # for shellscript
 export PATH=/home/${USER}/github/jTemplate/lisp/elisp:$PATH       # for elisp
+export PATH=/home/${USER}/github/jTemplate/latex:$PATH            # for latex
 export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, css, js, jquery ...
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
@@ -24,16 +32,22 @@ export LC_CTYPE=zh_CN.UTF-8  # emacs GUI 输入中文要用这个, 终端里本�
 # export HTTP_PROXY='http://192.168.1.13:8080'  # 编辑 System Setting -> Network -> proxy 会自动保存到 /etc/environment
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 ##################################################################
-## django & virtualenv & virtualenvwrapper & pyenv
+## django & virtualenv & virtualenvwrapper & conda & pyenv
 ##################################################################
 export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace    # virtualenvwrapper 的工作路径, mkproject 使用
 # 下面的 source 用 virtualenvwrapper 的时候取消注释, 用 miniconda3 的时候要注释掉, 而且 source 启动很慢
 # source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
+export PATH=/home/${USER}/anaconda3/bin:$PATH  # for anaconda
+export PATH=/home/${USER}/miniconda3/bin:$PATH   # for miniconda, 就是靠环境变量把我系统的 python 覆盖掉的
 export PYENV_ROOT="$HOME/.pyenv"   # pyenv 用到的环境变量
 export PATH=$PYENV_ROOT/bin:$PATH  # pyenv 可执行文件
 # eval "$(pyenv init -)"             # enable shims and autocompletion, 安装 pyenv 后, 将这两句话取消注释
 # eval "$(pyenv virtualenv-init -)"
+##################################################################
+## Latex
+##################################################################
+export TEXINPUTS=".:~/github/jShellscript/bin/latexpath:"  # 前边那个点可以不加, 最后那个 : 必须写 # 存放 .cls, .sty 文件的地方
 ##################################################################
 ## nvm, source 启动有点慢, 用的时候在打开
 ##################################################################
@@ -57,7 +71,7 @@ export PATH=$PATH:$GOPATH/bin
 # LC_TIME="en_US.UTF-8"
 # LC_ALL="en_US.UTF-8"
 ##################################################################
-## Tmux 每次登陆进入到tmux
+## Tmux 每次登陆进入到tmux, disable this function since I start to use Emacs
 ##################################################################
 cmd=$(which tmux) # tmux path
 if [ -z $cmd ]; then  # 判断是否已有开启的tmux会话，没有则开启
@@ -89,13 +103,13 @@ export TERM=xterm-256color
 DEFAULT_USER=`whoami`
 export EDITOR=/usr/bin/vim
 ##################################################################
-## Change Title of Terminal
+## Change Title of Terminal (not work)
 ##################################################################
-function set-title(){
-  if [[ -z "$ORIG" ]]; then
-    ORIG=$PS1
-  fi
-  TITLE="\[\e]2;$*\a\]"
-  PS1=${ORIG}${TITLE}
-}
+# function set-title(){
+#   if [[ -z "$ORIG" ]]; then
+#     ORIG=$PS1
+#   fi
+#   TITLE="\[\e]2;$*\a\]"
+#   PS1=${ORIG}${TITLE}
+# }
 # set-title "路尽隐香处 翩然雪海间"

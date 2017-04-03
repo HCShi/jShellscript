@@ -1,10 +1,9 @@
 #!/bin/bash
-
 echo "1. 取长度"
 str="abcd"
-expr length $str   # 4
-echo ${#str}       # 4
-expr "$str" : ".*" # 4
+expr length $str    # 4
+echo ${#str}        # 4
+expr "$str" : ".*"  # 4
 # 好像一般使用第二种
 
 echo "2. 查找子串的位置"
@@ -33,7 +32,7 @@ echo ${str##"a*c"}  # 输出abbc,def,ghi,abcjkl 同理
 echo ${str#*a*c*}   # 空
 echo ${str##*a*c*}  # 空
 #echo ${str#d*f)     # 输出abbc,def,ghi,abcjkl,
-echo ${str#*d*f}    # 输出,ghi,abcjkl 
+echo ${str#*d*f}    # 输出,ghi,abcjkl
 echo ${str%a*l}     # abbc,def,ghi  一个百分号(%)表示从右边截取最短的匹配
 echo ${str%%b*l}    # a             两个百分号表示(%%)表示从右边截取最长的匹配
 echo ${str%a*c}     # abbc,def,ghi,abcjkl
@@ -64,7 +63,7 @@ echo ${s1}world
 ## 上面一些常用的，下面是自己用过的
 ##################################################################
 
-echo 
+echo
 echo
 echo "8. others"
 str="abcdef"
@@ -72,11 +71,11 @@ echo ${str:(-6):5}
 
 str='hello.java.c'
 ## 从左边开始删除第一次出现子字符串即其左边字符，保留右边字符
-sub=${str#*.} 
+sub=${str#*.}
 echo $sub
 
 ## 从左边开始删除最后一次出现子字符串即其左边字符，保留右边字符
-sub=${str##*.} 
+sub=${str##*.}
 echo $sub
 
 ## 从右边开始删除第一次出现子字符串即其右边字符，保留左边字符

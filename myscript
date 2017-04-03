@@ -9,18 +9,22 @@
 alias acd='apt-cache depends'
 alias acrd='apt-cache rdepends'
 alias alied='apt list --installed'
+alias allproxy='export all_proxy="https://192.168.1.13:8080"'
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
-alias eng='emacs --debug-init'
-alias engq='emacs --debug-init -q'  # -q 是不加载配置文件
-alias enw='emacs -nw'
-alias enwq='emacs -nw -q'
-alias ens='emacs --no-site-file --script'
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cls="clear"
 alias catms="cat ~/github/jShellscript/myscript | more"
 alias cman='LANG="zh_CN.utf8" man'
+# alias cps='tmp=`pwd`/$1'  # 这个不好用
+# alias cps='tmp1=`pwd` && tmp2="/" && tmp3="$1" && tmp=${tmp1}&{tmp2}&{tmp3}'
+cps(){
+    tmp1=`pwd` && tmp2="/" && tmp3="$1"
+    tmp=$tmp1$tmp2$tmp3
+}
+cpd(){cp $tmp $1}
+# alias cpd="cp $tmp $1"
 alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"
 # alias day="/bin/date '+%Y-%m-%d'"  # 另一种形式
 alias dub='du -b'  # ls du 等命令默认以 K 为单位, 很坑
@@ -39,14 +43,15 @@ ju8(){
     iconv -f gbk -t utf-8 $1 > $1.tmp  # gbk 中文通用
     mv $1.tmp $1
 }  # example: ju8 file, file from Windows
-alias kk='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
+alias ii='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
 alias kkm='make clean'
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
 alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias nau='nautilus .'
-alias rmlatex="rm *.log *.aux *.pdf"
+alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc"
+alias rmlatexpdf="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.pdf"
 alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
 # shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
 alias suroot='sudo su root'
@@ -117,7 +122,7 @@ alias loghexo='google-chrome http://localhost:4000'
 
 # Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
-alias python3httpserver ='python3 -m http.server'  # open 8000 port
+alias python3httpserver='python3 -m http.server'  # open 8000 port
 
 ##################################################################
 ## Python
@@ -240,6 +245,11 @@ alias cdjshellscriptbintemplate='cd ~/github/jShellscript/bin/template'
 alias cdjshellscriptbintemplatesrc='cd ~/github/jShellscript/bin/template/src'
 alias cdjshellscripttemplate="cd ~/github/jShellscript/template"
 alias cdjshellscripttemplatesrc="cd ~/github/jShellscript/template/src"
+alias cdspacemacs="cd ~/.spacemacs.d"
+alias cdjspacemacs="cd ~/github/jSpacemacs"
+alias cdjspacemacsme="cd ~/github/jSpacemacs/layers/14thcoder"
+alias cdjspacemacsmetheme="cd ~/github/jSpacemacs/layers/14thcoder/theme"
+alias cdjspacemacsmesnippet="cd ~/github/jSpacemacs/layers/14thcoder/yasnippet"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
 alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
@@ -268,10 +278,21 @@ alias cdshareshiyanlou="cd /media/coder352/Documents/Share/实验楼"
 alias cdzshshortcuts="cd ~/.oh-my-zsh/plugins"
 alias cdvedio="cd /media/coder352/文档/Share/视频"
 
-# snippets for vim
+# snippets
 alias cdvimultisnippets='cd ~/.vim/plugged/vim-snippets/UltiSnips/'  # snippets using UltiSnips format  # 优先级低
 alias cdvimsnippets='cd ~/.vim/plugged/vim-snippets/snippets/'  # snippets using snipMate format  # 优先级低
+alias cdemacssnippets='cd ~/.emacs.d/elpa/yasnippet*/snippets/'
 # 上面还有一个jvimsnippte
+
+# template
+alias cdjpt='cd ~/github/jShellscript/bin/template/src'
+alias cdjptfunction='cd ~/github/jShellscript/bin/template/src/jptfunction'
+alias cdjptnumpy='cd ~/github/jShellscript/bin/template/src/jptnumpy'
+alias cdnankai='cd /media/coder352/Documents/Share/知识库/nankai/202.113.29.3/nankaisource'
+
+# path
+alias cdpythonpath='cd ~/github/jShellscript/bin/pythonpath'
+alias cdlatexpath='cd ~/github/jShellscript/bin/latexpath'
 
 # Windows
 alias cdwendang="cd /media/coder352/文档"
@@ -293,6 +314,18 @@ alias vimzshshortcutgit="cd ~/.oh-my-zsh/plugins/git && vim git.plugins.zsh"
 # 简化配置
 alias vimclear="cp ~/.vimrc.clear ~/.vimrc"
 alias vimnormal="cp ~/.vimrc.normal ~/.vimrc"
+
+##################################################################
+## Emacs 相关配置
+##################################################################
+alias eng='emacs --debug-init'
+alias engq='emacs --debug-init -q'  # -q 是不加载配置文件
+alias enw='emacs -nw'
+alias enwq='emacs -nw -q'
+alias ens='emacs --no-site-file --script'
+alias lnsjspacemacs='ln -s ~/github/jSpacemacs ~/.spacemacs.d'
+alias lnsjemacs='ln -s ~/.emacs.d.jrp ~/.emacs.d'
+alias lnszlspacemacs='ln -s ~/github/others/spacemacs-private ~/.spacemacs.d'
 
 ##################################################################
 ## tmux 还没测试
@@ -539,7 +572,7 @@ alias msources='man 5 sources.list'
 ##################################################################
 ## Others: VIBes(法国高科)
 ##################################################################
-alias vibesviewer='~/github/others/VIBES/viewer/build/VIBes-viewer'
+alias vibesviewer='~/miniconda3/pkgs/vibes-bin-0.2.2a1-0/bin/VIBes_viewer'
 
 ##################################################################
 ## 零碎的

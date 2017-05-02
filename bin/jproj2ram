@@ -1,0 +1,69 @@
+#!/bin/sh
+##################################################################
+# 参考自:
+# http://stackoverflow.com/questions/778716/how-can-i-make-emacs-start-up-faster
+# https://gist.github.com/redguardtoo/596b1a9fd3eac1cedd13#file-proj2ram
+## 以 Emacs 为例
+# Step 1, insert below one line into /etc/fstab and restart computer
+# tmpfs       /tmp        tmpfs       nodev,nosuid,size=1G    0   0  # 推荐这种
+# tmpfs /tmp tmpfs defaults,noatime,mode=1777,nosuid,size=1024M 0 0  # 这里另一种方法
+# <file system> <mount point>   <type>  <options> <dump>  <pass>
+
+# df -h  # 查看实际挂载与使用情况
+# Filesystem           Size  Used Avail Use% Mounted on
+# /dev/sda1             40G  9.9G   28G  27% /
+# udev                 2.9G  4.0K  2.9G   1% /dev
+# tmpfs                1.0G   72K  1.0G   1% /tmp
+
+# Step 2,
+# jpro2ram ~/.emacs.d
+##################################################################
+name=`basename $0 .sh`
+if [ -z "$1" ];then
+    echo "Usage:"
+    echo "  $name proj-name"
+    echo "  $name restore proj-name"
+    exit 1
+fi
+if [ "$1" != "restore" ];then
+    backup=$1-backup
+    link=$1
+    volatile=/tmp/$1-$USER
+    IFS=
+    set -efu
+    cd ~/projs
+
+    if [ ! -r $volatile ]; then
+        mkdir -m0700 $volatile
+    fi
+    # link -> volatie does not exist
+    if [ "$(readlink $link)" != "$volatile" ]; then
+        # backup project at first
+        mv $link $backup
+        # create the link
+        ln -s $volatile $link
+    fi
+    if [ -e $link/.unpacked ]; then
+        echo "Sync project from memory to backup ..."
+        rsync -avq --delete --exclude .unpacked ./$link/ ./$backup/
+        echo "DONE!"
+    else
+        echo "Sync project from disk to memory ..."
+        rsync -avq ./$backup/ ./$link/
+        touch $link/.unpacked
+        echo "DONE!"
+    fi
+else
+    if [ -z "$2" ]; then
+        echo "Usage:"
+        echo "  $name restore proj-name"
+    else
+        echo "Moving project back to disk ..."
+        backup=$2-backup
+        link=$2
+        volatile=/tmp/$2-$USER
+        cd ~/projs
+        rm $link && mv $backup $link && rm -rf $volatile
+        echo "DONE!"
+    fi
+fi

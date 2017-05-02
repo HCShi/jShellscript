@@ -1,13 +1,12 @@
 #!/bin/bash
-
 ##################################################################
-## Proxy (/etc/environment 可以 System->Network->Proxy 生成, 也可以手动添加, 手动添加要去掉 export)
+## Proxy (/etc/environment 可以 System -> Network -> Proxy 生成, 也可以手动添加, 手动添加要去掉 export)
 ##################################################################
-export ALL_PROXY="https://192.168.1.13:8080/"  # 可以是小写
-export HTTP_PROXY="http://192.168.1.13:8080/"
-export HTTPS_PROXY="https://192.168.1.13:8080/"
-export FTP_PROXY="ftp://192.168.1.13:8080/"
-export SOCKS_PROXY="socks://192.168.1.13:8080/"
+# export ALL_PROXY="https://192.168.1.13:8080/"  # 可以是小写
+# export HTTP_PROXY="http://192.168.1.13:8080/"
+# export HTTPS_PROXY="https://192.168.1.13:8080/"
+# export FTP_PROXY="ftp://192.168.1.13:8080/"
+# export SOCKS_PROXY="socks://192.168.1.13:8080/"
 ##################################################################
 ## /etc/bash.bashrc
 ##################################################################
@@ -24,6 +23,7 @@ export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, cs
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/pythonpath
+export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/template/src/jptsdn  # for SDN
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 # export LC_ALL="en_US.UTF-8"
@@ -45,7 +45,7 @@ export PATH=$PYENV_ROOT/bin:$PATH  # pyenv 可执行文件
 # eval "$(pyenv init -)"             # enable shims and autocompletion, 安装 pyenv 后, 将这两句话取消注释
 # eval "$(pyenv virtualenv-init -)"
 ##################################################################
-## Latex
+## Latex, 这个好像不起作用, ~/texmf/tex/latex/local/ 默认放在这里
 ##################################################################
 export TEXINPUTS=".:~/github/jShellscript/bin/latexpath:"  # 前边那个点可以不加, 最后那个 : 必须写 # 存放 .cls, .sty 文件的地方
 ##################################################################

@@ -31,10 +31,10 @@ d = dict(name='Bob', age=20); print(dict(zip(d.values(), d.keys())))  # 键值�
 for k, v in d.items(): print(k, v)  # items(), values(), keys() 返回值可以 list 列表化
 
 # 总结:
-# 1. load()/loads(), str 中的 key 部分必须用 "", 好变态
-# 2. JSON 类型:   {}   []   'string' 123.456   ture/false null
-# 3. python 类型: dict list str      int/float True/False None
-# 4. dumps() 方法返回一个 str, 内容就是标准的JSON.
+# 1. load()/loads(), str 中的 key 部分必须用 "", 好变态, '' 的用 yaml
+# 2. JSON 类型:   {}    []    'string'  123.456    ture/false  null
+# 3. python 类型: dict  list  str       int/float  True/False  None
+# 4. dumps() 方法返回一个 str, 内容就是标准的 JSON.
 # 5. dump() 方法可以直接把 JSON 写入一个 file-like Object
 # 5. loads() 或者对应的 load() 把 JSON 反序列化为 Python 对象, 前者把 JSON 的字符串反序列化, 后者从 file-like Object 中读取
 # 6. dump: dict -> json(str);    load: str(json) -> dict

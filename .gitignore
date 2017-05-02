@@ -14,7 +14,7 @@ dist/
 covhtml/
 coverage.xml
 nosetests.xml
-tmp
+tmp*
 
 # for: xelatex
 *.pdf

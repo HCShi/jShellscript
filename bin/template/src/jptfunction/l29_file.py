@@ -21,4 +21,7 @@ f = open('tmp', 'a')  # write and append
 f.write('dr')
 f = open('tmp')
 # f.write('jrp')  # Error: io.UnsupportedOperation: not readable
-print(f.read())
+print(f.read())  # 把整个文件打印出来
+for i in f.read(): print(i)  # 把每个字符打印出来
+for i in f.readlines(): print(i)  # 打印每一行
+for i in f.readline(): print(i)  # 还是打印每个字符

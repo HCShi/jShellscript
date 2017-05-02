@@ -3,7 +3,7 @@
 ##################################################################
 # 五种查看 mount 挂载的命令
 sudo fdisk -l  # perfect
-df -h  # 这个可以查到 Android 设备挂载到 /run/user/<user-id>/gvfs/ 中
+df -h  # 查看实际挂载与使用情况, 这个可以查到 Android 设备挂载到 /run/user/<user-id>/gvfs/ 中
 df -ia
 mount
 cat /etc/mtab
@@ -66,11 +66,9 @@ mount floppy.img floppy -o loop -t ext2  # 如果软盘镜像为ext2文件系统
 cp kernel floppy                         # 然后就可以像操作普通文件夹那样对 floppy 文件夹进行操作了, 如将 "kernel" 文件复制到里面
 ls floppy                                # 查看其中的文件
 umount floppy.img                        # 操作完以后用下列命令将其卸载
-# 如果在mount 步骤出现
-# mount: unknown filesystem type 'vfat'
-# 的提示, 则需要查看并重建
+# 如果在mount 步骤出现 # mount: unknown filesystem type 'vfat' # 的提示, 则需要查看并重建
 # /lib/modules/2.6.xxx/modules.dep
-# 使用用depmod重新生成modules.dep, 重启
+# 使用用 depmod 重新生成 modules.dep, 重启
 ##################################################################
 ## dd 命令详解
 ##################################################################

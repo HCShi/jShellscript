@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
 from wsgiref.simple_server import make_server
-import json
 def application(environ, start_response):  # 符合WSGI标准的一个HTTP处理函数, 它接收两个参数
 # environ: 包含所有 HTTP 请求信息的 dict 对象, start_response: 发送 HTTP 响应的函数
     with open('tmp', 'w') as f:

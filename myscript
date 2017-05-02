@@ -14,6 +14,7 @@ alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
+alias cpgitignore='cp ~/github/jTemplate/src/my.gitignore .gitignore'
 alias cls="clear"
 alias catms="cat ~/github/jShellscript/myscript | more"
 alias cman='LANG="zh_CN.utf8" man'
@@ -50,15 +51,15 @@ alias lsv='ls -v'
 alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias nau='nautilus .'
-alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc"
-alias rmlatexpdf="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.pdf"
+alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.bcf & rm *.lof & rm *.lot & rm *.mintedcmd & rm *.out & rm *.run.xml"
+alias rmlatexpdf="rm *.pdf"
 alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
 # shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
 alias suroot='sudo su root'
 alias terminalnew='gnome-terminal --working-directory=`pwd`'
 alias tes='texstudio'
 # 这个unzip的参数只有ubuntu默认有
-alias unzipo='unzip -O cp936'
+alias unzipo='unzip -O cp936'  # 对于乱码情况, 最好用 lsar 和 unar
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias wgetproxy='wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080'
 alias xopen="xdg-open"
@@ -159,6 +160,11 @@ alias pipali='pip install --index http://mirrors.aliyun.com/pypi/simple/'
 # help package
 pyhelp() { python -c "help('$1')" }  # eg: pyhelp socket, pyhelp argparse
 
+# 代理问题, Missing dependencies for SOCKS support.
+alias pipproxyclear='unset all_proxy && unset ALL_PROXY'
+# unset all_proxy
+# unset ALL_PROXY
+
 ##################################################################
 ## IDE
 ##################################################################
@@ -227,6 +233,7 @@ cdhistory() { cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'` }  # 
 # alias cdhtml="cd /media/coder352/文档/HTML"
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
+alias cdlatexcls="cd ~/texmf/tex/latex/local"
 alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
@@ -318,19 +325,39 @@ alias vimnormal="cp ~/.vimrc.normal ~/.vimrc"
 ##################################################################
 ## Emacs 相关配置
 ##################################################################
+spaceemacscompile() { emacs --batch --eval '(byte-recompile-directory "~/.spacemacs.d/" 0)' }  # 最好不要用, 会出现一些奇怪的错误
+emacscompile() { emacs --batch --eval '(byte-recompile-directory "~/.emacs.d" 0)' }  # 直接执行 .el 速度还行, findname "*.elc*" | xargs rm 将 .elc 删除
 alias eng='emacs --debug-init'
 alias engq='emacs --debug-init -q'  # -q 是不加载配置文件
-alias enw='emacs -nw'
 alias enwq='emacs -nw -q'
-alias ens='emacs --no-site-file --script'
+alias ens='emacs --no-site-file --script'  # 执行单独的 .el 文件
+# Server
+alias ess='emacs --daemon'  # 开启一个服务端
+alias esk='emacsclient -e "(kill-emacs)"'  # 关闭服务端
+# alias esr='emacsclient -e "(server-start)"'  # 重启服务端, 这个不能用
+alias esr='emacsclient -e "(kill-emacs) && emacs --daemon"'  # 重启服务端
+alias eservername='emacs --eval "(setq server-name \"$1\")" --daemon'  # emacsservername foo; 创建 Name 为 foo 的 Emacs 服务端
+alias vom='emacsclient -nw'  # enw a.py; fn 退出
+alias voms='emacsclient -nw -s'  # enws foo; 连接 server-name 为 foo 的 emacs 服务器
+# 下面几个是调试别人的配置文件时候方便
 alias lnsjspacemacs='ln -s ~/github/jSpacemacs ~/.spacemacs.d'
 alias lnsjemacs='ln -s ~/.emacs.d.jrp ~/.emacs.d'
 alias lnszlspacemacs='ln -s ~/github/others/spacemacs-private ~/.spacemacs.d'
+alias lnsmath='ln -s ~/github/jImage/Math .'
+alias cdemacslayer='cd ~/.emacs.d/layers/'
 
 ##################################################################
 ## tmux 还没测试
 ##################################################################
 alias tmuxkill="tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill"
+
+##################################################################
+## Latex 记录一些常用的 package, 方便查 api
+##################################################################
+alias cdlatexdoc="cd /usr/share/texlive/texmf-dist/doc/latex"
+alias latexsheet="texdoc latexcheat"  # 查看常用方法, 2 页
+alias latex2e="texdoc latex2e"  # 可以查看 api, 比较全
+alias latexfancyhdr="texdoc fancyhdr"
 
 ########################################
 ## git 相关操作 要被淘汰了 via oh my zsh
@@ -366,15 +393,22 @@ alias opengl='test() { g++ $1 -o gl -lGL -lGLU -lglut && ./gl };test'  # example
 #alias opengl='g++ -o gl -lGL -lGLU -lglut'  # 文件名必须放前面
 
 ########################################
-## SDN
+## SDN Floodlight Ryu Mininet
 ########################################
-alias flt="cd ~/github/floodlight/ && java -jar target/floodlight.jar"
+alias fltg='google-chrome http://localhost:8080/ui/index.html'
+alias flt="cd ~/github/floodlight/ && java -jar target/floodlight.jar"  # http://localhost:8080/ui/index.html 是 Floodlight 1.2 的主页
+# net.floodlightcontroller.forwarding.Forwarding,\  # 下面两个命令中 noforwarding 是将这就话注释掉, 额, 好像只能删掉
 alias cnf="cd ~/github/floodlight/src/main/resources/ && cp floodlightdefault.properties.noforwarding floodlightdefault.properties && cd ~"
 alias cff="cd ~/github/floodlight/src/main/resources/ && cp floodlightdefault.properties.forwarding floodlightdefault.properties && cd ~"
 alias rum="ryu-manager --verbose"
 alias cdru="cd ~/github/ryu/ryu/app"
 alias cdjtemplatepythonsdnryu="cd ~/github/jTemplate/python/sdn/ryuapp/"
 alias cdjtemplatepythonmininet="cd ~/github/jTemplate/python/sdn/mininet"
+# Mininet
+alias sshxm="ssh -X mininet@192.168.56.101"  # scpmip 是将本机的 IP 传给 Mininet, scpm 是传文件到 Mininet
+# sudomn 在 shellscript/bin 中有一个
+# sudomn() { sudo mn --custom $1 --topo mytopo --controller=remote,ip=127.0.0.1,port=6653 --link tc,bw=10,delay=1ms --mac }
+sudomn() { sudo mn --custom $1 --topo mytopo --controller=remote,ip=127.0.0.1,port=6653 --mac }
 # ovs-vsctl
 alias ovsc='sudo ovs-vsctl'
 alias ovscab='sudo ovs-vsctl add-br'

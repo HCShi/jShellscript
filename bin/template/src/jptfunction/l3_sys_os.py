@@ -2,7 +2,7 @@
 # coding: utf-8
 import os
 # os.walk(), os.system(), os.path.join(), os.chdir(), os.getcwd(), os.expanduser(), os.listdir()
-os.system('pwd')  # 执行 terminal 命令
+os.system('pwd')  # 执行 terminal 命令, 要得到命令的结果, 需要用 subprocess
 print(os.getcwd())  # 得到当前路径
 print(os.path.expanduser('~'))  # 当前家目录
 print(os.path.abspath('.'))  # 当前的绝对路径

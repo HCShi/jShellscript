@@ -8,6 +8,9 @@ git add .
 git add --all
 git commmit -m "update"
 
+git tag  # 查看都有哪些标签
+git checkout <tag>  # 根据上面查到的标签来切换
+
 ##################################################################
 ## 本地配置
 git config --global user.name "Ruipeng Jia"

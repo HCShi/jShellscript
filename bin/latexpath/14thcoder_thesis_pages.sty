@@ -1,0 +1,79 @@
+% \TitlePage 就可以在 .tex 文件中渲染出一个页面
+\newcommand{\TitlePage}{ % Title page layout
+  \thispagestyle{empty}  % empty 页眉页脚都清空, plain 之清空页眉
+  \includegraphics[width=\linewidth / 3]{upc_logo.png}
+  \vspace*{4\baselineskip}  % 添加空行
+  \begin{center}
+    % \makebox[14.7em][s]{{\huge\My@Univ}}\\[5mm]  % texdoc makebox 有样例, 很简单; huge->semiHuge->Huge; \\[5mm] 表示末尾强制断行, 流出 5mm
+    \makebox[25.75em][s]{\Huge\textbf{\My@Docname}}\\[5mm]  % textbf for bolding
+    % \makebox[12em][s]{\hspace{.5em}\LARGE(\My@Year\, 届)}\\[60pt]
+    \begin{minipage}{.8\linewidth}  % 80% 的原来宽度利用率
+      \begin{Large}  % 使字号变大
+        \extrarowsep = ^8mm  % 固定行距, 是 tabu 包的变量
+        \extrarowsep = _-7pt  % 在原来的基础上减 7 pt
+        \begin{tabu}spread\textwidth{@{}X[r]X[3.3,c]@{}}
+          \textbf{题\hspace{2em} 目:}&\My@Title\\\tabucline{2-2}
+          \textbf{分院系部:} &\My@School\\\tabucline{2-2}
+          \textbf{专\hspace{2em} 业:}&\My@Subject\\\tabucline{2-2}
+          \textbf{姓\hspace{2em} 名:}&\My@Author\\\tabucline{2-2}
+          \textbf{导师姓名:} &\My@Advisor\\\tabucline{2-2}
+          \textbf{导师职称:} &\My@AdvisorTitle\\\tabucline{2-2}
+        \end{tabu}
+      \end{Large}
+    \end{minipage}
+    \vfill
+    {\Large\textbf{\My@Year\ 年\ \My@Month\ 月}}\\[1cm]
+  \end{center}
+  \clearpage
+}
+\newcommand{\AbstractPage}{ % Abstract page
+    \providecommand\pdfbookmark[3][]{} \pdfbookmark[0]{摘要}{bm:cnAbstract}
+    \thispagestyle{empty}
+    \begin{center}
+    {\singlespacing \Large{\textbf{\My@Title}}}\\[5mm]
+    \large{\My@Author}\\
+    \large{(\My@Univ\,\My@School,云南\, 昆明\,650224)}
+    \end{center}
+    \vskip 3ex
+    \noindent \textbf{摘\hspace{1em} 要:}~\My@Abstract
+    \vskip 2ex
+    \noindent \textbf{关键词:}~\My@Keywords
+    \clearpage
+}
+\newcommand{\EnAbstractPage}{ % English abstract page
+    \providecommand\pdfbookmark[3][]{}%
+    \pdfbookmark[0]{Abstract}{bm:Abstract}
+    \thispagestyle{empty}
+    \begin{center}
+    {\singlespacing {\Large\textbf{\My@enTitle}}}\\[5mm]
+    {\large\My@enAuthor}\\[3mm]
+    {\singlespacing {\large\My@enSchool\\\My@enUniv\\%
+        Kunming 650224, Yunnan, China}}
+    \end{center}
+    \vskip 2em
+    \noindent\textbf{Abstract: }~\My@enAbstract
+    \vskip 1em
+    \noindent\textbf{Key words: }~\My@enKeywords
+    \clearpage
+}
+\newcommand{\AcknowledgmentsPagee}{  % Acknowledgments page
+    \phantomsection
+    \addcontentsline{toc}{chapter}{致\hspace{1em} 谢}
+    \chapter*{致\hspace{1em} 谢}
+    \My@Acknowledgments
+}
+\newcommand{\AdvisorInfoPage}{  % Advisor info page
+    \phantomsection
+    \addcontentsline{toc}{chapter}{指导教师简介}
+    \chapter*{指导教师简介}
+    \My@AdvisorInfo
+    \clearpage
+}
+\newcommand{\makepreliminarypages}{ % preliminary pages
+    \TitlePage   % custom command
+    \doublespacing   % global line spacing
+    \AbstractPage    % custom command
+    \EnAbstractPage  % custom command
+    \AcknowledgmentsPagee
+    \AdvisorInfoPage
+}

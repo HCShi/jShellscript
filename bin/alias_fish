@@ -1,0 +1,10 @@
+#!/bin/bash
+# 为那些自己笔记的目录设置快捷键
+##################################################################
+## For fish
+##################################################################
+for file in $argv[1]/src/*
+    set command (basename $file)
+    eval "function $command; cd $argv[1]/src/$command; end"
+end
+

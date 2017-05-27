@@ -3,7 +3,7 @@
 %% ================================================================
 % 1. 测试: 将下面的 For tex 和 最后的 Main 取消注释, 直接运行即可
 % 2. 使用:
-%    \usepackage{14thcoder_math_manual}
+%    \usepackage{14thcoder_math_manual}  % 这里就做成了一个包, 没有弄成模板的形式
 %    \blinddocument % 生成一段随机的文本
 %% ================================================================
 %% For tex, 自己测试的时候用
@@ -15,7 +15,7 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{14thcoder_math_manual}[2017/04/09 v0.01 LaTeX package for my own math manual]
 %% ================================================================
-%% Normal Preamble
+%% Normal Preamble, 引言区
 %% ================================================================
 \makeatletter % make @ to a letter(使 @ 变成一个普通字母); 用了这个命令以后可以通过 @title, @author 得到变量的值
 \title{Math Manual}    \let\Title\@title
@@ -105,14 +105,16 @@
 \usepackage{fancyhdr} % Required for custom headers, 后面必须紧跟着 \pagestyle{fancy}
 \pagestyle{fancy} % Set default style for all content pages (not TOC, etc), \pagestyle 这个命令是 Latex 自带的, {fancy} 实现初步调用
 \fancyhf{} % delete current setting for header and footer, 因为参数为空, fancyhf is combine of fancyhead and fancyfoot
-\lhead{\emph\Author} % abbrev for \fancyhead[L]; L: left filed; E: even page; R: right filed; O: odd page
+\lhead{\emph\Author} % abbrev(缩写) for \fancyhead[L]; L: left filed; E: even page; R: right filed; O: odd page
 \chead{\textbf\Title}
 \rhead{\slshape\leftmark} % \rightmark(lower-level), \leftmark(high-level); article 中 leftmark 表示 section_name, book 中 leftmark 表示 chapter_name
 \rfoot{\textbf{--\ \thepage\ --}} % \thepage display page number
+\pagenumbering{arabic}  % 页码编号用阿拉伯数字
 \renewcommand{\headrulewidth}{2pt} % 水平线的宽度; Default \headrulewidth is 0.4pt, \footrulewidth is 0pt;
 \addtolength{\headheight}{0pt} % make space for the rule, head 上面的空白区域高度
-\fancypagestyle{plain}{ % 空白页什么都不放
-  \fancyhead{} % get rid of headers on plain pages
+\fancypagestyle{plain}{  % 这里是针对 plain(空白页的设置)
+  \fancyhead{}  % get rid of headers on plain pages, 这里很巧妙, 只是将顶部的清空
+  % \fancyhf{}  % clear all header and footer fields
   \renewcommand{\headrulewidth}{0pt} % and the line
 }
 %% ================================================================

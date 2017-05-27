@@ -5,7 +5,7 @@
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 % specifies which version of TeX or LaTeX is required at least to run your package.
 % The optional date may be used to specify the version more precisely.
-\ProvidesClass{14thcoder_article}[2017/03/30] % 发布日期
+\ProvidesClass{14thcoder_thesis}[2017/03/30] % 发布日期
 % it has to have the same name of the file without the extension.
 % It tells LaTeX the name of the package and will allow it to issue a sensible error message when you try to include a package twice.
 % The date is important since it can be used by other package to specify the minimum version requirement they need to use your package.

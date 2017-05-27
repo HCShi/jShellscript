@@ -5,6 +5,7 @@
 # !=  检测两个字符串是否不相等
 # -z  检测字符串长度是否为 0
 # -n  检测字符串长度是否不为 0
+if [ "$1"  != "" ]; then echo $1; fi  # quotes around $x, because if $x is empty, you'll get if [ == "valid" ]... which is a syntax error
 
 ##################################################################
 ## 文件测试运算符
@@ -21,7 +22,9 @@
 # -x file	检测文件是否可执行
 # -s file	检测文件是否为空(文件大小是否大于0)
 # -e file	检测文件(包括目录)是否存在
+# -L file   检测文件是否是 symlinks
 file="/home/coder352/.zshrc"
+# if  [[ -d $file && ! -L $file ]]; then  # 确定是文件, 并且不是软连接
 if [ -r $file ]; then echo "文件可读"
 else echo "文件不可读"
 fi

@@ -31,7 +31,7 @@ def hello(name, age='age'):
     print(globals())  # 当前模块(文件)的所有变量, 包括 import 的
 hello('jrp')
 ##################################################################
-# format
+# format, 另外还有 list 里面的格式化
 print('hello {}, {}'.format('jrp', 'beijing')), ('hello %s, %s' % ('jrp', 'beijing'))
 print(r'\\\\t')  # r 内部字符串不转义
 print(b'A' == 'A', b'A' == b'\x41')  # False, True

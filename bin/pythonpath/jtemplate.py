@@ -17,7 +17,7 @@ cfg.read(os.path.expanduser('~') + '~/github/jShellscript/bin/pythonpath/config.
 # 尽量减少 template_ 模块之间的耦合, 同时 jpt... 等程序的逻辑清晰
 # 新增判断语句, 支持其他语言的模板
 ##################################################################
-def template_print(filetype='py'):  # 装饰器
+def template_print(filetype='py'):  # 装饰器, 针对不同的文件进行不同的操作, 下面会用到
     def decorate(func):
         separator = cfg.get('MISC', 'template_print_separator')
         @functools.wraps(func)
@@ -53,6 +53,7 @@ def template_generate_func(dir_path, filetype='py'):  # 根据文件夹中的文
         del _f
     # globals()['g'] = lambda url, filename: os.system('echo "' + ': ' + str(int(datetime.now().timestamp())) + ':0;cd ' + url + '" >> ~/.zsh_history')
     globals()['g'] = lambda url, filename: print(url)  # 上面是写进历史记录, 然后 alias 调用, 现在改为 cd `jptfunction -g`
+    # 已经将 -g 的这个功能覆盖了, 本来 `jptfunction` 可以切换目录, jptfunction 打印目录, 现在是 jptfunction 可以直接切换目录
 
 def template_dir_path(filetype='py'):  # 得到根据执行的文件名得到对应的文件夹的位置, 必须通过调用的文件生成
     if filetype == 'py':

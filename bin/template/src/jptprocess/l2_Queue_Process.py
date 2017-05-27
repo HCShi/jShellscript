@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# 参考 jptthreading 中的 multiprocessing_Producer_Consumer.py 和 Queue_Producer_Consumer.py
 from multiprocessing import Process, Queue
 import os, time, random
 def write(q):

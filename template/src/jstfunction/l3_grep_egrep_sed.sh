@@ -24,3 +24,9 @@ grep -n --color=always 'e*' regular_express.txt  # 允许空字符, 打印所有
 grep -n 'o\{2\}' regular_express.txt  # 结果与命令 grep -n 'ooo*' regular_express.txt 的结果相同
 grep -n 'go\{2,5\}g' regular_express.txt  # 查找 g 后面接 2 到 5 个 o，然后再接 g 的字符串
 # 未完待续
+##################################################################
+## sed perl, 还有介绍 sed_head_tail 的是涉及到文件的, 这里只是处理 string
+sed -i -- 's/foo/bar/g' *  # 将当前路径所有文件替换, 没有递归效果, sed 不能加 e
+perl -i -pe 's/foo/bar/gc' ./*  # 将当前路径所有文件替换, 没有递归效果 (加 e 和不加一样)
+# perl 那个比较好用
+uptime | awk '{print $3}' | sed 's/,//'

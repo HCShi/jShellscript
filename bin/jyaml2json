@@ -1,0 +1,21 @@
+#!/usr/bin/python
+#coding: utf-8
+"""jyaml2python
+
+Usage:
+    jyaml2python
+
+Example:
+    cat file.yaml | jyaml2python  # 在终端打印出 json 格式
+
+Options:
+    -h,--help
+"""
+from docopt import docopt
+import yaml, json, sys
+def main():
+    args, _run = docopt(__doc__), 0;
+    if len(sys.argv) == 1: pass
+    sys.stdout.write(json.dumps(yaml.load(sys.stdin), sort_keys=True, indent=2))
+if __name__ == '__main__':
+    main()

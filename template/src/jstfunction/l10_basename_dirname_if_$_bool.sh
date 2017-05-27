@@ -40,3 +40,13 @@ else
     else echo "$1 < $2, $1 < $3"
     fi
 fi
+##################################################################
+## $; $1 is the first argument,  $@ is all of them.
+echo ${1: }
+set quick brown fox jumps
+echo ${*: -1:1}  # jumps; last argument
+echo ${*: -1}  # jumps; or simply
+echo ${*: -2:1}  # fox; next to last
+echo ${*: 2}  # brown fox jumps; from 2th to last
+echo ${*: 1}  # quick brown fox jumps; all
+echo ${*}  # quick brown fox jumps; all; or simply

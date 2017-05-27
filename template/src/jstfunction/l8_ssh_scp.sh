@@ -1,9 +1,9 @@
 #!/bin/bash
 ##################################################################
 ## 1. ssh 公钥分发
-##################################################################
 # 方法一
 # 设置SSH Key A 端
+less  ~/.ssh/id_rsa.pub  # 先确定你的 VPS 有没有生成过 ssh 的 key
 ssh-keygen -t rsa # 连续三次回车,即在本地生成了公钥和私钥,不设置密码)
 ssh root@192.168.56.101 "mkdir .ssh;chmod 0700 .ssh" # 需要输入服务器root密码,  注:必须将.ssh的权限设为700)
 scp ~/.ssh/id_rsa.pub root@192.168.56.101:.ssh/id_rsa.pub # 需要输入服务器root密码)
@@ -18,11 +18,12 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub mininet@192.168.56.101  # for Mininet, 因为 M
 ssh user@host 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 # for banwagong
 ssh-copy-id -i .ssh/id_rsa.pub root@45.78.9.29 -p 28484
-
 ##################################################################
-## SSH tunnel  host1: 机房(内网) host2: 实验室电脑(内网) host3: 阿里云(公网)  实现在机房上机时, ssh tunnel 到实验室
+## 1.1 SSH USAGE
+ssh git@github.com
+##################################################################
+## 1.2 SSH tunnel  host1: 机房(内网) host2: 实验室电脑(内网) host3: 阿里云(公网)  实现在机房上机时, ssh tunnel 到实验室
 ## 参考: 阮一峰
-##################################################################
 # 遵循一个原则, 下面提示符右侧出现的 host1, host2, host3 必须都是公网 IP, 没有出现的可以是内网
 # 一: 绑定本地端口
 ssh -D 8080 remote_user@remote_host  # SSH会建立一个socket, 去监听本地的8080端口
@@ -61,22 +62,8 @@ host3$ ssh -p 19999 coder@127.0.0.1  # 在自己电脑上测试一下, 还真连
 host1$ ssh -CNL 10000:localhost:19999 coder352@172.18.140.158
 host1$ ssh -p 10000 coder@127.0.0.1
 # 其实这样有点麻烦了, 可以直接 host1 ssh上 host3, 再在 host3 上ssh到 host2
-
-##################################################################
-## SSH USAGE
-##################################################################
-ssh git@github.com
-
 ##################################################################
 ## 2. scp
-##################################################################
-:||{
-
-# 1. 上传目录到服务器
-scp -r Documents root@192.168.56.101:~/root/
-# 2. 从服务器下载整个目录
-scp -r username@servername:remote_dir/ /tmp/local_dir
-# 3. 从服务器下载文件
-scp -P port username@servername:/path/filename /tmp/local_destination
-
-}
+scp -r Documents root@192.168.56.101:~/root/                           # 上传目录到服务器
+scp -r username@servername:remote_dir/ /tmp/local_dir                  # 从服务器下载整个目录
+scp -P port username@servername:/path/filename /tmp/local_destination  # 从服务器下载文件

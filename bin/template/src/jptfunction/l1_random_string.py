@@ -9,7 +9,7 @@ print(''.join(random.sample(string.ascii_letters + string.digits + '()`~!@#$%^&*
 print(''.join(random.choice(string.ascii_uppercase + string.digits)))  # 只能生成一个
 print(''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(10)))  # 新添的控制长度
 
-def rndColor(): return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+def rndColor(): return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))  # randomint(a, b), return between [a, b]
 print(rndColor())  # (151, 195, 191), 随机颜色
 def gen_random_list(opts, n): return [random.choice(opts) for i in range(n)]
 print(gen_random_list('ABCD*', 4))  # ['A', 'D', '*', '*'], 从给定的模式中选

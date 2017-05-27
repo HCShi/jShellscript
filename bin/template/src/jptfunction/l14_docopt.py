@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 # coding: utf-8
+# python current.py -h
+# 找个合适的例子替换掉这个, 现在这个好烂啊
 ##################################################################
 # docopt 文档
 ##################################################################
-""" Zen of Python
+"""Zen of Python  # 这里定这些简介
 
 Usage:
     jticket [-abcdefgijklmnopqrstuvwxyz] [run]
@@ -22,21 +24,13 @@ from docopt import docopt  # __doc__ 必须放最前面
 ##################################################################
 import os, sys
 user_path = os.path.expanduser('~')    # '/home/coder352'
-from configparser import ConfigParser  # 读配置文件
-cfg = ConfigParser()
-cfg.read(user_path + '/github/jShellscript/bin/template/config.ini')
-path = cfg.get('PATH', 'current_path')
-separator = cfg.get('MISC', 'separator')
-def cli():
+def main():  # 函数名可随便换
     args, _run = docopt(__doc__), 0;
-    if len(sys.argv) == 1: args['-a'] = True
+    if len(sys.argv) == 1: args['-a'] = True  # argv=1 表示 ./l14_docopt.py 没带参数
     if args['run']: _run = 1
     if args['-a']:
-        file_path = path + './src/jptzen/l1_namedtuple_random_list.py'.lstrip('.')
-        if _run: os.system('python3 ' + file_path)
-        else:
-            print(separator)
-            for line in open(file_path).readlines()[2:]: print(' ' * 4 + line, end="")
+        if _run: print('hello')
+        else: print("world")
 
 if __name__ == '__main__':
-    cli()
+    main()

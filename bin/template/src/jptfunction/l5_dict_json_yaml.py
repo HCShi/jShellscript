@@ -27,7 +27,10 @@ import pprint; pprint.pprint({'a': {'b': 'B'}}, indent=1)  # 效果不是很好
 print(json.loads('{"a": "A"}'), type('{"a": "A"}'), type(json.loads('{"a": "A"}')))  # 将 python str 类型转化为 python dict
 print(json.load(open('./l5_dict_json.json')))
 print(json.dumps(open('./l5_dict_json.json').read(), indent=2))
+##################################################################
+# 键值翻转, 遍历
 d = dict(name='Bob', age=20); print(dict(zip(d.values(), d.keys())))  # 键值反转
+for item in d: print(item)  # name, age; 直接遍历输出的只是 key
 for k, v in d.items(): print(k, v)  # items(), values(), keys() 返回值可以 list 列表化
 
 # 总结:

@@ -1,0 +1,25 @@
+#!/bin/bash
+# Usage: alias ccss='source ~/github/jShellscript/bin/jumpto package.json public/stylesheets'
+#       source ~/github/jShellscript/bin/jumpto package.json . nohup sass --watch public/sass:public/stylesheets > /dev/null 2>&1 &!
+# 为了在 Node 这种项目中快速的切换路径, 因为 package.json 是 npm 的标配, 所以用她
+dir=`basename $(pwd)`
+flag=0
+cur_path=$(pwd)
+while [ $dir != "home" ]; do
+    for file in $(ls); do
+        # echo $file
+        if [ $file == $1 ]; then
+            echo `pwd`
+            flag=1
+            break
+        fi
+    done
+    if [ $flag == 1 ]; then break; fi
+    cd ..
+    dir=`basename $(pwd)`
+done
+cd $2
+if [ "$3"  != "" ]; then  # 这里是添加 执行命令的功能, 针对 sass --watch 这种需要在根目录下执行的命令
+    eval ${*: 3}
+    cd $cur_path
+fi

@@ -9,7 +9,8 @@ def main():
     try: bar('0')  # 不用每个函数都写 try, 只要有一个地方写就行了
     except Exception as e: logging.exception(e)  # logging 好处是可以输出到文件
 main(); print('END')
-
+##################################################################
+## unittest
 class Dict(dict):  # 先编写一个类, 下面的 TestDict 就是测试类, 一般测试类要分开文件放
     def __init__(self, **kw): super().__init__(**kw)
     def __getattr__(self, key):

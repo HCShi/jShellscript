@@ -8,7 +8,7 @@ import networkx as nx
 DG = nx.DiGraph()
 DG.add_weighted_edges_from([(1, 2, 0.5), (3, 1, 0.75)])
 print(DG.out_degree(1, weight='weight'), DG.degree(1,weight='weight'))  # 0.5, 1.25
-print(DG.out_degree(1))  # 1
+print(DG.out_degree(1))  # 1; 向外的个数
 print(DG.successors(1), DG.neighbors(1))  # [2], [2]
 ##################################################################
 # Convert

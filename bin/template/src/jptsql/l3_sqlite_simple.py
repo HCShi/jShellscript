@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 # coding: utf-8
-# sqlite 是一个软件库 无服务器的 零配置的 是在世界上最广泛部署的SQL数据库引擎
+# sqlite 是一个软件库 无服务器的 零配置的 是在世界上最广泛部署的 SQL 数据库引擎
 # sqlite 的 .db 数据库 cat 打开能看到, vim 打开乱码
 import os, sqlite3  # 导入 SQLite 驱动
-conn = sqlite3.connect('test.db')  # 连接到SQLite数据库, 数据库文件是 test.db, 如果文件不存在, 会自动在当前目录创建
+conn = sqlite3.connect('test.db')  # 连接到 SQLite 数据库, 数据库文件是 test.db, 如果文件不存在, 会自动在当前目录创建
 cursor = conn.cursor()             # 创建一个 Cursor, 通过游标执行 SQL 语句
 
 cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')  # 执行一条 SQL 语句, 创建 user 表
@@ -13,7 +13,7 @@ print(cursor.rowcount)  # 通过 rowcount 获得插入的行数
 conn.commit()   # 提交事务
 
 cursor.execute('select * from user where id=?', ('1',))  # ? 占位符
-print(cursor.fetchall())  # 结果集是一个list, 每个元素都是一个tuple
+print(cursor.fetchall())  # 结果集是一个 list, 每个元素都是一个 tuple
 
 cursor.close()  # 关闭 Cursor
 conn.close()    # 关闭 Connection

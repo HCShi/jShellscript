@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # coding: utf-8
-# PostgreSQL是一個功能強大, 開源對象關係型數據庫係統. 它擁有超過15年的持續開發和業經驗證的架構, 具有良好的可靠性, 數據完整性和正確性.
-# PostgreSQL能夠運行在所有主流操作係統, 包括Linux, UNIX（AIX, BSD, HP-UX, SGI IRIX, Mac OS X上的Solaris, Tru64的）, 和Windows.
-# PostgreSQL可以用Python psycopg2模塊集成.  sycopg2是Python編程語言的PostgreSQL數據庫的適配器.  其程序代碼少, 速度快, 穩定.
+# PostgreSQL 是一個功能強大, 開源對象關係型數據庫係統. 它擁有超過 15 年的持續開發和業經驗證的架構, 具有良好的可靠性, 數據完整性和正確性.
+# PostgreSQL 能夠運行在所有主流操作係統, 包括 Linux, UNIX (AIX, BSD, HP-UX, SGI IRIX, Mac OS X 上的 Solaris, Tru64 的) , 和 Windows.
+# PostgreSQL 可以用 Python psycopg2 模塊集成.  sycopg2 是 Python 編程語言的 PostgreSQL 數據庫的適配器.  其程序代碼少, 速度快, 穩定.
 import psycopg2  # 导入PostgreSQL驱动
 try:
     # 连接数据库

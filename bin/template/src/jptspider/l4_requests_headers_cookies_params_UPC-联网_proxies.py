@@ -38,6 +38,7 @@ postData = {
 } # 这是宿舍的 postData, 用户名后面要加 @upc, url 的 ip 地址可能不同
 s = requests.session()
 r = s.post(url, params = postData); print r.text
+r = s.post(url, postData); print r.text  # 默认第二个参数是 params, 也就是附加数据
 ##################################################################
 ## proxies, 维护一个代理 IP 池, 网上有很多免费的代理 IP, 可以通过筛选找到能用的; 解决由于 "频繁点击" 而需要输入验证码登陆的情况
 # proxies = {'http': 'http://XX.XX.XX.XX:XXXX'}

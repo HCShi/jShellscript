@@ -1,36 +1,49 @@
 #!/usr/bin/python3
 # coding: utf-8
 # python current.py -h
-# 找个合适的例子替换掉这个, 现在这个好烂啊
+# 典型代表是 jcurl
 ##################################################################
-# docopt 文档
+## docopt 文档
 ##################################################################
-"""Zen of Python  # 这里定这些简介
+"""curl localhost for Web test
 
 Usage:
-    jticket [-abcdefgijklmnopqrstuvwxyz] [run]
-
-Example:
-    jptzen -a      # 打印代码
-    jptzen -a run  # 运行代码
+    jcurl [PORT] [URL]
+    jcurl -v | --version
+    jcurl -h | --help
 
 Options:
-    -h,--help
-    -a  # 生成 N 位同学在某份试卷的 M 道选择题上的得分, l1_namedtuple_random_list
-"""
-from docopt import docopt  # __doc__ 必须放最前面
-##################################################################
-# 功能实现, 修改两处, 先改下面 if, 再添加上面的 -ab...
-##################################################################
-import os, sys
-user_path = os.path.expanduser('~')    # '/home/coder352'
-def main():  # 函数名可随便换
-    args, _run = docopt(__doc__), 0;
-    if len(sys.argv) == 1: args['-a'] = True  # argv=1 表示 ./l14_docopt.py 没带参数
-    if args['run']: _run = 1
-    if args['-a']:
-        if _run: print('hello')
-        else: print("world")
+    -h, --help     显示帮助菜单
+    -v, --version  显示版本号
+    port           端口号
+    url            地址
 
+Arguments:
+    PORT  Local port opened
+    URL   Local route
+
+Example:
+    jcurl
+    jcurl 3000
+    jcurl users/userlist
+    jcurl 3000 users/userlist
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+args = docopt(__doc__)
+##################################################################
+## 功能实现, if 条件
+##################################################################
+import sys
+if len(sys.argv) == 1: cmd = 'curl localhost'  # jcurl
+if args['PORT']: cmd = 'curl localhost:' + str(args['PORT'])  # jcurl 3000
+if args['URL']: cmd = 'curl localhost:' + str(args['URL'])  # jcurl users/userlist
+if args['PORT'] and args['URL']: cmd = 'curl localhost:' + str(args['PORT']) + '/' + args['URL']  # jcurl 3000 users/userlist
+from os import system
+system(cmd)
+##################################################################
+## Main
+##################################################################
 if __name__ == '__main__':
-    main()
+    pass
+    # print(args)

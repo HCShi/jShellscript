@@ -10,6 +10,7 @@ alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 �
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
 alias cpbjclip='test() { b64 -e $1 | jclip && clippaste | xargs -I {} b64 -e {} | jclip };test'
 alias cpgitignore='cp ~/github/jTemplate/src/my.gitignore .gitignore'
+alias cplayout='cp ~/github/jTemplate/src/layout.pug .'
 alias cman='LANG="zh_CN.utf8" man'
 cps(){
     tmp1=`pwd` && tmp2="/" && tmp3="$1"
@@ -24,7 +25,9 @@ ggc(){ google-chrome http://127.0.0.1:$1 }
 alias grep="grep -iI --color=always"  # google: grep exclude binary file || grep ignore spcific directory
 alias grepf='test() { find -iname $2 | xargs grep -riIn --color=always $1 };test'  # example: grepf hello "*.md"
 alias greps="grep -riIn --color=always"  # example: greps hell
-alias grepsd="grep -riIn --color=always --exclude-dir"  # example: grepsd .git hello
+grepsd(){  # 这个不好用, 还是 greps --exclude-dir={.git,node_modules,book} 好用
+    grep -riIn --color=always --exclude-dir=$1 $2  # example: grepsd .git hello; grepsd {.git,node_modules,book} img # 不能有空格
+}
 alias grepsls='ls | grep'
 alias pdfgrepinr='test() { pdfgrep -inr $1 * };test'
 ju8(){
@@ -128,19 +131,19 @@ alias python3httpserver='python3 -m http.server'  # open 8000 port
 # alias bpython='bpython3'
 # alias pip='pip3'
 # ascii 和 char 之间转换
-alias pord='test() { python -c "print ord(\"$1\")" };test'  # example: pord A  # 65  # ord(char/unichr)
-alias pchr='test() { python -c "print chr(int(\"$1\"))" };test'  # example: pchr 65  # A  # chr(num)
-alias punichr='test() { python -c "print unichr(int(\"$1\"))" };test'  # example: pchr 65  # A  # unichr(0-65535)
+alias pord='test() { python -c "print(ord(\"$1\"))" };test'  # example: pord A  # 65  # ord(char/unichr)
+alias pchr='test() { python -c "print(chr(int(\"$1\")))" };test'  # example: pchr 65  # A  # chr(num)
+alias punichr='test() { python -c "print(unichr(int(\"$1\")))" };test'  # example: pchr 65  # A  # unichr(0-65535)
 # 进制转换
-alias phex='test() { python -c "print hex(int(\"$1\"))" };test'  # example: phex 16  # 0x10
-alias pbin='test() { python -c "print bin(int(\"$1\"))" };test'  # example: pbin 16  # 0b10000
-alias poct='test() { python -c "print oct(int(\"$1\"))" };test'  # example: poct 16  # 020
-alias pint16='test() { python -c "print int(\"$1\", 16)" };test'  # example: pint16 0x10  # 16  # int('string', base)
+alias phex='test() { python -c "print(hex(int(\"$1\")))" };test'  # example: phex 16  # 0x10
+alias pbin='test() { python -c "print(bin(int(\"$1\")))" };test'  # example: pbin 16  # 0b10000
+alias poct='test() { python -c "print(oct(int(\"$1\")))" };test'  # example: poct 16  # 020
+alias pint16='test() { python -c "print(int(\"$1\", 16))" };test'  # example: pint16 0x10  # 16  # int('string', base)
 
 # 生成随机字符
-prans() { python -c "import random, string; print ''.join(random.sample(string.ascii_letters + string.digits + '()~!@#$%^&*-+=|\'{}[]:;<>,.?/', $1))" }  # prans 32
-pransd() { python -c "import random, string; print random.choice(string.ascii_letters) + \
-    ''.join(random.sample(string.ascii_letters + string.digits + '()~!@#$%^&*-+=|\'{}[]:;<>,.?/', int(\"$1\") - 1))" }  # 以字母开头, pransd 32
+prans() { python -c "import random, string; print(''.join(random.sample(string.ascii_letters + string.digits + '()~!@#$%^&*-+=|\'{}[]:;<>,.?/', $1)))" }  # prans 32
+pransd() { python -c "import random, string; print(random.choice(string.ascii_letters) + \
+    ''.join(random.sample(string.ascii_letters + string.digits + '()~!@#$%^&*-+=|\'{}[]:;<>,.?/', int(\"$1\") - 1)))" }  # 以字母开头, pransd 32
 
 # 普通运行
 # alias rpy='test() { python -c "print $1" };test'  # ryp 0xffffd6cc-0xffffd680, 不用带引号
@@ -171,7 +174,9 @@ alias pycharm='/home/coder352/JetBrains/pycharm-2016.3.2/bin/pycharm.sh'
 alias ppw='pug -P -w'  # for pug 实时编译
 alias cwc='coffee -wc'  # for coffee 实时编译
 alias cbpe='coffee -bpe'
+alias html2jademe='html2jade -n 4 --double --donotencode --bodyless --noemptypipe --noattrcomma'
 # npm 项目跳转, express jBlog 生成的项目
+alias lse="tree -I 'node_modules|bower_components|bourbon|stylesheets|前面的都没备份|README.md|app.js|bin|package.json|bower.json|images'"
 alias css="$jumpto package.json public/stylesheets"
 alias ass="$jumpto package.json public/sass"
 alias vie="$jumpto package.json views"
@@ -180,7 +185,7 @@ alias bin="$jumpto package.json bin"
 alias js="$jumpto package.json public/javascripts"
 alias ima="$jumpto package.json public/images"
 alias roo="$jumpto package.json ."
-alias jadebootstrap="$jumpto package.json node_modules/jade-bootstrap/"
+alias jadebootstrap="$jumpto package.json bower_components/jade-bootstrap/"
 # 各种 启动/关闭/重启 这些命令在项目的子目录也可以执行
 alias stanpm='nohup npm start > /dev/null 2>&1 &!'
 alias renpm='pkill node && nohup npm start > /dev/null 2>&1 &!'  # ps -ef | grep 'node ./bin/www' | awk '{print $2}' | xargs kill  # 这个会杀掉好多
@@ -189,7 +194,8 @@ staexp() {
     nohup npm start > /dev/null 2>&1 &!
     # $jumpto package.json . nohup sass --compass --watch public/sass:public/stylesheets > /dev/null 2>&1 &!  # 不用 sass 了, 换成 compass
     # eval $jumpto package.json public compass watch > /dev/null 2>&1 &!  # 和上面的功能是一样的!!! compass 约等于 sass --comapss
-    eval $jumpto package.json . nohup node-sass --watch public/sass:public/stylesheets > /dev/null 2>&1 &!  # 将 sass, compass 都换掉了
+    # eval $jumpto package.json . nohup node-sass --watch public/sass:public/stylesheets > /dev/null 2>&1 &!  # node-sass 不知道怎么写, 以后在弄
+    eval $jumpto package.json . nohup sass --watch public/sass:public/stylesheets > /dev/null 2>&1 &!  # 不用 compass 了
 }
 stoexp() {
     pkill node
@@ -243,7 +249,7 @@ alias mmatlabrsgui='test() { matlab -r "$1" };test'  # mmatlabrsgui 1, 不要后
 # -nosplash表示不加载启动界面
 # -nodesktop表示不加载GUI界面
 # -r表示运行Matlab命令行（MATLAB_command）
-# file_base_name表示文件名，但不包含文件扩展名
+# file_base_name表示文件名, 但不包含文件扩展名
 alias moctave='octave --no-gui'  # 进入命令行, 比 Matlab 友好多了
 alias moctaveq='octave --no-gui -q'
 # alias moctaver='octave --no-gui'  # 因为 Octave 启动速度非常快, 所以就没有执行单条命令的 alias
@@ -268,6 +274,7 @@ cdhistory() { cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'` }  # 
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
 alias cdmythesis="cd ~/Documents/thiscandel/thesis"
+alias cdjblog="cd ~/github/jBlog"
 alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
@@ -291,6 +298,7 @@ alias cdjspacemacs="cd ~/github/jSpacemacs"
 alias cdjspacemacsme="cd ~/github/jSpacemacs/layers/14thcoder"
 alias cdjspacemacsmetheme="cd ~/github/jSpacemacs/layers/14thcoder/theme"
 alias cdjspacemacsmesnippet="cd ~/github/jSpacemacs/layers/14thcoder/yasnippet"
+alias cdjspider="cd ~/github/jSpider/jSpider"
 alias cdjtemplate='cd ~/github/jTemplate'
 alias cdjtemplatedatabase="cd ~/github/jTemplate/database"
 alias cdjtemplatedatabasemongodb="cd ~/github/jTemplate/database/mongodb"
@@ -362,7 +370,7 @@ alias vimnormal="cp ~/.vimrc.normal ~/.vimrc"
 ##################################################################
 spaceemacscompile() { emacs --batch --eval '(byte-recompile-directory "~/.spacemacs.d/" 0)' }  # 最好不要用, 会出现一些奇怪的错误
 emacscompile() { emacs --batch --eval '(byte-recompile-directory "~/.emacs.d" 0)' }  # 直接执行 .el 速度还行, findname "*.elc*" | xargs rm 将 .elc 删除
-alias eng='emacs --debug-init'
+alias eng='emacs --debug-init'  # 它会显示更详细的错误信息, 你就知道是哪个文件的哪个语句出了问题了
 alias engq='emacs --debug-init -q'  # -q 是不加载配置文件
 alias enwq='emacs -nw -q'
 alias ens='emacs --no-site-file --script'  # 执行单独的 .el 文件
@@ -373,7 +381,7 @@ alias esk='emacsclient -e "(kill-emacs)"'  # 关闭服务端
 alias esr='emacsclient -e "(kill-emacs) && emacs --daemon"'  # 重启服务端
 alias eservername='emacs --eval "(setq server-name \"$1\")" --daemon'  # emacsservername foo; 创建 Name 为 foo 的 Emacs 服务端
 alias ecl='emacsclient'  # ecl a.py; 如果开的是 GUI 界面的服务器, 会进入 GUI; 如果开的是 ess(terminal), 会进入终端
-alias vom='emacsclient -nw'  # vom a.py; fn 退出
+alias vom='emacsclient -nw'  # vom a.py; fn 退出; 如果是通过终端打开的 GUI 界面, 那么这个命令会在 GUI 中打开编辑文件, 否则会在
 alias voms='emacsclient -nw -s'  # voms foo; 连接 server-name 为 foo 的 emacs 服务器
 # 下面几个是调试别人的配置文件时候方便
 alias lnsjspacemacs='ln -s ~/github/jSpacemacs ~/.spacemacs.d'
@@ -391,7 +399,8 @@ alias tmuxkill="tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, lengt
 ## Latex 记录一些常用的 package, 方便查 api
 ##################################################################
 lnslatex(){ ln -s ~/github/jShellscript/bin/latexpath/${1} ~/texmf/tex/latex/local/ }
-alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.bcf & rm *.lof & rm *.lot & rm *.mintedcmd & rm *.out & rm *.run.xml"
+alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.bcf & \
+    rm *.lof & rm *.lot & rm *.mintedcmd & rm *.out & rm *.run.xml & rm *.snm & rm *.nav"
 alias rmlatexpdf="rm *.pdf"
 
 alias cdlatexdoc="cd /usr/share/texlive/texmf-dist/doc/latex"
@@ -410,10 +419,10 @@ alias gicommit='git commit -m'
 alias gilog='git log --oneline --decorate --graph --all'
 alias gipush='git push origin master'
 alias girev='git remote -v'
-alias gid="git diff"  # 工作目录 vs 暂存区 (如果还没 add 进暂存区，则查看文件自身修改前后的差别)
+alias gid="git diff"  # 工作目录 vs 暂存区 (如果还没 add 进暂存区, 则查看文件自身修改前后的差别)
 alias gidc='git diff --cached'  # 暂存区 vs Git仓库 (表示查看已经 add 进暂存区但是尚未 commit 的内容同最新一次 commit 时的内容的差异)
 # global
-alias gitdep='git clone --depth=1'  # git shallow clone --depth=1 表示只下载最近一次的版本，使用浅复制可以大大减少下载的数据量
+alias gitdep='git clone --depth=1'  # git shallow clone --depth=1 表示只下载最近一次的版本, 使用浅复制可以大大减少下载的数据量
 alias gitinfo='git config --global -l'  # 显示git相关配置信息
 alias githttp="git config --global http.proxy 'socks5://127.0.0.1:1080' && git config --global https.proxy 'socks5://127.0.0.1:1080'"  # 只针对 https://github.com/coder352/jvim.git 之类的
 alias githttpno="git config --global --unset http.proxy && git config --global --unset https.proxy"
@@ -469,8 +478,8 @@ alias sshruanjianbei="ssh jrp@211.87.185.53 -p 22222" # passwd: Yr1Uwud6yH87kcJ8
 alias sshteacher="ssh r12@121.251.254.208" # username: root; passwd: 123456
 alias sshtencent='ssh root@115.159.88.186'
 alias sshdocker='ssh root@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" $(docker ps -a -q))'
-# alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去，所以写成可执行文件了
-# 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey，然后mininet就不能公钥登陆了，还得重设
+# alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去, 所以写成可执行文件了
+# 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey, 然后mininet就不能公钥登陆了, 还得重设
 
 # SCP
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
@@ -550,13 +559,14 @@ alias dpsa='docker ps -a'  # 显示后台所有容器, 包括停止的
 alias dpull='docker pull'
 alias drm='docker rm'
 alias drma='docker rm $(docker ps -a -q)'  # 删除所有已经停止运行的容器
-# dps -> dkilla -> dpsa -> drma  # 正常的关闭顺序, 其中如果不是全部关闭, 用 dkill 和 drm 来 <Tab> 选择性关闭
+# dps -> dkilla -> dstart(重新打开已经关闭的) -> dpsa -> drma  # 正常的关闭顺序, 其中如果不是全部关闭, 用 dkill 和 drm 来 <Tab> 选择性关闭
 alias drmi='docker rmi'
 alias drunit='docker run -i -t'
 alias drunitrm='docker run -i -t --rm'  # -it 分开写, 要不然就没有补全了
 alias drunitrmp='docker run -i -t --rm -p 80:80 -p 3306:3306'
 # alias drunitrmsh='test() { docker run -i -t --rm $1 /bin/bash };test'  # 只要 run 后面 加 sh 或 /bin/bash, 就能进入 CLI
-alias dstart='docker start -i'  # 打开一个已经关闭的容器
+alias dstart='docker start'  # 打开一个已经关闭的容器
+alias dstarti='docker start -i'  # 打开一个已经关闭的容器, 并进入交互界面
 alias dstop='docker stop'
 
 # docker-compose dc开头
@@ -588,6 +598,13 @@ alias docmysqlcli='exec docker run -it \
 # alias docmongo='docker run -p 27017:27017 --name some-mongo -d mongo:3.4 --auth'  # 不加 auth 每次连接有好多 warning
 # --auth  # No one else should access mongodb; 用自己主机映射的端口连接的话就没有访问权限了..., 所以换成了下面的
 alias docmongo='docker run -p 27017:27017 --name some-mongo -d mongo:3.4'  # 试了好多, 都不好用, 就每次 warning 吧
+# docker run -i -t --rm -v /home/coder352/github/jBlog/:/home/node/jBlog node:8.0 /bin/bash  # 用这句话进行测试是否挂载成功
+# docexpress 是运行网站时候用的, 开发的时候还是在本机上方便..., 所以 node:8.0 里面就没传 Sass 之类的
+# --network host 可以分享主机的网络, 进而使用 docmongo 的服务, 但是感觉好不自在啊...
+alias docexpress='docker run -p 3000:3000 --name some-express -u node -d --network host \
+    -v /home/coder352/github/jBlog/:/home/node/jBlog \
+    node:8.0 /bin/bash -c "cd /home/node/jBlog \
+    && node ./bin/www"'
 
 alias docredis='docker run -p 6379:6379 --name some-redis -d redis:3'
 
@@ -663,9 +680,9 @@ alias jpasswordqq='jpassword qq | jclip'
 ##################################################################
 # 为了 bash 的兼容性, 注释之
 # alias -s log=cd # 省去 cd
-# alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名，会在 vim 中打开,如果想用textmate打开可以将vi改成mate
-# alias -s rb=vi     # 在命令行直接输入 ruby 文件，会在 vim 中打开
-# # alias -s py=vi       # 在命令行直接输入 python 文件，会用 vim 中打开，以下类似
+# alias -s html=vi   # 在命令行直接输入后缀为 html 的文件名, 会在 vim 中打开,如果想用textmate打开可以将vi改成mate
+# alias -s rb=vi     # 在命令行直接输入 ruby 文件, 会在 vim 中打开
+# # alias -s py=vi       # 在命令行直接输入 python 文件, 会用 vim 中打开, 以下类似
 # # 被这个 py=vi 坑了好长时间, 以为自己写的脚本不能用了
 # alias -s js=vi
 # alias -s c=vi
@@ -676,7 +693,7 @@ alias jpasswordqq='jpassword qq | jclip'
 # alias -s zip='unzip'
 # alias -s bz2='tar -xjvf'
 
-# 使用时，前面加$就可以了
+# 使用时, 前面加$就可以了
 # alias sshxm="ssh -X mininet@192.168.56.101" # Mininet 中last 不好用以后会注释掉了
 # alias smctcrip="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.103,port=6653"
 # alias smctcrip2="sudo mn --custom ~/topo-2sw-2host.py --topo mytopo --controller=remote,ip=192.168.56.101,port=6653"

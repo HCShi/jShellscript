@@ -1,48 +1,59 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # coding: utf-8
-
 ##################################################################
-# argparse
+## docopt 文档
 ##################################################################
-import argparse
-parser = argparse.ArgumentParser(
-    prog="jcurl",
-    formatter_class=argparse.RawDescriptionHelpFormatter,  # 没有这句话, 换行会过滤掉
-    description='''\
-        Description:
-        --------------------------------
-        curl localhost for Web test
-        127.0.0.1  jrp  # 添加到 /etc/hosts 中就可以用 jrp 来代替 localhost
+"""curl localhost for Web test
 
-        Usage Example:
-        --------------------------------
-        jcurl
-        jcurl 8989
-        ''')
-parser.add_argument('port', type=str, nargs='?', help='curl localhost:port')
+Usage:
+    jcurl -v | --version | -h | --help
+    jcurl --auth
+    jcurl [-p] [PORT] [URL]
 
-parser.add_argument('--autho', action='store_const', const='14thCoder', help='show the autho')
-parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-args = parser.parse_args()
+Options:
+    -h, --help     Help menu
+    -v, --version  Version num
+    --auth         Author
+    -p             -X POST with default data
 
+Arguments:
+    PORT  Local port opened
+    URL   Local route
+
+Example:
+    jcurl
+    jcurl 3000
+    jcurl users/userlist
+    jcurl 3000 users/userlist
+    jcurl -p
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+import sys, os
+args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
 ##################################################################
-# curl of localhost
-##################################################################
-def jcurl(port):
-    from os import system
-    cmd = 'curl localhost:' + str(port)
-    system(cmd)
-
-##################################################################
-# main
+## 功能实现, if 条件
 ##################################################################
 import sys
-if __name__ == "__main__":
-    if args.autho:
-        print args.autho
+if args['--auth']: cmd = 'echo Jia Ruipeng'
+elif not args['-p']:
+    if len(sys.argv) == 1: cmd = 'curl localhost'  # jcurl
+    elif args['PORT'] and not args['URL']: cmd = 'curl localhost:' + str(args['PORT'])  # jcurl 3000
+    elif args['URL'] and not args['PORT']: cmd = 'curl localhost:' + str(args['URL'])  # jcurl users/userlist
+    elif args['PORT'] and args['URL']: cmd = 'curl localhost:' + str(args['PORT']) + '/' + args['URL']  # jcurl 3000 users/userlist
+elif args['-p']:
+    if len(sys.argv) == 1: cmd = '''curl -X POST -d '{"name": "Jia Ruipeng"}' localhost'''  # jcurl
+    elif args['PORT'] and not args['URL']: cmd = '''curl -X POST -d '{"name": "Jia Ruipeng"}' localhost:''' + str(args['PORT'])  # jcurl 3000
+    elif args['URL'] and not args['PORT']: cmd = '''curl -X POST -d '{"name": "Jia Ruipeng"}' localhost:''' + str(args['URL'])  # jcurl users/userlist
+    elif args['PORT'] and args['URL']: cmd = '''curl -X POST -d '{"name": "Jia Ruipeng"}' localhost:''' + str(args['PORT']) + '/' + args['URL']  # jcurl 3000 users/userlist
 
-    if len(sys.argv) == 1:
-        port = 80
-    elif len(sys.argv) == 2 and args.port:
-        port = args.port
-    jcurl(port)
+from os import system
+system(cmd)
+##################################################################
+## Main
+##################################################################
+if __name__ == '__main__':
+    #  print(args)
+    #  print(cmd)
+    pass
+

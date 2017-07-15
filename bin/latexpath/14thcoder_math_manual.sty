@@ -1,50 +1,43 @@
 %% ================================================================
 %% 使用说明
-%% ================================================================
 % 1. 测试: 将下面的 For tex 和 最后的 Main 取消注释, 直接运行即可
 % 2. 使用:
 %    \usepackage{14thcoder_math_manual}  % 这里就做成了一个包, 没有弄成模板的形式
-%    \blinddocument % 生成一段随机的文本
+%    \blinddocument  % 生成一段随机的文本, 放到 document 中; \usepackage{blindtext} 已经在这里引入了
 %% ================================================================
-%% For tex, 自己测试的时候用
+%% For cls, 自己测试的时候用
+% \documentclass[landscape, a4paper, twoside]{article}  % twoside 奇数页码在左边, 偶数在右; twocolumn 会显示连续的两页(换成 multicol 了)
 %% ================================================================
-% \documentclass[landscape, a4paper, twoside]{article} % twoside 奇数页码在左边, 偶数在右; twocolumn 会显示连续的两页(换成 multicol 了)
-%% ================================================================
-%% For sty
-%% ================================================================
-\NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{14thcoder_math_manual}[2017/04/09 v0.01 LaTeX package for my own math manual]
+%% For sty, 非必须的
+% \NeedsTeXFormat{LaTeX2e}[1994/06/01]
+% \ProvidesPackage{14thcoder_math_manual}[2017/04/09 v0.01 LaTeX package for my own math manual]
 %% ================================================================
 %% Normal Preamble, 引言区
-%% ================================================================
-\makeatletter % make @ to a letter(使 @ 变成一个普通字母); 用了这个命令以后可以通过 @title, @author 得到变量的值
+\makeatletter
 \title{Math Manual}    \let\Title\@title
 \author{Ruipeng Jia}   \let\Author\@author
 \date{\today}          \let\Date\@date
 \makeatother
 %% ================================================================
 %% Normal Layout
-%% ================================================================
-\setlength{\columnsep}{10pt} % 两/多 栏间距, 对 multicol 和 documentclass[twocolumn] 都有效
-\setlength{\columnseprule}{0.5pt} % 分割线宽度, 默认是 0(不显示分割线)
-\setlength{\parindent}{0pt} % 并将首行缩进设置为 0
-\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % plus, minus 设定上下限, 为段落正确的显示在页面, TEX 将在 0.8ex 到 1.5ex 之间调整段落之间的距离
-\linespread{1} % 行距, 1 倍
-\raggedright % 清空左侧
-\footnotesize % 脚注字体大小
+\setlength{\columnsep}{10pt}  % 两/多 栏间距, 对 multicol 和 documentclass[twocolumn] 都有效
+\setlength{\columnseprule}{0.5pt}  % 分割线宽度, 默认是 0(不显示分割线)
+\setlength{\parindent}{0pt}  % 首行缩进
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}  % plus, minus 设定上下限, 为段落正确的显示在页面, TEX 将在 0.8ex 到 1.5ex 之间调整段落之间的距离
+\linespread{1}  % 行距, 1 倍
+\raggedright  % 清空左侧
+\footnotesize  % 脚注字体大小
 \setlength\arraycolsep{2pt} % 缩小等号两边距离, 虽然并没有用
 %% ================================================================
 %% Normal Settings
-%% ================================================================
-% \setcounter{secnumdepth}{0} % Don't print section numbers
+% \setcounter{secnumdepth}{0}  % Don't print section numbers
 %% ================================================================
 %% Redefine section commands to use less space
-%% ================================================================
 \makeatletter
-\renewcommand{\section}{\@startsection{section}{1}{0mm} % startsection{name}{level: 0=part, 1=chapter, etc.}{heading indent}
-  {-1ex plus -.5ex minus -.2ex} % {beforeskip, if neg, no head indent}
-  {0.5ex plus .2ex}             % {afterskip, if neg, run-in heading}
-  {\normalfont\large\bfseries}} % {style of head}
+\renewcommand{\section}{\@startsection{section}{1}{0mm}  % startsection{name}{level: 0=part, 1=chapter, etc.}{heading indent}
+  {-1ex plus -.5ex minus -.2ex}  % {beforeskip, if neg, no head indent}
+  {0.5ex plus .2ex}              % {afterskip, if neg, run-in heading}
+  {\normalfont\large\bfseries}}  % {style of head}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}
   {-1ex plus -.5ex minus -.2ex}
   {0.5ex plus .2ex}
@@ -57,14 +50,14 @@
 %% ================================================================
 %% Normal Package
 %% ================================================================
-\usepackage{blindtext} % \blinddocument; 生成假的文章, 测试效果
-\usepackage{syntonly} % \syntaxonly; 快速检查文档错误, 不产生输出
-\usepackage[top=0.8in, bottom=0.8in, left=0.3in, right=0.3in, landscape]{geometry} % can be changed with \newgeometry, landscape 放这里是因为调用的 tex 不用写在 documentclass 那了
-% \usepackage{ifthen} % \ifthenelse{<test>}{<then clause>}{<else clause>}; 可以判断是不是 a4paper
+\usepackage{blindtext}  % \blinddocument; 生成假的文章, 测试效果
+\usepackage{syntonly}  % \syntaxonly; 快速检查文档错误, 不产生输出
+\usepackage[top=0.8in, bottom=0.8in, left=0.3in, right=0.3in, landscape]{geometry}
+% \usepackage{ifthen}  % \ifthenelse{<test>}{<then clause>}{<else clause>}; 可以判断是不是 a4paper
 % \usepackage{calc}
 \usepackage{amsmath, amsthm, amsfonts, amssymb}
 \usepackage{color, graphicx, overpic}
-% \usepackage{hyperref}
+\usepackage{hyperref}  % 点击 Content, rel 等可以跳到对应的位置
 %% ================================================================
 %% Chinese
 %% ================================================================
@@ -73,7 +66,7 @@
 %% titling, 标题格式, 很好看的标题样式
 %%================================================================
 \RequirePackage{titling}
-% \RequirePackage{titlesec} % Define title formats
+% \RequirePackage{titlesec}  % Define title formats
 % \RequirePackage{titletoc}
 \pretitle{\begin{center}\Huge \bfseries}
 \posttitle{\par\end{center}\vskip 2in}
@@ -82,55 +75,54 @@
        \begin{tabular}[t]{c}}
 \postauthor{\end{tabular}\par\end{center}}
 % \predate{}
-% \postdate{} % date is so useless in title, delete it and its spacing by default!
+% \postdate{}  % date is so useless in title, delete it and its spacing by default!
 %%================================================================
 %% Multicol
 %%================================================================
-\usepackage{multicol} % multicol, 对 Section 很友好
-\setlength{\premulticols}{20pt} % 开始插入前检测当前 column 是否有足够的空间放入下一个 Section, 否则在下一个 column 上开始
-\setlength{\postmulticols}{10pt} % 插入后检测
-\setlength{\multicolsep}{1pt} % 检测没有问题后隔 multicolsep 距离开始接着编辑
-\AtBeginDocument{\begin{multicols}{3}} % 这样就不用在调用的时候再往 \begin{document} 后面写了
+\usepackage{multicol}  % multicol, 对 Section 很友好
+\setlength{\premulticols}{20pt}  % 开始插入前检测当前 column 是否有足够的空间放入下一个 Section, 否则在下一个 column 上开始
+\setlength{\postmulticols}{10pt}  % 插入后检测
+\setlength{\multicolsep}{1pt}  % 检测没有问题后隔 multicolsep 距离开始接着编辑
+\AtBeginDocument{\begin{multicols}{3}}  % 这样就不用在调用的时候再往 \begin{document} 后面写了
 \AtEndDocument{\end{multicols}}
 %% ================================================================
 %% Cuted, Flushend 分栏效果, 对 documentclass[twocolumn] 管用, 在 multicol 中好像没用了
 %% ================================================================
-\usepackage{cuted} % \begin{strip} 单栏内容 \end{strip}; 增强分栏效果, 同一页面, 既可以有单栏, 也可以有双栏;
-\usepackage{flushend} % \raggedend, \flushend 两个命令控制分栏最后一页是否先将左侧填满
-\raggedend % 在双栏的最后一页先排满左栏, 然后再排右栏
-% \flushend % 恢复双栏平衡排列的命令, 左右两侧填的一样多
+\usepackage{cuted}  % \begin{strip} 单栏内容 \end{strip}; 增强分栏效果, 同一页面, 既可以有单栏, 也可以有双栏;
+\usepackage{flushend}  % \raggedend, \flushend 两个命令控制分栏最后一页是否先将左侧填满
+\raggedend  % 在双栏的最后一页先排满左栏, 然后再排右栏
+% \flushend  % 恢复双栏平衡排列的命令, 左右两侧填的一样多
 %% ================================================================
 %% Fancyhdr 页眉, 页脚, geometry 先设置了页眉, 页脚到页边的距离
 %% ================================================================
-\usepackage{fancyhdr} % Required for custom headers, 后面必须紧跟着 \pagestyle{fancy}
-\pagestyle{fancy} % Set default style for all content pages (not TOC, etc), \pagestyle 这个命令是 Latex 自带的, {fancy} 实现初步调用
-\fancyhf{} % delete current setting for header and footer, 因为参数为空, fancyhf is combine of fancyhead and fancyfoot
-\lhead{\emph\Author} % abbrev(缩写) for \fancyhead[L]; L: left filed; E: even page; R: right filed; O: odd page
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\emph\Author}
 \chead{\textbf\Title}
-\rhead{\slshape\leftmark} % \rightmark(lower-level), \leftmark(high-level); article 中 leftmark 表示 section_name, book 中 leftmark 表示 chapter_name
-\rfoot{\textbf{--\ \thepage\ --}} % \thepage display page number
-\pagenumbering{arabic}  % 页码编号用阿拉伯数字
-\renewcommand{\headrulewidth}{2pt} % 水平线的宽度; Default \headrulewidth is 0.4pt, \footrulewidth is 0pt;
-\addtolength{\headheight}{0pt} % make space for the rule, head 上面的空白区域高度
-\fancypagestyle{plain}{  % 这里是针对 plain(空白页的设置)
-  \fancyhead{}  % get rid of headers on plain pages, 这里很巧妙, 只是将顶部的清空
-  % \fancyhf{}  % clear all header and footer fields
-  \renewcommand{\headrulewidth}{0pt} % and the line
+\rhead{\slshape\leftmark}
+\rfoot{\textbf{--\ \thepage\ --}}
+\pagenumbering{arabic}
+\renewcommand{\headrulewidth}{2pt}
+\addtolength{\headheight}{0pt}
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \renewcommand{\headrulewidth}{0pt}
 }
 %% ================================================================
 %% My Commands
 %% ================================================================
-\newcommand{\ud}{\mathrm{d}} % 罗马字体, 微积分中 dx 的 d
-\newcommand{\mybf}[1]{\textbf{#1}} % 以后改的时候方便
+\newcommand{\ud}{\mathrm{d}}  % 罗马字体, 微积分中 dx 的 d
+\newcommand{\mybf}[1]{\textbf{#1}}  % 以后改的时候方便
 %% ================================================================
 %% My Environments
 %% ================================================================
-\newtheorem{example}[section]{Example} % \newtheorem{name}[numbered_like]{title}; 会显示 Example 1/2, 计数会随 section
+\newtheorem{example}[section]{Example}  % \newtheorem{name}[numbered_like]{title}; 会显示 Example 1/2, 计数会随 section
 %% ================================================================
 %% Main
 %% ================================================================
-% \begin{document} % 这里生成一个说明页, 用 newcommand 来实现
-% % \begin{multicols}{3} % 这句话已经自动写入了
-%   \blinddocument % 生成一段随机的文本
+% \begin{document}  % 这里生成一个说明页, 用 newcommand 来实现
+% % \begin{multicols}{3}  % 这句话已经自动写入了; \AtBeginDocument{\begin{multicols}{3}}
+%   \blinddocument  % 生成一段随机的文本, 所以只写这里的就可以了
 % % \end{multicols}
 % \end{document}

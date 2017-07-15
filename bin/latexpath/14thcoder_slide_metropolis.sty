@@ -1,0 +1,39 @@
+%% ================================================================
+%% 使用说明
+%% ================================================================
+% 1. 测试: 将下面的 For tex 和 最后的 Main 取消注释, 直接运行即可
+% 2. 使用:
+%    \documentclass{beamer}
+%    \usepackage{14thcoder_slide_metropolis}  % 这里就做成了一个包, 没有弄成模板的形式
+%% ================================================================
+%% Other packages; 已经包含好多的 packages 了, 这里加入那些默认没有的
+\usepackage{multicol}  % \begin{multicols}{3}  % 下面的会分成 3 列, 用的时候带上 s
+%% ================================================================
+%% For sty
+% \NeedsTeXFormat{LaTeX2e}[1994/06/01]
+% \ProvidesPackage{14thcoder_slide_metropolis}[2017/06/03 v0.01 LaTeX package for my own slide]
+%% ================================================================
+%% Theme configuration
+% \usetheme{Berkeley}  % 选用主题模板
+% \usetheme{Warsaw}  % 另一种比较好看的系统主题模板 Warsaw 左下角是 author, 右下角是 title(如果有中括号, 会是中括号里面的)
+% 下面的配置都是针对 metropolis 的
+\usetheme[progressbar=frametitle]{metropolis}  % 最好的系统模板, progressbar=frametitle 会在顶部的标题下面加一条 bar, 进度随着页数而改变
+\setbeamertemplate{frame numbering}[fraction]  % 右侧页码用 x/y 来表示进度
+\useoutertheme{metropolis}
+\useinnertheme{metropolis}  % 这两个 inner 和 outer 没有什么显著的变化
+\usecolortheme{spruce}  % a nice shade of green, 就不用像上面那样设置 mygreen 了
+\setbeamercolor{background canvas}{bg=white}  % 背景更加的白了
+
+% 下面是设置颜色和自定义颜色
+% \usecolortheme{crane}  % 起重机... 黄色, 使用系统自带的其它颜色, 下面是使用自定义颜色
+\definecolor{mygreen}{rgb}{.125,.5,.25}  % 可以从 latexcolor.com 找到相关的写法
+\usecolortheme[named=mygreen]{structure}  % 使用自己颜色的时候要把上面使用系统颜色注释掉, 否则不会覆盖, 而是忽略掉后面的
+%% ================================================================
+%% Preamble 会在 maketitle 中显示出来
+\title{Functions, Limits, Derivatives}
+\subtitle{Beamer is Fun!}  % 有的版本里面不会显示 subtitle, author, date
+\author{Jia Ruipeng}
+% \institute[University of Petroleum]{Department of Computer}  % 前面的中括号表示简写
+\institute{\large \textbf{Learning Outcomes:} \\[6pt] Exponential}  % \large 不加花括号表示作用范围是整句话; \\[6pt] 表示换行, 中间有 6 point 行距
+\date{November 15, 2017}
+\setbeamercovered{transparent=5}  % 设置那些隐藏的 onslide 信息的透明度, only<> 这个命令没作用

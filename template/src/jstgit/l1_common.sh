@@ -1,4 +1,5 @@
 #!/bin/bash
+# 电脑初始化 git, 用 jPC/git_config
 git clone https://github.com/coder352/jvim.git vim                 # 重命名
 git clone --branch v1.9 https://github.com/ethicalhack3r/DVWA.git  # 下载指定 Tag
 git clone --depth=1 https://github.com/coder352/jvim.git vim       # 只下载最近一次修改后的
@@ -10,6 +11,8 @@ git commmit -m "update"
 
 git tag  # 查看都有哪些标签
 git checkout <tag>  # 根据上面查到的标签来切换
+
+git ls-remote  # 查看远端 repository
 
 ##################################################################
 ## 本地配置

@@ -126,6 +126,7 @@ alias python3httpserver='python3 -m http.server'  # open 8000 port
 ##################################################################
 ## Python
 ##################################################################
+alias pt='ptpython'  # 简化使用频率高的
 # alias python='/usr/bin/python2'
 # alias python='python3'
 # alias bpython='bpython3'
@@ -399,7 +400,7 @@ alias tmuxkill="tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, lengt
 ## Latex 记录一些常用的 package, 方便查 api
 ##################################################################
 lnslatex(){ ln -s ~/github/jShellscript/bin/latexpath/${1} ~/texmf/tex/latex/local/ }
-alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.bcf & \
+alias rmlatex="rm *.log & rm *.fmt & rm *.aux & rm *.gz & rm _region_.tex & rm *.toc & rm *.bcf & rm *.bbl & rm *.blg \
     rm *.lof & rm *.lot & rm *.mintedcmd & rm *.out & rm *.run.xml & rm *.snm & rm *.nav"
 alias rmlatexpdf="rm *.pdf"
 
@@ -424,9 +425,10 @@ alias gidc='git diff --cached'  # 暂存区 vs Git仓库 (表示查看已经 add
 # global
 alias gitdep='git clone --depth=1'  # git shallow clone --depth=1 表示只下载最近一次的版本, 使用浅复制可以大大减少下载的数据量
 alias gitinfo='git config --global -l'  # 显示git相关配置信息
+# 三种代理使用方式, githttp, gitssh, gitgit 三个命令都是一遍, 万恶的防火长城
 alias githttp="git config --global http.proxy 'socks5://127.0.0.1:1080' && git config --global https.proxy 'socks5://127.0.0.1:1080'"  # 只针对 https://github.com/coder352/jvim.git 之类的
 alias githttpno="git config --global --unset http.proxy && git config --global --unset https.proxy"
-alias gitssh='mv ~/.ssh/jconfig ~/.ssh/config'
+alias gitssh='mv ~/.ssh/jconfig ~/.ssh/config'  # jPC/src/ssh_config
 alias gitsshno='mv ~/.ssh/config ~/.ssh/jconfig'
 alias gitgit='git config --global core.gitproxy "git-proxy"'  # 这个的意思是用上面两种代理中的一种
 alias gitgitno='git config --global --unset core.gitproxy'

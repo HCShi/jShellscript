@@ -30,6 +30,7 @@ print(np.diag(A, -1))  # [10 21 32 43]; 对角线下面的一条斜线
 ##################################################################
 # random
 print(np.random.rand(3, 3))  # Create an array of the given shape and populate it with random samples from a uniform distribution over [0, 1)
+print(np.random.randn())  # 返回一个正态分布(高斯分布) 的数据
 print(np.random.randn(3, 3))  # A (d0, d1, ..., dn)-shaped array of floating-point samples from the standard normal distribution
 # randint(low, high=None, size=None, dtype='l'); size output shape
 print(np.random.randint(5), np.random.randint(5, 200))  # 生成 1 个 [0, 5) 和 [5, 200) 的随机数

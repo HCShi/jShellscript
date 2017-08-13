@@ -9,7 +9,8 @@ if [ ! -e $HOME/.config/shellscript/alias ];then mkdir -p $HOME/.config/shellscr
 
 # zsh 放弃..., 又重新拾起来...
 # 因为 zsh 没有默认的配置文件, 一般都是把 oh-my-zsh 中的直接扒下来, 所以没有备份
-cp ./zsh/zshrc ~/.zshrc
+cp ./zsh/zshrc ~/.zshrc  # rc 文件只能 read by interactive shell
+cp ./zsh/zshenv ~/.zshenv
 cp ./zsh/my_zsh_env ./zsh/my_zsh_alias ./zsh/my_zsh_rc $HOME/.config/shellscript
 
 # 迎来了 Fish...

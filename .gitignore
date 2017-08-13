@@ -7,6 +7,7 @@
 *.log
 build/
 dist/
+logs/
 .venv/
 .idea/
 .tox/
@@ -16,13 +17,25 @@ coverage.xml
 nosetests.xml
 tmp*
 
+# for Python
+__pycache__
+
 # for: xelatex
+*.bbl
+*.blg
 *.pdf
+*.dvi
 *.aux
 *.log
 *.lot
+*.nav
+*.snm
 *.toc
 *.out
+*.bcf
+*.lof
+*.mintedcmd
+*.run.xml
 *.gz
 auto/
 *.fdb_latexmk
@@ -32,14 +45,23 @@ prv_*
 _region_*
 _minted-*
 
-# for: Github + Hexo + Next
+# Node, Express, Scss, Jade, Pug, Hexo, Next
 .DS_Store
 Thumbs.db
 db.json
 *.log
 node_modules/
-public/
+bower_components/
 .deploy*/
+.sass-cache/  # sass 运行以后会出来
+bourbon/  # sass mixin 集合
+
+# for Emacs
+custom.el
+*.elc
+*Sass*
+*Python*
+*Coffee*
 
 # *.a
 # !lib.a        # 忽略 .a 文件, 但否定忽略 lib.a

@@ -4,7 +4,8 @@ jumpto="source ~/github/jShellscript/bin/jumpto"  # 后面会经常用到, 先�
 ########################################
 ## 系统操作
 ########################################
-alias allproxy='export all_proxy="https://192.168.1.13:8080"'
+# alias allproxy='export all_proxy="https://192.168.1.13:8080"'  # 法国高科的学校代理...
+alias allproxy='export all_proxy="http://127.0.0.1:8080"'  # 不能用 https
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
@@ -126,6 +127,9 @@ alias python3httpserver='python3 -m http.server'  # open 8000 port
 ##################################################################
 ## Python
 ##################################################################
+# alias noteserver='cd ~/Documents/thiscandel && nohup jupyter notebook --no-browser --matplotlib=inline > /dev/null 2>&1 &!'  # 要进浏览器打开对应的 .ipynb 文件...
+alias noteserver='cd ~/Documents/thiscandel && nohup jupyter notebook --matplotlib=inline > /dev/null 2>&1 &!'
+noteserverkill() { ps -ef | grep 'notebook' | awk '{print $2}' | xargs kill -9 }  # 用 alias 时 $2 会被当做是参数的占位符
 alias pt='ptpython'  # 简化使用频率高的
 # alias python='/usr/bin/python2'
 # alias python='python3'
@@ -382,7 +386,9 @@ alias esk='emacsclient -e "(kill-emacs)"'  # 关闭服务端
 alias esr='emacsclient -e "(kill-emacs) && emacs --daemon"'  # 重启服务端
 alias eservername='emacs --eval "(setq server-name \"$1\")" --daemon'  # emacsservername foo; 创建 Name 为 foo 的 Emacs 服务端
 alias ecl='emacsclient'  # ecl a.py; 如果开的是 GUI 界面的服务器, 会进入 GUI; 如果开的是 ess(terminal), 会进入终端
-alias vom='emacsclient -nw'  # vom a.py; fn 退出; 如果是通过终端打开的 GUI 界面, 那么这个命令会在 GUI 中打开编辑文件, 否则会在
+# alias vom='emacsclient -nw'  # vom a.py; fn 退出; 如果是通过终端打开的 GUI 界面, 那么这个命令会在 GUI 中打开编辑文件
+# alias vom='emacsclient -nw --eval "(with-current-buffer (shell-command (concat \"tmux rename-window \" (buffer-name))))"'  # 尝试修改 tmux 标题名
+vom() { tmux rename-window $1 && emacsclient -nw $1 }  # 最后还是用这个, emacs 的 after-load-functions 老是出错...; leave 的写到 fn 快捷键中了...
 alias voms='emacsclient -nw -s'  # voms foo; 连接 server-name 为 foo 的 emacs 服务器
 # 下面几个是调试别人的配置文件时候方便
 alias lnsjspacemacs='ln -s ~/github/jSpacemacs ~/.spacemacs.d'

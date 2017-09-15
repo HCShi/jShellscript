@@ -1,0 +1,9 @@
+%%================================================================
+%% Multicol
+%%================================================================
+\usepackage{multicol}  % multicol, 对 Section 很友好
+\setlength{\premulticols}{20pt}  % 开始插入前检测当前 column 是否有足够的空间放入下一个 Section, 否则在下一个 column 上开始
+\setlength{\postmulticols}{10pt}  % 插入后检测
+\setlength{\multicolsep}{1pt}  % 检测没有问题后隔 multicolsep 距离开始接着编辑
+\AtBeginDocument{\begin{multicols}{2}}  % 这样就不用在调用的时候再往 \begin{document} 后面写了
+\AtEndDocument{\end{multicols}}

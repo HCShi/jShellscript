@@ -1,0 +1,55 @@
+#!/home/coder352/anaconda3/bin/python
+# coding: utf-8
+##################################################################
+## docopt 文档
+##################################################################
+"""Generate QR Code of Shadowsocks config for Android
+
+Usage:
+    jssqrcode -v | --version | -h | --help
+    jssqrcode --auth
+    jssqrcode [FILE]
+
+Options:
+    -h, --help     Help menu
+    -v, --version  Version num
+    --auth         Author
+
+Arguments:
+    FILE  Config file
+
+Example:
+    jcurl *.json  # 会在当前目录生成 .jpg 的二维码文件
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+import sys, os
+args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
+##################################################################
+## 功能实现, if 条件
+##################################################################
+if args['--auth']: print('Jia Ruipeng')
+elif args['FILE']:
+    import json, base64, qrcode
+##################################################################
+## 读取配置文件
+    config = json.load(open(args['FILE']))
+    method, password, server, server_port = config['method'], config['password'], config['server'], config['server_port']
+##################################################################
+## 加密二维码的源码
+    raw_str = (method + ':' + password + '@' + server + ':' + str(server_port)).encode()
+    print(raw_str)
+    encodestr = base64.b64encode(raw_str)        # 使用 base64 加密
+    shareqrcode_str = 'ss://' + encodestr.decode()    # 最前面加上 `ss://`
+##################################################################
+## 生成二维码, 导出二维码
+    img = qrcode.make(shareqrcode_str)
+    img.save('qrcode.png')
+##################################################################
+## Main
+##################################################################
+if __name__ == '__main__':
+    #  print(args)
+    #  print(cmd)
+    pass
+

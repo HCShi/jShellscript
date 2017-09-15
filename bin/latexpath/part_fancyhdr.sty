@@ -1,0 +1,17 @@
+%% ================================================================
+%% Fancyhdr 页眉, 页脚, geometry 先设置了页眉, 页脚到页边的距离
+%% ================================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\emph\Author}
+\chead{\textbf\Title}
+\rhead{\slshape\leftmark}
+\rfoot{\textbf{--\ \thepage\ --}}
+\pagenumbering{arabic}
+\renewcommand{\headrulewidth}{2pt}
+\addtolength{\headheight}{0pt}
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \renewcommand{\headrulewidth}{0pt}
+}

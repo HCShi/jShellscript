@@ -2,12 +2,12 @@
 ##################################################################
 ## 1. ssh 公钥分发
 # 方法一
-# 设置SSH Key A 端
+# 设置 SSH Key A 端
 less  ~/.ssh/id_rsa.pub  # 先确定你的 VPS 有没有生成过 ssh 的 key
 ssh-keygen -t rsa # 连续三次回车,即在本地生成了公钥和私钥,不设置密码)
 ssh root@192.168.56.101 "mkdir .ssh;chmod 0700 .ssh" # 需要输入服务器root密码,  注:必须将.ssh的权限设为700)
 scp ~/.ssh/id_rsa.pub root@192.168.56.101:.ssh/id_rsa.pub # 需要输入服务器root密码)
-# 设置SSH Key B 端 服务器端
+# 设置 SSH Key B 端 服务器端
 touch /root/.ssh/authorized_keys # 如果已经存在这个文件, 跳过这条)
 chmod 600 ~/.ssh/authorized_keys  # 注意： 必须将~/.ssh/authorized_keys的权限改为600, 该文件用于保存ssh客户端生成的公钥, 可以修改服务器的ssh服务端配置文件/etc/ssh/sshd_config来指定其他文件名
 cat /root/.ssh/id_rsa.pub  >> /root/.ssh/authorized_keys # 将id_rsa.pub的内容追加到 authorized_keys 中, 注意不要用 > , 否则会清空原有的内容, 使其他人无法使用原有的密钥登录))
@@ -26,25 +26,25 @@ ssh git@github.com
 ## 参考: 阮一峰
 # 遵循一个原则, 下面提示符右侧出现的 host1, host2, host3 必须都是公网 IP, 没有出现的可以是内网
 # 一: 绑定本地端口
-ssh -D 8080 remote_user@remote_host  # SSH会建立一个socket, 去监听本地的8080端口
-# 一旦有数据传向那个端口, 就自动把它转移到SSH连接上面, 发往远程主机, 但是会发送到 22 端口
-# 可以想象, 如果8080端口原来是一个不加密端口, 现在将变成一个加密端口
+ssh -D 8080 remote_user@remote_host  # SSH 会建立一个 socket, 去监听本地的 8080 端口
+# 一旦有数据传向那个端口, 就自动把它转移到 SSH 连接上面, 发往远程主机, 但是会发送到 22 端口
+# 可以想象, 如果 8080 端口原来是一个不加密端口, 现在将变成一个加密端口
 
 # 二: 本地端口转发
-# 绑定本地端口还不够, 还必须指定数据传送的目标主机, 从而形成点对点的"端口转发"
-# 假定host1是本地主机, host2是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台host3, 可以同时连通前面两台主机
-# 因此, 很自然的想法就是, 通过host3, 将host1连上host2, (host2, host3 都是公网, host1 随意)
-host1$ ssh -L 2121:host2:22 host3  # -L 参数一共接受三个值, 分别是"本地端口:目标主机:目标主机端口"
-host1$ ssh -p 2121 localhost  # 我们只要连接host1的2121端口, 就等于连上了host2的22端口
+# 绑定本地端口还不够, 还必须指定数据传送的目标主机, 从而形成点对点的 "端口转发"
+# 假定 host1 是本地主机, host2 是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台 host3, 可以同时连通前面两台主机
+# 因此, 很自然的想法就是, 通过 host3, 将 host1 连上 host2, (host2, host3 都是公网, host1 随意)
+host1$ ssh -L 2121:host2:22 host3  # -L 参数一共接受三个值, 分别是 "本地端口:目标主机:目标主机端口"
+host1$ ssh -p 2121 localhost  # 我们只要连接 host1 的 2121 端口, 就等于连上了 host2 的 22 端口
 host1$ ssh -L 2121:host2:21 host3  # 这是 ftp 服务器的例子
 host1$ ftp localhost:2121
 
 host1$ ssh -L 5900:localhost:5900 host3  # 有趣的例子, 本机的 5900 端口绑定 host3 的 5900 端口, localhost 指的是 host3, 因为目标主机是相对 host3 而言
 
 # 三: 远程端口转发 但这里只是实现我想要的功能, 其他的用到的时候再去学
-# 假定host1是本地主机, host2是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台host3, 可以同时连通前面两台主机
+# 假定 host1 是本地主机, host2 是远程主机。由于种种原因, 这两台主机之间无法连通。但是, 另外还有一台 host3, 可以同时连通前面两台主机
 host3$ ssh -R 2121:host2:21 host1  # -R 参数也是接受三个值, 分别是"远程主机端口:目标主机:目标主机端口"
-# 这条命令的意思, 就是让host1监听它自己的2121端口, 然后将所有数据经由host3, 转发到host2的21端口。由于对于host3来说, host1是远程主机,
+# 这条命令的意思, 就是让 host1 监听它自己的 2121 端口, 然后将所有数据经由 host3, 转发到 host2 的 21 端口。由于对于 host3 来说, host1 是远程主机,
 host1$ ftp localhost:2121  # 我们在 host1 就可以连接 host2 了
 
 # 四: 回到最初的目的, 机房 host1(内网: 172.19.0.2) 通过阿里云 host3(公网:115.28.247.19) 连接实验室电脑 host2(内网: 172.20.0.2), 用 第一种: 绑定本地端口 就可以了
@@ -53,8 +53,9 @@ host1$ ftp localhost:2121  # 我们在 host1 就可以连接 host2 了
 host2$ service ssh start && useradd coder && passwd coder  # 密码随便了, asd 吧, 因为 docker 默认的 root 密码我一直没找到
 
 # 4.1 先实现 host3 ssh到 host2, 公网 ssh 内网
-host2$ ssh -CNR 19999:localhost:22 coder352@172.18.140.158  # 这里的 localhost 指的是 host2, 和 本地端口转发 中的 指向 host3 相反
+host2$ ssh -fCNR 19999:localhost:22 coder352@172.18.140.158  # 这里的 localhost 指的是 host2, 和 本地端口转发 中的 指向 host3 相反
 host3$ ssh -p 19999 coder@127.0.0.1  # 在自己电脑上测试一下, 还真连上了
+# -f 后台运行
 # -C 压缩数据
 # -N 不执行命令, 只是端口转发, 意思就是不会进入命令行模式, 直接阻塞了
 
@@ -67,3 +68,9 @@ host1$ ssh -p 10000 coder@127.0.0.1
 scp -r Documents root@192.168.56.101:~/root/                           # 上传目录到服务器
 scp -r username@servername:remote_dir/ /tmp/local_dir                  # 从服务器下载整个目录
 scp -P port username@servername:/path/filename /tmp/local_destination  # 从服务器下载文件
+
+##################################################################
+## ssh 连接失败, 排错经验
+ssh root@116.196.120.62  # ssh_exchange_identification: read: Connection reset by peer
+ping 116.196.120.62  # 可以 ping 通, ping 是一个网络层的协议, 只是表面网络在 3 层是通的
+ssh -v root@116.196.120.62  # 又可以用了, 以后再出现才总结

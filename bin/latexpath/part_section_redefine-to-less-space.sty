@@ -1,0 +1,16 @@
+%% ================================================================
+%% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}  % startsection{name}{level: 0=part, 1=chapter, etc.}{heading indent}
+  {-1ex plus -.5ex minus -.2ex}  % {beforeskip, if neg, no head indent}
+  {0.5ex plus .2ex}              % {afterskip, if neg, run-in heading}
+  {\normalfont\large\bfseries}}  % {style of head}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}
+  {-1ex plus -.5ex minus -.2ex}
+  {0.5ex plus .2ex}
+  {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}
+  {-1ex plus -.5ex minus -.2ex}
+  {1ex plus .2ex}
+  {\normalfont\small\bfseries}}
+\makeatother

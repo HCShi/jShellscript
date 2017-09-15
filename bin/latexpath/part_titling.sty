@@ -1,0 +1,14 @@
+%%================================================================
+%% titling, 标题格式, 很好看的标题样式
+%%================================================================
+\RequirePackage{titling}
+% \RequirePackage{titlesec}  % Define title formats
+% \RequirePackage{titletoc}
+\pretitle{\begin{center}\Huge \bfseries}
+\posttitle{\par\end{center}\vskip 2in}
+\preauthor{\begin{center}
+       \Huge \usefont{OT1}{pzc}{m}{n} \lineskip 0.5em%
+       \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+% \predate{}
+% \postdate{}  % date is so useless in title, delete it and its spacing by default!

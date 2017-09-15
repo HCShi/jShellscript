@@ -51,7 +51,7 @@ sudo apt dselect-upgrade  # 使用 dselect 升级
 # 程序的启动项 -> /usr/share/apps
 # 程序的语言包 -> /usr/share/locale
 dpkg -L softwarename         # 查询软件的安装位置, 这里的软件名就是你 apt-get install 后面的那个名字
-dpkg -l | grep name* | more  # 查询所有软件
+dpkg -l | grep name* | more  # 查询所有软件, list all package
 dpkg -s softname             # 查询软件的相关信息
 dpkg -i sogoupinyin_2.0.deb  # 安装软件
 dpkg -L sougoupinyin         # 列出与该包先关联的文件,查看软件安装到什么地方,在/user/share
@@ -64,3 +64,19 @@ dpkg --unpack package.deb    # 解开 deb 包的内容
 dpkg -S keyword              # 搜索所属的包内容
 dpkg --configure package     # 配置包
 dpkg --listfile softname     # 查看系统中输入软件的文件
+
+dpkg -l | grep -i ftp
+rpm -qa | grep -i *ftp*  # redhat 用这个
+
+## 有道词典安装...
+wget youdao-dict_1.1.0-0-ubuntu_amd64.deb  # 2015 年更新
+mkdir youdao-dict
+sudo dpkg -X youdao-dict_1.1.0-0-ubuntu_amd64.deb youdao-dict  # 把该 deb 包解压到 youdao-dict 目录
+sudo dpkg -e ./youdao-dict_1.1.0-0-ubuntu_amd64.deb youdao-dict/DEBIAN  # 解压 deb 包中的 control 信息 (包的依赖就写在这个文件里面)
+sudo vi ./youdao-dict/DEBIAN/control  # 编辑 control 文件, 删除 Depends 里面的 gstreamer0.10-plugins-ugly
+sudo dpkg-deb -b youdao-dict youdaobuild.deb  # 重新打包
+sudo gdebi youdaobuild.deb  # 安装重新打包的安装包; 已经安装 gdebi 包管理器, 可以使用如下命令安装, 自动解决依赖问题
+# 下面使用 dpkg 进行安装, 可能还会报错, 用 apt install -f 来修复即可
+sudo dpkg -i youdaobuild.deb  # 会报错
+sudo apt install -f  # 出现缺少的依赖使用如下命令安装所需依赖
+sudo dpkg -i youdaobuild.deb  # 依赖安装完成后再次键入如下命令进行安装

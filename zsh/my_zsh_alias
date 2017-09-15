@@ -6,6 +6,7 @@ jumpto="source ~/github/jShellscript/bin/jumpto"  # 后面会经常用到, 先�
 ########################################
 # alias allproxy='export all_proxy="https://192.168.1.13:8080"'  # 法国高科的学校代理...
 alias allproxy='export all_proxy="http://127.0.0.1:8080"'  # 不能用 https
+alias allproxyclear='export all_proxy=""'  # 不能用 https
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
@@ -42,6 +43,7 @@ alias llv='ll -v'  # -v 11 不会排在 2 前面了
 alias lsv='ls -v'
 alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
+alias mountdisk='sudo mount /dev/sdb5 /media/coder352/Software && sudo mount /dev/sdb6 /media/coder352/Documents'
 alias nau='nautilus .'
 alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
 # shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
@@ -479,6 +481,7 @@ alias ovscsc='sudo ovs-vsctl set-controller'
 ########################################
 # VPS
 alias sshaliyun="ssh root@115.28.247.19"  # 管理终端密码 367692
+alias sshjdy='ssh root@116.196.120.62'
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105" # passwd: asd
 alias sshredhat="ssh root@192.168.56.101" # passwd: 123456
@@ -488,6 +491,10 @@ alias sshtencent='ssh root@115.159.88.186'
 alias sshdocker='ssh root@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" $(docker ps -a -q))'
 # alias sshxm="ssh mininet@192.168.56.101" 因为要把本机IP传过去, 所以写成可执行文件了
 # 很坑的把另一台虚拟机也是192.168.56.101的也设置了sshkey, 然后mininet就不能公钥登陆了, 还得重设
+# alias sshzdj='ssh -X zhangdongjie@159.226.95.132 -p 9999'  # 在实验室
+alias sshzdjpre='ssh root@116.196.120.62 -fN -L 11112:localhost:11111'  # 在自己电脑上做正向代理
+alias sshzdj='ssh zhangdongjie@localhost -p 11112'  # 在国科大, 做好了 反向代理 以及 正向代理
+alias sshjrp='ssh -X jiaruipeng@159.226.95.132 -p 9999'
 
 # SCP
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
@@ -499,6 +506,8 @@ alias scpaliyun='test() { scp $1 root@115.28.247.19:$2 };test'
 alias scpbaliyun='test() { scp root@115.28.247.19:$1 $2 };test'
 alias scptencent='test() { scp $1 root@115.159.88.186:$2 };test'
 alias scpbtencent='test() { scp root@115.159.88.186:$1 $2 };test'
+alias scpzdj='test() { scp -P 9999 $1 zhangdongjie@159.226.95.132:~/.jrp };test'
+alias scpjrp='test() { scp -P 9999 $1 jiaruipeng@159.226.95.132:~/ };test'
 
 # Proxy
 # alias sshrdoc='ssh -CNR 1080:localhost:1080 coder352@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-ubuntu-vim)'  # 这种方法太针对性了

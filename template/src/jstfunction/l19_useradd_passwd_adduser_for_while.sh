@@ -3,10 +3,10 @@
 # 4. 而且 !/bin/bash 的声明必须放在第一行, 否则会提示循环不能执行
 ##################################################################
 ## useradd passwd adduser (后面还有 for while 添加用户)
-# sudo useradd -m hadoop -s /bin/bash  # 这条命令创建了可以登陆的 hadoop 用户, 并使用 /bin/bash 作为 shell -m 是添加家目录
-# sudo passwd hadoop  # 添加 用户密码
-# sudo adduser hadoop sudo  # 可为 hadoop 用户增加管理员权限, 方便部署, 避免一些对新手来说比较棘手的权限问题
-# 最后注销当前用户（点击屏幕右上角的齿轮, 选择注销）, 在登陆界面使用刚创建的 hadoop 用户进行登陆
+sudo useradd -m hadoop -s /bin/bash  # 这条命令创建了可以登陆的 hadoop 用户, 并使用 /bin/bash 作为 shell, -m 是添加家目录
+sudo passwd hadoop  # 添加 用户密码
+sudo adduser hadoop sudo  # 可为 hadoop 用户增加管理员权限, 方便部署, 避免一些对新手来说比较棘手的权限问题
+# 最后注销当前用户 (点击屏幕右上角的齿轮, 选择注销), 在登陆界面使用刚创建的 hadoop 用户进行登陆
 ##################################################################
 ## for while, 可以用换行去掉分号
 for x in one two three four; do echo number $x; done

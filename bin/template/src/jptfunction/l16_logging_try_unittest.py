@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 # coding: utf-8
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')  # debug, info, warning, error 几个级别
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')  # debug, info, warning, error 几个级别
 def foo(s): return 10 / int(s)
 def bar(s): return foo(s) * 2
 def main():
-    n = 5; logging.info('n = %d' % n)  # 这里用了 info, 所以只有上面是 logging.INFO 才可以
+    # n = 5; logging.info('n = %d' % n)  # 这里用了 info, 所以只有上面是 logging.INFO 才可以
+    n = 5; logging.debug('n = %d' % n)  # DEBUG 默认不输出, 用这个比较好
     try: bar('0')  # 不用每个函数都写 try, 只要有一个地方写就行了
     except Exception as e: logging.exception(e)  # logging 好处是可以输出到文件
 main(); print('END')

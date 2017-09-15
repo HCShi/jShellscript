@@ -3,6 +3,9 @@
 from sklearn import datasets
 import numpy as np
 ##################################################################
+## 总结:
+# 1. datasets 的数据都是 numpy.ndarray 对象, 有 .T, 没有 .I, .H; 可以 np.mat() 变成 matrx 对象
+##################################################################
 ## iris 安德森鸢尾花卉数据集是一类多重变量分析的数据集, 其数据集包含了 150 个样本, 都属于鸢尾属下的三个亚属, 分别是山鸢尾、变色鸢尾和维吉尼亚鸢尾
 ## 四个特征被用作样本的定量分析, 它们分别是 花萼和花瓣 的 长度和宽度
 # This data sets consists of 3 different types of irises’ (Setosa, Versicolour, and Virginica) petal and sepal length, stored in a 150x4 numpy.ndarray
@@ -13,6 +16,7 @@ print(iris.target_names)  # ['setosa' 'versicolor' 'virginica']
 print(iris.feature_names)  # ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
 
 # 数据存储在 .data 成员中, 它是一个 (n_samples, n_features) numpy 数组
+print(type(iris.data))  # <class 'numpy.ndarray'>
 print(iris.data.shape)  # (150, 4)
 print(iris.data[0])  # [ 5.1  3.5  1.4  0.2]
 

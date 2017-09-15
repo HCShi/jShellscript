@@ -6,6 +6,11 @@ from functools import reduce
 # map() 接收两个参数, 函数 和 Iterable, map() 将传入的函数依次作用到序列的每个元素, 并把结果作为新的 Iterator 返回
 print(list(map(lambda x: x * x, list(range(1, 4)))))  # [1, 4, 9], Iterator 是惰性序列, list() 让它把整个序列都计算并返回一个 list
 day, month, year = map(int, '2017-02-10'.split('-')); print(day, month, year)
+# 将 float list -> int list
+a = [1.2, 1.8, 0.8]; print(list(map(round, a)))  # [1, 2, 1]
+# Python3 中移除了 'Tuple parameter unpacking' 的用法
+print(list(map(lambda x: x[0] * x[1], zip([1, 2], [3, 4]))))
+# print(list(map(lambda (x, y): x * y, zip([1, 2], [3, 4]))))  # python3 会报错, python2 可以这样写
 ##################################################################
 # reduce() 接收两个参数, 函数 和 Iterable, reduce() 把函数作用在一个序列 [x1, x2, x3, ...] 上, reduce 把结果继续和序列的下一个元素做累积计算
 # reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
@@ -22,7 +27,10 @@ print(sorted(['ab', 'AC'], key=str.lower, reverse=True))  # 默认 'Z' < 'a', �
 print(sorted([('a', 3), ('b', 2)], key=lambda x: x[1]))
 ##################################################################
 # zip()
-print(list(zip(range(1, 3), range(3, 5))))
+a, b = ['a', 'b', 'c'], [1, 2, 3]; print(a, b)
+c = list(zip(a, b)); print(c)
+a, b = zip(*c); print(a, b)  # 能将 元素分开, 但是会是 tuple 格式
+print(list(a), list(b))  # 转化为 list
 ##################################################################
 # 总结:
 # 1. Iterable, 可迭代的, 包括 list, str 等
@@ -30,3 +38,4 @@ print(list(zip(range(1, 3), range(3, 5))))
 # 3. map(), filter(), zip(), range() 四个函数的返回值是 惰性的Iterable, 使用时没区别, 打印时需要 list(), ''.join() 的强制转型
 # 4. 函数原型: map(lambda x:, Iterable), reduce(lambda x, y:, Iterable), filter(lambda x: Ture or Flase, Iterable)
 # 5. lambda 只能写函数定义和返回值
+# 6. zip(*c) 好神奇

@@ -44,6 +44,32 @@ iface enp4s0f2 inet static
 ```
 sudo /etc/init.d/networking restart  # 重启网卡服务即可, 可能还需要配置 DNS, 像上面那样
 ##################################################################
+## 1.4 PredictableNetworkInterfaceNames
+# The names have two-character prefixes based on the type of interface:
+en  # for Ethernet,
+wl  # for wireless LAN (WLAN),
+ww  # for wireless wide area network (WWAN).
+
+# The names have the following types:
+o<index>
+    # on-board device index number
+s<slot>[f<function>][d<dev_id>]
+    # hotplug slot index number. All multi-function PCI devices will carry the [f<function>] number in the device name, including the function 0 device.
+x<MAC>
+    # MAC address
+[P<domain>]p<bus>s<slot>[f<function>][d<dev_id>]
+    # PCI geographical location. In PCI geographical location, the [P<domain>] number is only mentioned if the value is not 0. For example:
+    # ID_NET_NAME_PATH=P1enp5s0
+[P<domain>]p<bus>s<slot>[f<function>][u<port>][..][c<config>][i<interface>]
+    # USB port number chain. For USB devices, the full chain of port numbers of hubs is composed.
+    # If the name gets longer than the maximum number of 15 characters, the name is not exported.
+    # If there are multiple USB devices in the chain, the default values for USB configuration descriptors (c1) and USB interface descriptors (i0) are suppressed.
+
+# example
+wlp3s0           # WLAN,     第 3 个总线, 第 0 个插槽
+enp4s0f2         # Ethernet, 第 4 个总线, 第 0 个插槽
+enx00e04c6804e1
+##################################################################
 ## 2. route
 route / route -n  # 等同于 netstat -nr, 第一行会显示路由器的 IP, -n 是将 IP 用数字表示出来
 ip route  # 更详细的信息

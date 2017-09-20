@@ -5,6 +5,8 @@ dmidecode | grep "Product Name"  # 查看机器型号
 dmesg | grep -i eth              # 查看网卡信息
 
 cat /etc/issue     # 查看操作系统版本; 有些系统上没有 lsb_release 命令, 或者 不太好用的, eg. Redhat
+cat /etc/*release  # 查看系统发型版本
+uname -a && cat /etc/*release  # 最详细的查看系统信息的命令
 cat /proc/version  # 和 uname -a 差不多, 有的系统 uname -a 显示的信息很少, eg. 信工所实验室 CentOS 服务器
 cat /proc/cpuinfo  # 查看 CPU 信息
 cat /proc/meminfo  # 查看 Memory 相关信息

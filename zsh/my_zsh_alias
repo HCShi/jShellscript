@@ -494,7 +494,7 @@ alias sshdocker='ssh root@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" $
 # alias sshzdj='ssh -X zhangdongjie@159.226.95.132 -p 9999'  # 在实验室
 alias sshzdjpre='ssh root@116.196.120.62 -fN -L 11112:localhost:11111'  # 在自己电脑上做正向代理
 alias sshzdj='ssh zhangdongjie@localhost -p 11112'  # 在国科大, 做好了 反向代理 以及 正向代理
-alias sshjrp='ssh -X jiaruipeng@159.226.95.132 -p 9999'
+alias sshjrp='ssh -X jiaruipeng@localhost -p 11112'
 
 # SCP
 alias scpm='test() { scp $1 mininet@192.168.56.101:~/ };test'  # 向mininet传送
@@ -506,8 +506,9 @@ alias scpaliyun='test() { scp $1 root@115.28.247.19:$2 };test'
 alias scpbaliyun='test() { scp root@115.28.247.19:$1 $2 };test'
 alias scptencent='test() { scp $1 root@115.159.88.186:$2 };test'
 alias scpbtencent='test() { scp root@115.159.88.186:$1 $2 };test'
-alias scpzdj='test() { scp -P 9999 $1 zhangdongjie@159.226.95.132:~/.jrp };test'
-alias scpjrp='test() { scp -P 9999 $1 jiaruipeng@159.226.95.132:~/ };test'
+# alias scpzdj='test() { scp -P 9999 $1 zhangdongjie@159.226.95.132:~/.jrp };test'
+alias scpzdj='test() { scp -P 11112 $1 zhangdongjie@localhost:~/.jrp };test'  # for 国科大
+alias scpjrp='test() { scp -P 11112 $1 jiaruipeng@localhost:~/ };test'
 
 # Proxy
 # alias sshrdoc='ssh -CNR 1080:localhost:1080 coder352@$(docker inspect -f "{{.NetworkSettings.IPAddress}}" some-ubuntu-vim)'  # 这种方法太针对性了

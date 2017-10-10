@@ -1,0 +1,83 @@
+#!/usr/bin/python3
+# coding: utf-8
+##################################################################
+## docopt 文档
+"""download cdn file to local with the structure of url
+
+Usage:
+    jcdn_cache -v | --version | -h | --help
+    jcdn_cache --auth
+    jcdn_cache
+
+Options:
+    -h, --help     Help menu
+    -v, --version  Version num
+    --auth         Author
+
+Arguments:
+
+Example:
+    jcdn_cache  # 直接读取本地的 layout* 文件, 请确保是在 express 项目中
+
+Note:
+    1. 仅支持 https:// 协议的
+    2. 仅支持 cdnjs.com 网站的
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+import sys, os
+args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
+##################################################################
+## 功能
+# 记录一些路径, 总共记录了三个路径, 项目根路径, 当前路径, 静态文件路径, 最后回到当前路径
+cur_dir = os.getcwd()  # 记录当前地址
+while(os.getcwd() is not '/'):  # 没有到根目录
+    if 'package.json' in [file for file in os.listdir('.') if os.path.isfile(file)]:
+        proj_root_dir = os.getcwd()
+        os.chdir('public')
+        public_dir = os.getcwd()
+        break
+    os.chdir('..')
+os.chdir(cur_dir)  # 记录路径完成, 下面开始生成 url 下载
+# download cdn file to local url structure
+def get_cdn_file(url):
+    if url.startswith('/cdnjs.cloudflare.com'):  # 筛选出 CDN 的文件, 仅支持 cdnjs.com
+        os.chdir(public_dir)  # 切换到静态路径
+        cdn_file_name = url.split('/')[-1]
+        parent_path = url.rstrip(cdn_file_name).lstrip('/')
+        if not os.path.exists(parent_path):  # 如果不存在父路径, 创建之
+            print('Mkdir of ' + parent_path)
+            os.system('mkdir -p ' + parent_path)
+        os.chdir(parent_path)  # 进入对应路径
+        if not os.path.exists(cdn_file_name):  # 判断是否有 cdn 文件
+            os.system('wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080 https:/' + url)
+        else: print('Exist ' + url)
+        os.chdir(cur_dir)  # 回到原来的路径
+# 生成 url 提供下载, 调用 get_cdn_file()
+def main():
+    for file_name in [file for file in os.listdir('.') if os.path.isfile(file)]:  # 遍历当前目录, 不进入子目录
+        if file_name.startswith('layout'):  # 找 layout* 文件
+            with open(file_name) as f:
+                for line in f.readlines():
+                    line = line.strip()
+                    if line.startswith('link'):  # 找到 link 标签
+                        line = line.lstrip('link') \
+                                   .replace('(', '{') \
+                                   .replace(')', '}') \
+                                   .replace("'", '"') \
+                                   .replace("=", ': ') \
+                                   .replace('rel', '"rel"') \
+                                   .replace('href', '"href"')  # str -> dict 做准备
+                        url = dict(eval(line))['href']
+                        get_cdn_file(url)
+                    if line.startswith('script'):  # 找到 script 标签
+                        line = line.lstrip('script') \
+                                   .replace('(', '{') \
+                                   .replace(')', '}') \
+                                   .replace("'", '"') \
+                                   .replace("=", ': ') \
+                                   .replace('src', '"src"')
+                        url = dict(eval(line))['src']
+                        get_cdn_file(url)
+if args['--auth']: os.system('echo Jia Ruipeng')
+else: main()

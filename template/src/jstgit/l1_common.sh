@@ -13,6 +13,7 @@ git tag  # 查看都有哪些标签
 git checkout <tag>  # 根据上面查到的标签来切换
 
 git ls-remote  # 查看远端 repository
+git remote -v  # 查看远端 repository
 
 ##################################################################
 ## 本地配置

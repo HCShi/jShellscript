@@ -1,10 +1,13 @@
 %% ================================================================
 %% Normal Package
+\usepackage{minted}  % minted 用于美化代码排版, 还是彩色的
 \usepackage{blindtext}  % \blinddocument; 生成假的文章, 测试效果
 \usepackage{syntonly}  % \syntaxonly; 快速检查文档错误, 不产生输出
-\usepackage[top=0.8in, bottom=0.8in, left=0.3in, right=0.3in, landscape]{geometry}
 % \usepackage{ifthen}  % \ifthenelse{<test>}{<then clause>}{<else clause>}; 可以判断是不是 a4paper
 % \usepackage{calc}
-\usepackage{amsmath, amsthm, amsfonts, amssymb}
 \usepackage{color, graphicx, overpic}
 \usepackage{hyperref}  % 点击 Content, rel 等可以跳到对应的位置
+
+%% ================================================================
+%% 这些是可能与其他 normal-packages 不同的
+\usepackage[top=0.8in, bottom=0.8in, left=0.3in, right=0.3in]{geometry}

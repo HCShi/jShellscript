@@ -4,6 +4,8 @@ lsar file.zip  # 如果显示没有乱码就可以直接解压, 对 Windows 上�
 unar file.zip
 lsar -e GB18308 file.zip  # 如果上面显示有乱码, 指定编码方式查看
 unar -e GB18308 file.zip
+# 压缩
+zip tmp.zip result_temp.tiff  # 目标文件在前面, 源文件在后面
 ##################################################################
 ## 2. gzip bzip tar
 # gzip [-cdtv#] filename

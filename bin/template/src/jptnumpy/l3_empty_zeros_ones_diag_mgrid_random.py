@@ -28,10 +28,25 @@ print(A)  # [[ 0  1  2  3  4] [10 11 12 13 14] [20 21 22 23 24] [30 31 32 33 34]
 print(np.diag(A))  # [ 0 11 22 33 44]; 使用 diag 函数能够提取出数组的对角线
 print(np.diag(A, -1))  # [10 21 32 43]; 对角线下面的一条斜线
 ##################################################################
-# random
+# random 和 python 标准库中的 random 用法类似, 但是更快
 print(np.random.rand(3, 3))  # Create an array of the given shape and populate it with random samples from a uniform distribution over [0, 1)
 print(np.random.randn())  # 返回一个正态分布(高斯分布) 的数据
 print(np.random.randn(3, 3))  # A (d0, d1, ..., dn)-shaped array of floating-point samples from the standard normal distribution
 # randint(low, high=None, size=None, dtype='l'); size output shape
 print(np.random.randint(5), np.random.randint(5, 200))  # 生成 1 个 [0, 5) 和 [5, 200) 的随机数
 print(np.random.randint(0, high=256, size=(3,)).tolist())  # 生成 3 个 [0, 256) 的随机数, tolist() 不是很懂, argument is not numeric 时候用很管用
+
+print(np.random.random((10, 10)))
+print(np.random.random(3))  # 指定维数快速生成随机数
+##################################################################
+## 函数总结
+rand(d0, d1, ..., dn)               # Random values in a given shape.
+randn(d0, d1, ..., dn)              # Return a sample (or samples) from the “standard normal” distribution.
+randint(low[, high, size, dtype])	# Return random integers from low (inclusive) to high (exclusive).
+random_integers(low[, high, size])	# Random integers of type np.int between low and high, inclusive.
+random_sample([size])               # Return random floats in the half-open interval [0.0, 1.0).
+random([size])                      # Return random floats in the half-open interval [0.0, 1.0). 产生随机矩阵, 如 random.random([2,3]) 产生一个 2x3 维的随机数
+ranf([size])                        # Return random floats in the half-open interval [0.0, 1.0).
+sample([size])                      # Return random floats in the half-open interval [0.0, 1.0).
+choice(a[, size, replace, p])       # Generates a random sample from a given 1-D array
+bytes(length)                       # Return random bytes.

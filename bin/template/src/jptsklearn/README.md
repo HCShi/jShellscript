@@ -6,6 +6,8 @@
 [源码地址 Github](https://github.com/MorvanZhou/tutorials/tree/master/sklearnTUT)
 l1 - l8
 
+l10 -  自己平时用到的
+
 入门推荐: [实验楼 -> Python科学计算(二) -> 3、scikit-learn 机器学习 - 实验楼]
 l41 - l44 都是参考的上面的链接..., 很适合学习
 

@@ -34,7 +34,6 @@ args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v
 ##################################################################
 ## 功能实现, if 条件
 ##################################################################
-import sys
 if args['--auth']: cmd = 'echo Jia Ruipeng'
 elif not args['-p']:
     if len(sys.argv) == 1: cmd = 'curl localhost'  # jcurl

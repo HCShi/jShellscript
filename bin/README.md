@@ -11,6 +11,7 @@
 ./template/jptfunction  # 让 argparse 重新焕发生机 ...
 
 # docopt, 珍爱生命, 远离 argparse
+./jimgresize            # docopt 的标准形式
 # 同时纪念一下开始 python 3
 
 ```

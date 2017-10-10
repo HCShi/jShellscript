@@ -1,0 +1,45 @@
+#!/home/coder352/anaconda3/bin/python
+# coding: utf-8
+##################################################################
+## docopt 文档
+"""resize image, default to half of it
+
+Usage:
+    jimgresize -v | --version | -h | --help
+    jimgresize --auth
+    jimgresize [-d] [-a] FILE
+
+Options:
+    -h, --help     Help menu
+    -v, --version  Version num
+    --auth         Author
+    -d             reduce the size
+    -a             improve the size
+
+Arguments:
+    FILE  The file to resize
+
+Example:
+    jimgresize tmp.jpg  # 默认是将其变为一半
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+import sys, os
+args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
+##################################################################
+## 功能
+import cv2
+def main():
+    img =cv2.imread(args['FILE'])
+    height, width = img.shape[:2]  # 提取图像 高, 宽
+    if not args['-d'] and not args['-a']:
+        res = cv2.resize(img, (width // 2, height // 2), interpolation = cv2.INTER_CUBIC);
+        cv2.imwrite(args['FILE'].split('.')[0] + '_bak.' +args['FILE'].split('.')[1], img)
+        cv2.imwrite(args['FILE'], res)
+    elif args['-d'] and not args['-a']:
+        print(args['FILE'])
+    elif not args['-d'] and args['-a']:
+        print(args['FILE'])
+
+if args['--auth']: os.system('echo Jia Ruipeng')
+else: main()

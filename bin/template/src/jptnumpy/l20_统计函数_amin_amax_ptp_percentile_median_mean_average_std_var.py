@@ -19,8 +19,9 @@ print(np.ptp(a, axis=0))  # [6 3 6]; 沿轴 0 调用 ptp() 函数：
 # numpy.percentile(a, q, axis); 百分位数是统计中使用的度量, 表示小于这个值得观察值占某个百分比
 # a 输入数组; q 要计算的百分位数, 在 0 ~ 100 之间; axis 沿着它计算百分位数的轴
 a = np.array([[30, 40, 70], [80, 20, 10], [50, 90, 60]]); print(a)  # [[30 40 70] [80 20 10] [50 90 60]]
-print(np.percentile(a, 50))  # 50.0
+print(np.percentile(a, 50))  # 50.0; 输出的是中位数
 print(np.percentile(a, 50, axis=1))  # [ 40. 20. 60.]; 沿轴 1 调用 percentile() 函数
+print(np.percentile(a, 25, axis=1))  # [ 35. 15. 55.]; 中位数和最小数的平均值
 print(np.percentile(a, 50, axis=0))  # [ 50. 40. 60.]; 沿轴 0 调用 percentile() 函数
 ##################################################################
 # numpy.median(); 中值定义为将数据样本的上半部分与下半部分分开的值

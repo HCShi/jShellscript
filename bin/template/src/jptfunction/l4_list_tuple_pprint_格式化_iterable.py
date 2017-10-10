@@ -2,14 +2,15 @@
 # coding: utf-8
 # 两种列表生成式方式: list() 和 [x for x in range(1, 3)]
 # x for x in range(1, 3) 是生成器, list() 和 [] 将其转化为列表; 必须保证每一步的 for 的结果都是可迭代的
-print([(a, b) for a, b in [('a', 'b'), ('c', 'd')]])  # [('a', 'b'), ('c', 'd')]
+print([(a, b) for a, b in [('a', 'b'), ('c', 'd')]])               # [('a', 'b'), ('c', 'd')]
 print([(x[0], x[1]) for x in [('a', 'b', 'c'), ('d', 'e', 'f')]])  # [('a', 'b'), ('d', 'e')]; 去除列表中元素的一部分
-print([m for n in [('a', 'b'), ('c', 'd')] for m in n])  # ['a', 'b', 'c', 'd']; 嵌套取出
+print([m for n in [('a', 'b'), ('c', 'd')] for m in n])            # ['a', 'b', 'c', 'd']; 嵌套取出
 print(list(k + '=' + v for k, v in {'x': 'A', 'y': 'B'}.items()))  # ['y=B', 'x=A'], items() 生成的是 dict_items([('y', 'B'), ('x', 'A')])
 print([x * x for x in range(1, 3) if x % 2 == 0])  # [4]
-print([m + n for m in 'a' for n in 'de'])  # ['ad', 'ae'], 全排列
-print([s.lower() for s in 'HELLO'])  # ['h', 'e', 'l', 'l', 'o']
+print([m + n for m in 'a' for n in 'de'])          # ['ad', 'ae'], 全排列
+print([s.lower() for s in 'HELLO'])        # ['h', 'e', 'l', 'l', 'o']
 print([s.lower() for s in ['HE', 'LLO']])  # ['he', 'llo']
+print([1 if a == 0 else 0 for a in range(5)])  # [1, 0, 0, 0, 0]; 嵌套 if
 # for link in self.links: res.append((self.nodes[link.fo].name, self.nodes[link.to].name))  # 和下面那句话进行了等价的转换
 # [(self.nodes[link.fo].name, self.nodes[link.to].name) for link in self.links]
 ##################################################################

@@ -70,6 +70,7 @@ export PATH=$PYENV_ROOT/bin:$PATH  # pyenv 可执行文件
 export TEXINPUTS=".:~/github/jShellscript/bin/latexpath:"  # 前边那个点可以不加, 最后 : 必须写; 存放 .cls, .sty 文件的地方; 这行其实不起作用 OnO
 # ln -s ~/github/jShellscript/bin/latexpath/14thcoder_thesis.cls ~/texmf/tex/latex/local/14thcoder_thesis.cls
 # 每次调试哪个文件就这样软连接一下, 调试好以后就删除软连接, 然后执行 ./config 把整个目录复制过去
+# 后来又发现上面的配置起作用了..., 这样就不用 .config 文件了
 ##################################################################
 ## nvm, source 启动有点慢, 用的时候在打开; n(目前嫌弃 nvm 使我的 shell 启动速度太慢)
 ##################################################################

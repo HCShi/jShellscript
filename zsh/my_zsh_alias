@@ -189,6 +189,7 @@ alias ass="$jumpto package.json public/sass"
 alias vie="$jumpto package.json views"
 alias rou="$jumpto package.json routes"
 alias bin="$jumpto package.json bin"
+alias pub="$jumpto package.json public"
 alias js="$jumpto package.json public/javascripts"
 alias ima="$jumpto package.json public/images"
 alias roo="$jumpto package.json ."
@@ -481,7 +482,8 @@ alias ovscsc='sudo ovs-vsctl set-controller'
 ########################################
 # VPS
 alias sshaliyun="ssh root@115.28.247.19"  # 管理终端密码 367692
-alias sshjdy='ssh root@116.196.120.62'
+# alias sshjdy='ssh root@116.196.120.62'
+alias sshjdy='ssh root@116.196.90.26'
 alias sshbanwagong="ssh root@45.78.9.29 -p 28484"
 alias sshkali="ssh root@192.168.56.105" # passwd: asd
 alias sshredhat="ssh root@192.168.56.101" # passwd: 123456

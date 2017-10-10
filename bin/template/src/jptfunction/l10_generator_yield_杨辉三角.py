@@ -1,11 +1,15 @@
 #!/usr/bin/python3
 # coding: utf-8
 # 两种方法生成 generator, 1. 列表生成式, 2. yield
+##################################################################
+## 1. 列表生成式
 g = (x * x for x in range(10)); print(g)  # 列表生成式的 [] 改成 (), 就创建了一个 generator
 print(next(g), next(g))  # next() 基本不会用到
 for n in g: print(n)  # for 传入的是 可迭代对象 Iterable, 接着上面的 next() 之后输出
-
-# 函数遇到 return 语句或者最后一行就返回. 而变成generator的函数, 在每次调用next()的时候执行, 遇到yield返回, 再执行时从上次返回的yield处继续执行
+##################################################################
+## 2. yield
+# 函数遇到 return 语句或者最后一行就返回. 而变成 generator 的函数,
+# 在每次调用 next() 的时候执行, 遇到 yield 返回, 再执行时从上次返回的 yield 处继续执行
 def triangles(t):
     L = [1]
     while len(L) <= t:

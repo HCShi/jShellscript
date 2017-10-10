@@ -28,3 +28,20 @@ student = np.dtype([('name', 'S20'), ('age', 'i1'), ('marks', 'f4')]); print(stu
 a = np.array([('abc', 21, 50), ('xyz', 18, 75)], dtype=student); print(a)  # [('abc', 21, 50.0), ('xyz', 18, 75.0)]
 # 'b': 布尔值; 'i': 符号整数; 'u': 无符号整数; 'f': 浮点; 'c': 复数浮点; 'm': 时间间隔;
 # 'M': 日期时间; 'O': Python 对象; 'S', 'a': 字节串; 'U': Unicode; 'V': 原始数据(void)
+##################################################################
+## astype; 类型转换时用 astype, 不要直接修改 dtype
+a = np.random.random(4); print(a)  # [ 0.10995627  0.23018423  0.12878835  0.60813773]
+print(a.dtype, a.shape)  # float64 (4,)
+a.dtype = 'float32'; print(a.shape)  # (8,); 改变 dtype, 发现数组长度翻倍; 而且打印出来很乱
+a.dtype = 'float16'; print(a.shape)  # (16,); 改变dtype, 数组长度再次翻倍
+a.dtype = 'float'  # 改变 dtype='float', 发现默认就是 float64, 长度也变回最初的 4
+print(a)  # [ 0.10995627  0.23018423  0.12878835  0.60813773]
+print(a.shape, a.dtype)  # (4,) dtype('float64')
+a.dtype = 'int'
+print(a.dtype, a.shape)  # int64, (4,)
+print(a)  # [ 1637779016,  1069036447, -1764917584,  1071690807,  -679822259, 1071906619, -1611419360,  1070282372]
+# 很多时候我们用 numpy 从文本文件读取数据作为 numpy 的数组, 默认的 dtype 是 float64
+# 但是有些场合我们希望有些数据列作为整数; 如果直接改 dtype='int' 的话, 就会出错！原因如上
+b = np.array([1., 2., 3., 4.]); print(b.dtype)  # float64
+c = b.astype(int); print(c)  # [1 2 3 4]
+print(c.shape, c.dtype)  # (4,) int64

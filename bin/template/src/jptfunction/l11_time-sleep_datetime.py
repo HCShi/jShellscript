@@ -1,8 +1,15 @@
 #!/usr/bin/python3
 # coding: utf-8
 import time
+##################################################################
+## sleep()
 time.sleep(1)  # 程序暂停
-
+##################################################################
+## clock() 程序计时
+start = time.clock()
+print("耗时 =", time.clock() - start)
+##################################################################
+## datetime
 from datetime import datetime
 print(datetime.now())  # 当前时间
 print(datetime(2015, 4, 19, 12, 20))  # 2015-04-19 12:20:00, 年月日时分

@@ -18,6 +18,9 @@ print(z.reshape(-1), z.reshape(-1).shape)  # [ 1,  2,  3,  4,  5,  6,  7,  8,  9
 print(z.reshape(-1, 1), z.reshape(-1, 1).shape)  # (12, 1); row 未知, column 为 1
 print(z.reshape(-1, 2), z.reshape(-1, 2).shape)  # (6, 2); row 未知, column 为 2, 所以 row 为 6
 print(z.reshape(3, -1), z.reshape(3, -1).shape)  # (3, 4); column 是根据 row 算出来的
+a = np.arange(12).reshape(2, 2, 3); print(a)  # [[[ 0  1  2] [ 3  4  5]] [[ 6  7  8] [ 9 10 11]]]; reshape(depth, height, width)
+print(a.reshape(2, 6))  # [[ 0  1  2  3  4  5] [ 6  7  8  9 10 11]]
+print(a.reshape(4, 3))  # [[ 0  1  2] [ 3  4  5] [ 6  7  8] [ 9 10 11]]
 ##################################################################
 # numpy.ndarray.flat; 该函数返回数组上的一维迭代器, 行为类似 Python 内建的迭代器
 a = np.arange(8).reshape(2, 4); print(a)  # [[0 1 2 3] [4 5 6 7]]

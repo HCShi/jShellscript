@@ -1,0 +1,53 @@
+%% ================================================================
+%% Normal Package for Math
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+
+% 我们调用了 algorithm 宏包, 它提供了 algorithm 环境
+% 这是一个三线表样式的浮动体, 浮动的策略和 LaTeX 标准的 figure、table 环境一致
+\usepackage{algorithm}
+% \usepackage{algorithmic}  % 同时导入这个包 和 algorithm, algpseudocode, 写伪代码
+\usepackage{algorithmicx}   % 同时导入这个包 和 algorithm, algpseudocode, 写伪代码
+\usepackage{algpseudocode}  % algpseudocode 宏包则是 algorithmicx 宏包的一部分, 它提供了实际用来排版伪代码的环境
+% 3 个修改 algorithm 标签, require 标签, ensure 标签显示的三个命令
+\floatname{algorithm}{Algorithm}  % 默认就是 Algorithm, 可以修改为其他的
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % 默认为 Require:
+\renewcommand{\algorithmicensure}{\textbf{Output:}}  % 默认为 Ensure:
+
+% algorithms 包 (实际使用两个子包 \usepackage{algorithm}、\usepackage{algorithmic})
+% algorithmicx 包 (实际使用其中的子包 \usepackage{algpseudocode}, 可与 algorithms 的 algorithm.sty 混用)
+
+% algorithmic 和 algorithmicx, 这两个包很像, 很多命令都是一样的,
+% 只是 algorithmic 的命令都是大写, algorithmicx 的命令都是首字母大写, 其他小写(EndFor两个大写)
+% 使用 algorithmicx 时, 一定要带上 algpseudocode
+
+% 下面是 algorithmic 的基本命令
+% \STATE <text>
+% \IF{<condition>} \STATE{<text>} \ENDIF
+% \FOR{<condition>} \STATE{<text>} \ENDFOR
+% \FOR{<condition> \TO <condition> } \STATE{<text>} \ENDFOR
+% \FORALL{<condition>} \STATE{<text>} \ENDFOR
+% \WHILE{<condition>} \STATE{<text>} \ENDWHILE
+% \REPEAT \STATE{<text>} \UNTIL{<condition>}
+% \LOOP \STATE{<text>} \ENDLOOP
+% \REQUIRE <text>
+% \ENSURE <text>
+% \RETURN <text>
+% \PRINT <text>
+% \COMMENT{<text>}
+% \AND, \OR, \XOR, \NOT, \TO, \TRUE, \FALSE
+
+% 对比看一下, 下面是 algorithmicx 包的基本命令
+% \State <text>
+% \If{<condition>} <text> \EndIf
+% \If{<condition>} <text> \Else <text> \EndIf
+% \If{<condition>} <text> \ElsIf{<condition>}  <text> \Else <text> \EndIf
+% \For{<condition>} <text> \EndFor
+% \ForAll{<condition>} <text> \EndFor
+% \While{<condition>} <text> \EndWhile
+% \Repeat <text> \Until{<condition>}
+% \Loop <text> \EndLoop
+% \Require <text>
+% \Ensure <text>
+% \Function{<name>}{<params>} <body> \EndFunction
+% \State \Return <text>
+% \Comment{<text>}  要放到其他命令的后面, 不是下一行

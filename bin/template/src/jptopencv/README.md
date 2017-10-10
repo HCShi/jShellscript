@@ -1,7 +1,3 @@
-### OpenGL Vs OpenCV
-OpenCV 是从图像到数据
-OpenGL 是从数据到图像
-### 介绍
-``` zsh
-l1  # 实验楼里的一个教程
-```
+### Description
+部分参考自:[Segmentfault 专栏](https://segmentfault.com/a/1190000003742481)
+解释不多, 但知识点全, 可以参考自己那些知识点不会

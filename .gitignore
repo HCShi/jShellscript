@@ -17,8 +17,13 @@ coverage.xml
 nosetests.xml
 tmp*
 
+# for CDN
+cdnjs.cloudflare.com/
+https:/
+
 # for Python
 __pycache__
+checkpoint
 
 # for: xelatex
 *.bbl

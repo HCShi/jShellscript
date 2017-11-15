@@ -5,10 +5,12 @@ import pandas as pd
 import numpy as np
 ##################################################################
 ## axis 默认为 0, 表示纵向合并; ignore_index 默认为 False, True 表示忽略原来的 index
-df1 = pd.DataFrame(np.ones((3, 4)) * 0, columns=['a', 'b', 'c', 'd']); print(df1)
-df2 = pd.DataFrame(np.ones((3, 4)) * 1, columns=['a', 'b', 'c', 'd']); print(df2)
-df3 = pd.DataFrame(np.ones((3, 4)) * 2, columns=['a', 'b', 'c', 'd']); print(df3)
-res = pd.concat([df1, df2, df3], axis=0, ignore_index=True); print(res)
+df1 = pd.DataFrame(np.ones((3, 4)) * 0, columns=list('abcd')); print(df1)
+df2 = pd.DataFrame(np.ones((3, 4)) * 1, columns=list('abcd')); print(df2)
+df3 = pd.DataFrame(np.ones((3, 4)) * 2, columns=list('abcd')); print(df3)
+res = pd.concat([df1, df2, df3], ignore_index=True); print(res)
+res = pd.concat([df1, df2, df3], ignore_index=False); print(res)
+res = pd.concat([df1, df2, df3], axis=1); print(res)  # 横向连接
 ##################################################################
 ## join 默认为 'outer', 按照 columns 来合并, 有相同 index 的 column 合并到一起, 其他的独自成列
 df1 = pd.DataFrame(np.ones((3, 4)) * 0, columns=['a', 'b', 'c', 'd'], index=[1, 2, 3]); print(df1)

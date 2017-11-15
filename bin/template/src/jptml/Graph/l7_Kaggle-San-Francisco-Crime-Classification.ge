@@ -1,0 +1,28 @@
+[ 一定要注意最后排名和评定好坏用的标准 \n
+  Kaggle 的评定标准并不是 precision, 而是 multi-class log_loss ] { flow: south } -->
+
+[ 一: 数据预览 \n
+  DataFrame 一般预览数据的顺序 \n ] { flow: south } -->
+
+[ 二: 数据预处理 \n
+  preprocessing.LabelEncoder() 对不同的犯罪类型编号 \n
+  因子化星期几, 街区, 小时等特征; 其中 hour 使用了 train.Dates.dt.hour \n
+  最后达到 42 个特征 \n
+  \n
+  使用 trainData = pd.concat(\[hour, days, district\], axis=1) 来组合特征 ] { flow: south } -->
+
+[ 三: 建立模型 \n
+  考虑到属性之间是独立的, 所以 NB 应该会取得不错的效果
+  \n
+  搭建一个 baseline 系统, 再考虑步步优化. 比如我们这里简单一点, 就只取星期几和街区作为分类器输入特征, \n
+  \n
+  下面这种筛选 特征值的方法很好 \n
+  features = \['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'BAYVIEW', 'CENTRAL', 'INGLESIDE', 'MISSION', \n
+            'NORTHERN', 'PARK', 'RICHMOND', 'SOUTHERN', 'TARAVAL', 'TENDERLOIN'\]  # 只取星期几和街区作为分类器输入特征 \n
+  features = features + \[x for x in range(0, 24)\]  # 添加犯罪的小时时间点作为特征 \n
+  \n
+  用朴素贝叶斯和逻辑回归都建立模型, 对比一下 \n
+  \n
+  结果 NB 1s, Logistic 近 2min 训练, 结果还没 NB 好
+  \n
+  后来有加入了 hour 特征(取消一行注释), NB 还是 1s, Logistic 3min... ]

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # coding: utf-8
 from sklearn.datasets import load_iris
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 ##################################################################
 ## 准备数据
@@ -17,7 +17,7 @@ y_pred = knn.predict(X_test)
 print(knn.score(X_test, y_test))  # 0.9736
 ##################################################################
 ## cross_val_score 交叉验证
-from sklearn.cross_validation import cross_val_score
+from sklearn.model_selection import cross_val_score
 knn = KNeighborsClassifier(n_neighbors=5)
 scores = cross_val_score(knn, X, y, cv=5, scoring='accuracy')  # 会自动将数据交叉检测, 5 次
 print(scores)  # [ 0.96666667  1.          0.93333333  0.96666667  1.        ]
@@ -25,7 +25,6 @@ print(scores.mean())  # 0.973
 ##################################################################
 ## 下面进行验证 n_neighbors 的变化对测试的影响, 并进行 plot 显示
 # this is how to use cross_val_score to choose model and configs
-from sklearn.cross_validation import cross_val_score
 import matplotlib.pyplot as plt
 k_range = range(1, 31)
 k_scores = []

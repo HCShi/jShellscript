@@ -20,8 +20,12 @@ print(np.stack((a, b), 1))  # [[[1 2] [5 6]] [[3 4] [7 8]]]; 沿轴 1 堆叠两�
 ##################################################################
 # numpy.hstack; numpy.stack 函数的变体, 通过堆叠来生成水平的单个数组
 print(np.hstack((a, b)))  # [[1 2 5 6] [3 4 7 8]]; 水平堆叠
-print(np.hstack(b))  # [5 6 7 8]
+print(np.hstack(b))  # [5 6 7 8]; 本身的横向合并
 print(np.hstack(b.T))  # [5 7 6 8]
+c = np.array([[1, 2], [2, 3], 3]); print(c, c.shape)  # [[1, 2] [2, 3] 3] (3,)
+print(np.hstack(c), np.hstack(c).shape)  # [1 2 2 3 3] (5,); 原来省略是这个意思啊
+# print(np.unique(c))  # '>' not supported between instances of 'int' and 'list'; 讲道理应该是可以的
+print(np.unique(np.hstack(c)))  # [1 2 3]; 记得在 keras 中 imdb 的数据没有 hstack() 也可以求 unique(); 迷...
 ##################################################################
 # numpy.vstack; numpy.stack 函数的变体, 通过堆叠来生成竖直的单个数组
 print(np.vstack((a, b)))  # [[1 2] [3 4] [5 6] [7 8]]; 竖直堆叠

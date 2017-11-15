@@ -4,11 +4,13 @@
 ##################################################################
 # 编辑 System Setting -> Network -> proxy 会自动保存到 /etc/environment
 # pip, conda 会用到这里, 但还是写成一个命令比较好 myscript -> all_proxy
+# 这里最好不要设置, 否则会影响到
 # export ALL_PROXY="https://192.168.1.13:8080/"  # 可以是小写
 # export HTTP_PROXY="http://192.168.1.13:8080/"
 # export HTTPS_PROXY="https://192.168.1.13:8080/"
 # export FTP_PROXY="ftp://192.168.1.13:8080/"
 # export SOCKS_PROXY="socks://192.168.1.13:8080/"
+# export no_proxy="http://127.0.0.1/"  # 这个是用来解决 spacemacs 中 "Can't read anaconda-mode server response" 这个错误, 但最好还是不要轻易设置 PROXY
 ##################################################################
 ## /etc/bash.bashrc
 ##################################################################
@@ -46,11 +48,25 @@ export HISTCONTROL=ignorespace  # 前面带空格的命令不记录到历史
 export LC_CTYPE=zh_CN.UTF-8  # emacs GUI 输入中文要用这个, 终端里本来就可以输入中文, 放到 /etc/environment (Ubuntu 16.04 后才有的文件)
 # export EDITOR=vim  # 加上这个以后好多 emacs 的快捷键用不了
 ##################################################################
+## Java CLASSPATH
+##################################################################
+# export CLASSPATH=/home/somebody/lib/java/a.jar:/home/somebody/lib/java/b.jar # Java 的 CLASSPATH 必须写全...; Java 一生黑...
+export CLASSPATH=.:/home/${USER}/lib/java/lucene-analyzers-common-7.1.0.jar:$CLASSPATH  # 设置 Java CLASSPATH
+export CLASSPATH=/home/${USER}/lib/java/lucene-core-7.1.0.jar:$CLASSPATH
+export CLASSPATH=/home/${USER}/lib/java/lucene-demo-7.1.0.jar:$CLASSPATH
+export CLASSPATH=/home/${USER}/lib/java/lucene-queryparser-7.1.0.jar:$CLASSPATH
+# cd ~/lib/java && java -classpath lucene-analyzers-common-7.1.0.jar:lucene-core-7.1.0.jar:lucene-demo-7.1.0.jar:lucene-queryparser-7.1.0.jar org.apache.lucene.demo.IndexFiles -docs docs
+# 如果没有配置好 CLASSPATH, 就需要这样执行
+##################################################################
 ## Spark
 ##################################################################
 export SPARK_HOME=/srv/spark
 export PATH=$SPARK_HOME/bin:$PATH  # 包括 pyspark 命令
 export PYSPARK_DRIVER_PYTHON=ptpython
+##################################################################
+## Matplotlib
+##################################################################
+export PYTHONIOENCODING="utf8"  # 并没有用, 但还是放这里吧
 ##################################################################
 ## django & virtualenv & virtualenvwrapper & conda & pyenv; 最终选择的是 anaconda
 ##################################################################

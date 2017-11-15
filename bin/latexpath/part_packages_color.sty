@@ -1,0 +1,15 @@
+%% ================================================================
+%% Normal Package for Color
+\usepackage{xcolor}
+% provides \textcolor{<color>}{<text>} as well as \color{<color>} to switch the color for some give text or until the end of the group/environment
+\newcommand{\red}{\textcolor{red}}  % \red{hello}; 这样使用
+\newcommand{\blue}{\textcolor{blue}}  % 或者 \red 3 这样对单个字符
+\newcommand{\green}{\textcolor{green}}
+\newcommand{\yellow}{\textcolor{yellow}}
+
+%% ================================================================
+%% \textcolor 和 \color 区别
+% 1. \textcolor 默认针对下一个字符
+% \textcolor{green}{hello world}, nihao  % 这样可以设置范围
+% 2. \color 会针对全行
+% \color{green}{hello world}, nihao \\  % \color 会针对全行

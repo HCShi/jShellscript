@@ -7,6 +7,10 @@
 l1 - l8
 
 l10 -  自己平时用到的
+l14 - l17 [官方教程](https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html), 下面是翻译的
+参考: [[Scikit-learn教程] 03.01 文本处理：特征提取](https://jizhi.im/blog/post/sklearntutorial0301), 已存盘
+参考: [[Scikit-learn 教程] 03.01 文本处理：分类与优化](https://jizhi.im/blog/post/sklearntutorial0302), 已存盘
+l13 - l20 是一系列的文本处理的例子, l14 - l17 偏重实战
 
 入门推荐: [实验楼 -> Python科学计算(二) -> 3、scikit-learn 机器学习 - 实验楼]
 l41 - l44 都是参考的上面的链接..., 很适合学习

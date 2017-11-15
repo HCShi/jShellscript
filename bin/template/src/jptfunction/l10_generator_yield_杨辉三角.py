@@ -17,3 +17,16 @@ def triangles(t):
         L.append(0)  # 这句想法很好, 就可以用下面的 L[0] = L[-1] + L[0]
         L = [L[i - 1] + L[i] for i in range(len(L))]
 print('\n'.join([str(x) for x in triangles(10)]))  # for x in triangles(10): print(x)
+##################################################################
+## 2.1 yield Word2Vec
+# 将输入视为 Python 的内置列表很简单, 但是在输入很大时会占用大量的内存.
+# 所以 Gensim 只要求输入按顺序提供句子, 并不将这些句子存储在内存, 然后 Gensim 可以加载一个句子, 处理该句子, 然后加载下一个句子
+# 例如, 如果输入分布在硬盘上的多个文件中, 文件的每一行是一个句子, 那么可以逐个文件, 逐行的处理输入:
+class MySentences(object):
+    def __init__(self, dirname): self.dirname = dirname
+    def __iter__(self):
+        for fname in os.listdir(self.dirname):
+            for line in open(os.path.join(self.dirname, fname)):
+                yield line.split()
+sentences = MySentences('/some/directory')  # a memory-friendly iterator
+model = gensim.models.Word2Vec(sentences)

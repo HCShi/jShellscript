@@ -13,13 +13,23 @@ plt.show()  # 只有这一句话是用到了 matplotlib
 # 但是 data 本来就是一个数据, 所以我们可以直接 plot
 ##################################################################
 ## DataFrame
+data = pd.DataFrame(np.random.randn(1000, 4), index=np.arange(1000), columns=list("ABCD"))  # header 就是 ABCD
+data = data.cumsum(); print(data)
+data.plot(); plt.show()  # 有 4 组数据, 所以 4 组数据会分别 plot 出来
+##################################################################
+## hist()
 data = pd.DataFrame(np.random.randn(1000, 4), index=np.arange(1000), columns=list("ABCD"))
-data = data.cumsum()
-data.plot(); plt.show()  # 有4组数据, 所以4组数据会分别plot出来
+data.plot(bins=50, kind='hist'); plt.show()  # 所有挤在一块
+data['A'].plot(bins=50, kind='hist'); plt.show()  # plot() 不支持 column 参数
+
+data.hist(column='A', bins=50, figsize=(10, 4)); plt.show()
+data.hist(column=['A', 'B'], bins=50, figsize=(10, 4)); plt.show()  # 分成两个图
+data = pd.DataFrame(np.random.randn(10, 4), index=np.arange(10), columns=list("ABCD"))
+data.hist(column='A', by='B', bins=50, figsize=(10, 4)); plt.show()  # 按照 B 来分类, 每一类在按 A 来画图
+# bins: integer, default 10; Number of histogram bins to be used; 画多少个 hist 柱子
 ##################################################################
 ## scatter 散点图 (plot methods: 'bar', 'hist', 'box', 'kde', 'area', scatter', hexbin', 'pie')
 # scatter 只有 x, y 两个属性, 我们我们就可以分别给 x, y 指定数据
 # 然后我们在可以再画一个在同一个 ax 上面, 选择不一样的数据列, 不同的 color 和 label
 ax = data.plot.scatter(x='A', y='B', color='DarkBlue', label="Class 1")
-data.plot.scatter(x='A', y='C', color='LightGreen', label='Class 2', ax=ax)
-plt.show()
+data.plot.scatter(x='A', y='C', color='LightGreen', label='Class 2', ax=ax); plt.show()

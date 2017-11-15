@@ -6,6 +6,9 @@ import numpy as np
 a = np.array([1, 2, 3]); print(a)
 print(a.max(), a.min(), a.argmax(), a.argmin())  # 3 1 2 0; 最大值, 最小值, 最大值索引, 最小值索引
 a = np.random.random((10, 10)); print(a.max(0))  # 可以根据坐标轴来筛选大小
+# 标准库中也有 max(), min(), sum()
+a = [1, 2, 3, 4, 5]
+print(sum(a), max(a), min(a))  # 15, 5, 1
 ##################################################################
 ## cast
 b = np.array(range(4)); print(b)  # [0 1 2 3]

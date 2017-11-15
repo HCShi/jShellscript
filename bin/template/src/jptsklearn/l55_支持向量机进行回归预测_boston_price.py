@@ -3,7 +3,7 @@
 from sklearn import datasets
 from sklearn.svm import LinearSVR  # 导入线性支持向量机回归模块
 from matplotlib import pyplot as plt
-from sklearn.cross_validation import cross_val_predict  # 导入交叉验证模块
+from sklearn.model_selection import cross_val_predict  # 导入交叉验证模块
 
 boston = datasets.load_boston()
 print(boston.DESCR)  # 输出数据集介绍文档

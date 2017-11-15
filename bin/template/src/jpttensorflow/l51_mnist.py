@@ -5,7 +5,7 @@
 # 这些图片已经进行了归一化, 并且大小固定, 每张手写数字图片其实是一张可以被转化成矩阵的 28 x 28 的灰度图片
 # 在 TensorFlow 中, 使用 MNIST 非常简单, 它将帮助我们去下载数据并将自动地载入 numpy 中的 array 对象, 同时还可以进行独热编码等数据预处理
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets('/tmp/data', one_hot=True)  # 'count', 'index', 'test', 'train', 'validation' 有这些属性
+mnist = input_data.read_data_sets('./tmp_dataset/mnist', one_hot=True)  # 'count', 'index', 'test', 'train', 'validation' 有这些属性
 # 第一次执行会从网上下载, 所以这个命令的速度和网速有关...; 所以还是 keras 中的 mnist 加载快
 ##################################################################
 ## 简单使用方式

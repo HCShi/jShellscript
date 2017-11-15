@@ -5,6 +5,17 @@
 from sklearn import preprocessing
 import numpy as np
 ##################################################################
+## ** 0. 下面的方法都是对列进行操作, 因为把列当做一个特征的所有值  **
+a = np.array([23, 29, 27])  # 1D 数据按列排放, 但是还是说不清...
+# print(preprocessing.MinMaxScaler().fit_transform(a))  # Expected 2D array, got 1D array instead:
+# print(preprocessing.MinMaxScaler().fit_transform(a.T))  # Expected 2D array, got 1D array instead:
+print(a.shape, a.T.shape)  # (3,) (3,)
+print(a.reshape(-1, 1).shape)  # (3, 1)
+print(preprocessing.MinMaxScaler().fit_transform(a.reshape(-1, 1)).reshape(1, -1))  # [[ 0.          1.          0.66666667]]
+
+# 对下面的方法用自己的方式实现一遍
+print((a - a.min()) / (a.max() - a.min()))  # [ 0.          1.          0.66666667]
+##################################################################
 # 1. StandardScaler() 标准化 Standardization
 # 数据标准化: 当单个特征的样本取值相差甚大或明显不遵从高斯正态分布时, 标准化表现的效果较差;
 # 实际操作中, 经常忽略特征数据的分布形状, 移除每个特征均值, 划分离散特征的标准差, 从而等级化, 进而实现数据中心化
@@ -14,8 +25,8 @@ import numpy as np
 # axis: int 类型, 初始值为 0, axis 用来计算均值 means 和标准方差 standard deviations. 如果是 0, 则单独的标准化每个特征(列), 如果是 1, 则标准化每个观测样本(行)
 # with_mean: boolean 类型, 默认为 True, 表示将数据均值规范到 0
 # with_std: boolean 类型, 默认为 True, 表示将数据方差规范到 1
-X = np.array([[1., -1.,  2.], [2.,  0.,  0.], [0.,  1., -1.]])
-X_mean = X.mean(axis=0)  # calculate mean; 用来计算数据 X 每个特征的均值
+X = np.array([[1., -1.,  2.], [2.,  0.,  0.], [0.,  1., -1.]]); print(X)
+X_mean = X.mean(axis=0); print(X_mean)  # [ 1.          0.          0.33333333]; 用来计算数据 X 每个特征的均值
 X_std = X.std(axis=0)  # calculate variance; 用来计算数据 X 每个特征的方差
 X1 = (X - X_mean) / X_std; print(X1)  # standardize X; 这三行是手动计算标准化 X
 # 方法 1: 使用 sklearn.preprocessing.scale() 函数
@@ -23,6 +34,11 @@ X_scale = preprocessing.scale(X); print(X_scale)  # 直接标准化数据 X; X_s
 # 方法 2: sklearn.preprocessing.StandardScaler 类
 scaler = preprocessing.StandardScaler()
 X_scaled = scaler.fit_transform(X); print(X_scaled)  # X_scaled 和 X1 也一样
+# 只能处理 2-D 数据
+# print(preprocessing.StandardScaler().fit_transform([2, 1, 2]))  # ValueError: Expected 2D array, got 1D array instead
+print(preprocessing.StandardScaler().fit_transform(np.array([2, 1, 2]).reshape(-1, 1)))  # 将 (1, ) 转化为 (-1, 1)
+print(preprocessing.StandardScaler().fit_transform([[2, 1, 2]]))  # [[ 0.  0.  0.]]; 伪装成 2-D, 但没意义
+print(preprocessing.StandardScaler().fit_transform([[2, 1], [1, 2]]))  # [[ 1. -1.] [-1.  1.]]
 ##################################################################
 ## 2. MinMaxScaler() 将特征的取值缩小到一个范围, 如 0 到 1
 # 1. 对于方差非常小的属性可以增强其稳定性

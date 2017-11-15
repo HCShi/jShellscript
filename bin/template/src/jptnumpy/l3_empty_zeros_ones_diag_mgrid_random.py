@@ -29,6 +29,7 @@ print(np.diag(A))  # [ 0 11 22 33 44]; 使用 diag 函数能够提取出数组�
 print(np.diag(A, -1))  # [10 21 32 43]; 对角线下面的一条斜线
 ##################################################################
 # random 和 python 标准库中的 random 用法类似, 但是更快
+np.random.seed(10)  # 设置时间函数, 这样就不会每次乱跳了
 print(np.random.rand(3, 3))  # Create an array of the given shape and populate it with random samples from a uniform distribution over [0, 1)
 print(np.random.randn())  # 返回一个正态分布(高斯分布) 的数据
 print(np.random.randn(3, 3))  # A (d0, d1, ..., dn)-shaped array of floating-point samples from the standard normal distribution

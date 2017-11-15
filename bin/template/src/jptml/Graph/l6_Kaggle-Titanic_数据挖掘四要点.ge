@@ -1,0 +1,41 @@
+[
+  『对数据的认识太重要了！』 \n
+  『数据中的特殊点/离群点的分析和处理太重要了！』 \n
+  『特征工程(feature engineering)太重要了！在很多 Kaggle 的场景下, 甚至比 model 本身还要重要』 \n
+  『要做模型融合(model ensemble)啊啊啊！』 \n
+  \n
+  先搭建一个 baseline 系统, 再考虑逐步优化 ] { flow: south } -->
+
+[ 一: 数据预览 \n
+  DataFrame 一般预览数据的顺序 \n
+  Matplotlib 单一特征值画图, 双特征值联合画图 \n ] { flow: south } -->
+
+[ 二: 数据预处理: 特征工程(feature engineering) \n
+  Age 大部分部分缺失, 使用随机森林进行拟合 \n
+  Cabin 近一半缺失, 将有和没有 Cabin 进行二分类 \n
+  \n
+  接着 非数值参数 进行 pandas.get_dummies() 特征值因子化 \n
+  数值参数 Age 等进行 StandardScale 转化到 \[-1, 1\] \n
+  \n
+  将结果重新 concat 进 DataFrame ] { flow: south } -->
+
+[ 三: 建立模型 \n ] { flow: south } -->
+
+[ 四: 交叉验证 \n ] { flow: south } -->
+
+[ 五: 测试集处理 \n ] { flow: south } -->
+
+[ 六: 模型优化 \n
+  查看个属性的权重: \n
+  print(pd.DataFrame({"columns": list(train_df.columns)\[1:\], "coef":list(clf.coef_.T)})) \n
+  分析各属性的 正/负 相关性 ] { flow: south } -->
+
+[ 七: 交叉验证 \n
+  进行一次训练集分割(train_test_split), 训练, 预测, 查看那些错误的样例: \n
+  bad_cases = origin_data_train.loc\[origin_data_train\['PassengerId'\].isin(split_cv\[predictions != cv_df.as_matrix()\[:, 0\]\]\['PassengerId'\].values)\] ] { flow: south } -->
+
+[ 八: 模型融合 \n
+  两种融合方式: \n
+  1. 使用多种模型进行 AdaBoost \n
+  2. 将数据分块, 同一模型对不同数据块训练, 得到不同权重的模型 \n
+  这里用的是第二种 ]

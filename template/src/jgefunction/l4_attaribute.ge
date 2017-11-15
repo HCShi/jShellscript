@@ -1,0 +1,17 @@
+# 两行代码就搞定了; 自动对齐, 调整位置, 箭头, 标签等等
+[ View ] { rows:3 }
+  - Parse calls to ->
+[ Presenter ] { flow: south; rows: 3 }
+  - Manipulates ->
+[ Model ]
+
+[ Presenter ] - Updates -> [ View ]
+# flow, 方向可以是 north/south/east/west(北/南/东/西), 也可以是 left/right/up/down(左/右/上/下)
+# row, 设置高度
+## 注意:
+# 1. 属性中 flow 与 rows 不能同时使用, 不然会失效
+# 2. 兼容的使用多属性, 每个属性需要用 ; 隔开
+
+##################################################################
+## 去掉边框
+[ Database daily backup ]{ border: none } -> [SNS Topic]

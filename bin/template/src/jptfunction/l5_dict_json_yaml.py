@@ -4,6 +4,21 @@ dic = dict({'a': 'A', 'b': 'B'})
 print(dic.items(), dic.keys(), dic.values())  # Iterable, 'dict_values' object does not support indexing
 print(next(iter(dic.values())))  # 将 dic.values() 转化为可迭代对象, 就可以用 next, 或者用 list() 对上面进行转型用索引
 ##################################################################
+## 构造
+words = ['hello', 'world', 'jia']; word_dict = dict((word, len(words) / (i+1)) for i, word in enumerate(words)); print(word_dict)  # Zipf's law
+##################################################################
+## get(); 针对 KeyError 的情况特别好使
+dic = {'name':'Tim', 'age':23}
+print(dic.get('workage'), 0)  # 如果没有的话, 初始值为 0
+dic['workage'] = dic.get('workage', 0) + 1  # dic = {'age': 23, 'workage': 1, 'name': 'Tim'}
+##################################################################
+## dict()
+keys = ['Name', 'Sex', 'Age']; values = ['Tim', 'Male', 23]
+print(list(zip(keys, values)))  # [('Name', 'Tim'), ('Sex', 'Male'), ('Age', 23)]
+dic = dict(zip(keys, values)); print(dic)  # {'Age': 23, 'Name': 'Tim', 'Sex': 'Male'}
+# 测试去重
+a = dict(zip(['a', 'a', 'b'], [1, 2, 3])); print(a)  # 会去重, 但是会丢失数据; ConditionalFreqDist
+##################################################################
 # Convert
 import json, yaml
 print(dict([(1, 'jrp')]))  # 只有长度是 2 的 tuple 才可以

@@ -1,0 +1,25 @@
+%% ================================================================
+%% Normal Package for Table
+
+%% table 不需要使用 graphicx 包, 也没有 table 包, 可以直接用
+\usepackage{multirow}  % 提供 \multirow 命令
+% \multicolumn 命令是 Latex 自带的
+\usepackage{booktabs}  % 提供 \toprule 命令, pandoc 转化 org, 如果含有 table, 会使用这个命令
+
+%% ================================================================
+%% table 第一种方法: 直接用 tabular; 这样不能用标题, 而且没有 \centering 居中操作
+% \begin{tabular}{c|ccccc} \hline  % l 代表 left, c 代表 center; 有几个代表几个 columns, 这里是 6 个居中的 columns; | 代表使用实现进行该列的分割线
+%   $x$ & 1 & 2 & 3 & 4 & 5 \\ \hline  % & 表示列与列之间的分隔符; \\ 换行; \hline 一条横线
+%   $f(x)$ & 10 & 11 & 12 & 13 & 14
+% \end{tabular} \\
+
+%% ================================================================
+%% table 第二种, 放到 env 中
+% \begin{table}
+%   \centering
+%   \begin{tabular}{|c|c|c|c|} \hline
+%     $x$ & 0 & 1 & 2 \\ \hline
+%     $f(x)$ & 3 & 6 & 9 \\ \hline
+%   \end{tabular}
+%   \caption{Caption goes here}
+% \end{table}

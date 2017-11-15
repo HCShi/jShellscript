@@ -7,6 +7,7 @@ jumpto="source ~/github/jShellscript/bin/jumpto"  # 后面会经常用到, 先�
 # alias allproxy='export all_proxy="https://192.168.1.13:8080"'  # 法国高科的学校代理...
 alias allproxy='export all_proxy="http://127.0.0.1:8080"'  # 不能用 https
 alias allproxyclear='export all_proxy=""'  # 不能用 https
+alias allproxycheck='env | grep -i proxy'  # 不能用 https
 alias bjclip='test() { b64 -e $1 | jclip };test'
 alias echobool='echo $?'  # 上一个命令的返回值, 0 为正常返回, 1 为错误
 alias pbjclip='clippaste | xargs -I {} b64 -e {} | jclip'
@@ -45,6 +46,7 @@ alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias mountdisk='sudo mount /dev/sdb5 /media/coder352/Software && sudo mount /dev/sdb6 /media/coder352/Documents'
 alias nau='nautilus .'
+alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --data-dir=~/github/jshellscript/bin/latexpath --template=pm-template.latex'
 alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
 # shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
 alias suroot='sudo su root'
@@ -145,7 +147,7 @@ alias punichr='test() { python -c "print(unichr(int(\"$1\")))" };test'  # exampl
 alias phex='test() { python -c "print(hex(int(\"$1\")))" };test'  # example: phex 16  # 0x10
 alias pbin='test() { python -c "print(bin(int(\"$1\")))" };test'  # example: pbin 16  # 0b10000
 alias poct='test() { python -c "print(oct(int(\"$1\")))" };test'  # example: poct 16  # 020
-alias pint16='test() { python -c "print(int(\"$1\", 16))" };test'  # example: pint16 0x10  # 16  # int('string', base)
+alias pint16='test() { python -c "print(int(\"$1\", 16))" };test'  # example: pint16 0x10 或者 pint16 10  # 16  # int('string', base)
 
 # 生成随机字符
 prans() { python -c "import random, string; print(''.join(random.sample(string.ascii_letters + string.digits + '()~!@#$%^&*-+=|\'{}[]:;<>,.?/', $1)))" }  # prans 32
@@ -274,6 +276,7 @@ alias mpm="ls > music.lst"
 ########################################
 ## cd 相关操作
 ########################################
+alias cdnltk="cd ~/nltk_data"
 alias cddel="cd ~/Documents/thiscandel"
 alias cdesktop='cd ~/Desktop'  # cddesktop 会和 cddel 冲突
 # alias cdhistory="cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'`"
@@ -287,6 +290,8 @@ alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
 alias cdjknowledge='cd ~/github/jKnowledge/'
+alias cdjcourse='cd ~/github/jLatex/Course'
+alias cdjleetcode='cd ~/github/jLeetCode'
 alias cdjlife='cd ~/github/jLife'
 alias cdjpc="cd ~/github/jPC"
 alias cdjpcsrc='cd ~/github/jPC/src'
@@ -666,8 +671,8 @@ alias docjubuntuvim='docker run -i -t --privileged --rm --name some-ubuntu-vim \
 alias burpsuite='java -jar ~/github/others/ctf-tools/burpsuite/burp.jar'
 alias stegsolve='~/github/others/ctf-tools/stegsolve/bin/stegsolve.jar'
 #alias sqlmap="python /usr/bin/sqlmap/sqlmap.py"
-alias sqlmap="python ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py"
-alias sqlmapub="python ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py --current-user --current-db"
+alias sqlmap="python2 ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py"
+alias sqlmapub="python2 ~/github/others/ctf-tools/sqlmap/bin/sqlmap.py --current-user --current-db"
 
 alias strflag='test() { strings $1 | grep $2 };test'  # strflag <filename> flag, <filename> 不能使用 *
 alias gephi='~/github/others/gephi-0.9.1/bin/gephi'

@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 ##################################################################
 ## 0. 准备数据
-mnist = input_data.read_data_sets("/tmp/data", one_hot=True)
+mnist = input_data.read_data_sets("./tmp_dataset/mnist", one_hot=True)
 ##################################################################
 ## 1. 定义模型
 # 为了建立模型, 我们需要先创建一些权值 w 和偏置 b 等参数, 这些参数的初始化过程中需要加入一小部分的噪声以破坏参数整体的对称性, 同时避免梯度为 0.

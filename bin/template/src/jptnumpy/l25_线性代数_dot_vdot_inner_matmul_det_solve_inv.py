@@ -4,6 +4,7 @@
 # dot 两个数组的点积; vdot 两个向量的点积; inner 两个数组的内积; matmul 两个数组的矩阵积
 # determinant 数组的行列式; solve 求解线性矩阵方程; inv 寻找矩阵的乘法逆矩阵
 import numpy as np
+np.random.seed(10)  # 这样就可以加注释了
 ##################################################################
 # numpy.dot(); 返回两个数组的点积, 对于二维向量, 其等效于矩阵乘法
 # 对于一维数组, 它是向量的内积; 对于 N 维数组, 它是 a 的最后一个轴上的和与 b 的倒数第二个轴的乘积
@@ -14,6 +15,21 @@ print(a.dot(b))  # 两种书写方式
 # 要注意点积计算为: [[1*11+2*13, 1*12+2*14],[3*11+4*13, 3*12+4*14]]
 print(np.dot([1, 2], [3, 4]))  # 11; 1*2 + 3*4
 print(a * b)  # [[11 24] [39 56]]  # 直接相乘为叉积
+
+# dot() 计算向量和矩阵时, 向量不用转置, 都一样的
+print(np.dot(np.array([1, 2]), np.array([1, 2])))  # 5; 向量会自动转置, [2x1][2x1]
+print(np.dot(np.array([1, 2]), np.array([1, 2]).T))  # 5; [2x1][1x2] 还是 5, 所以向量相乘不用弄太多转置
+print(np.dot(np.array([1, 2]), np.array([[1, 2], [2, 2]]).T))  # [5 6]; [2x1][2x2]
+print(np.dot(np.array([1, 2]), np.array([[1, 2], [2, 2], [3, 3]]).T))  # [5 6 9]; [2x1][2x3]
+# print(np.dot(np.array([1, 2]).reshape(2, -1), np.array([1, 2]).T))  # shapes (2,1) and (2,) not aligned: 1 (dim 1) != 2 (dim 0)
+print(np.dot(np.array([1, 2]).T, np.array([1, 2]).T))  # 5; [1x2](2,); 向量转置还是 (2, 1)
+# print(np.dot(np.array([[1, 2, 3], [2, 2, 3]]), np.array([1, 2])))  # shapes (2,3) and (2,) not aligned: 3 (dim 1) != 2 (dim 0)
+print(np.dot(np.array([[1, 2, 3], [2, 2, 3]]).T, np.array([1, 2])))  # [5 6 9]; [3x2](2,)
+a, b  = np.random.randint(1, 10, (4, 3)), np.random.randint(1, 10, (3, 2))  # 测试 dot() 并不会自动寻找合适的转置
+# print(np.dot(b, a))  # shapes (3,2) and (4,3) not aligned: 2 (dim 1) != 4 (dim 0)
+# 结论是
+# 1. 当矩阵和向量相乘时, 只要矩阵对着向量的那一维和向量的行数相等即可
+# 2. 向量转置没什么用, 永远是 (n_row,) 的维度
 ##################################################################
 # numpy.vdot(); 返回两个向量的点积, 如果第一个参数是复数, 那么它的共轭复数会用于计算; 如果是多维数组, 它会被展开
 a = np.array([[1, 2], [3, 4]])

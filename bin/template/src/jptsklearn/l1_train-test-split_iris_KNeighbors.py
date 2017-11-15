@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn import datasets
-from sklearn.cross_validation import train_test_split  # 在 0.2 中将要被移除 ...
+from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier  # 临近几个点作为邻居, 并综合模拟出此处的值
 ##################################################################
 ## 准备数据

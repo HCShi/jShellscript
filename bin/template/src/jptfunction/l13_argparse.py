@@ -31,10 +31,10 @@ def decode(s):
 import sys
 if __name__ == "__main__":
     if args.autho:
-        print args.autho
+        print(args.autho)
         exit(0)
     if len(sys.argv) == 1:  # echo 'aGVsbG9qcnA' | jclip, 默认是解密
-        decode(s)
+        decode(args.string)
     if len(sys.argv) == 2 and args.e and args.string:  # 这里可以使用上面定义的参数
         args.string = raw_input()  # echo 'aGVsbG9qcnA' | jclip -d
         encode(args.string)

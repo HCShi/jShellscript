@@ -1,0 +1,30 @@
+[
+  细粒度情感分析, 难点有两个: 1. 将 content 分词, 得到主题词和主题的情感词 2. 情感词放回句子里分析情感值(0, 1, -1) \n
+  这里是将主题词和情感词分开提取的, 虽然这样容易不太合适; 主题词情感分析
+] { flow: south } -->
+
+[ 一: 数据预览 \n
+  使用 Pandas, 发现官方数据很烂...
+  ] { flow: south } -->
+
+[ 二: 数据预处理: \n
+  将 contents 利用 keras one-hot 进行 hash 转换, 例如: 'some thing to eat' -> \[5, 7, 5, 7\](见 jkeras) \n
+  将结果重新 concat 进 DataFrame \n
+  \n
+  将 themes, words 在 contents 中的位置用 1 标注出来, 其余为 0, 构成类似与 one-hot 的数据, 开始训练 \n
+  \[0, 0, 1, 0, 0, 1, 0\] 和 one-hot 不同的是, 这不再是多分类问题, 比较棘手... \n
+  ] { flow: south } -->
+
+[ 三: 建立模型 \n
+  训练失败... \n
+  ] { flow: south } -->
+
+[ 四: 交叉验证 \n ] { flow: south } -->
+
+[ 五: 测试集处理 \n ] { flow: south } -->
+
+[ 六: 模型优化 \n ] { flow: south } -->
+
+[ 七: 交叉验证 \n ] { flow: south } -->
+
+[ 八: 模型融合 \n ]

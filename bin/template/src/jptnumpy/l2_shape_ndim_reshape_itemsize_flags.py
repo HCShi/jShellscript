@@ -5,19 +5,15 @@ import numpy as np
 # ndarray.shape; 这一数组属性返回一个包含数组维度的元组, 它也可以用于调整数组大小
 a = np.array([[1, 2, 3], [4, 5, 6]]); print(a.shape, np.shape(a))  # (2, 3); 两种 shape 的方法
 a = np.array([[1, 2, 3], [4, 5, 6]]); a.shape =  (3, 2); print(a)  # [[1, 2] [3, 4] [5, 6]]; 调整数组大小
-a = np.array([[1,2,3],[4,5,6]]); print(a.reshape(3, 2))  # NumPy 也提供了 reshape 函数来调整数组大小
+a = np.array([[1, 2, 3], [4, 5, 6]]); print(a.reshape(3, 2))  # NumPy 也提供了 reshape 函数来调整数组大小
 ##################################################################
 # ndarray.ndim; 这一数组属性返回数组的维数
 a = np.arange(4); print(a, a.ndim)  # [0 1  2  3] 1; 等间隔数字的数组; 一维数组
 b = np.arange(24).reshape(2, 4, 3); print(b)  # b 现在拥有三个维度
-# [[[ 0,  1,  2]
-#   [ 3,  4,  5]
-#   [ 6,  7,  8]
-#   [ 9, 10, 11]]
-#   [[12, 13, 14]
-#    [15, 16, 17]
-#    [18, 19, 20]
-#    [21, 22, 23]]]
+
+a = np.array([1, 2, 3])
+print(a.shape, a.T.shape, a.ndim)  # (3,) (3,) 1
+print(a.reshape(-1, 1).shape, a.reshape(-1, 1).ndim)  # (3, 1) 2; reshape 之后才是 2D 数据, 在 sklearn 中 preprocess 很管用
 ##################################################################
 # numpy.itemsize; 这一数组属性返回数组中每个元素的字节单位长度
 x = np.array([1, 2, 3, 4, 5], dtype=np.int8); print(x.itemsize)  # 1; 数组的 dtype 为 int8(一个字节)

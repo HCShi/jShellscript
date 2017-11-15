@@ -5,9 +5,14 @@ import time
 ## sleep()
 time.sleep(1)  # 程序暂停
 ##################################################################
-## clock() 程序计时
+## clock() On Unix, return the current processor time as a floating point number expressed in seconds.
 start = time.clock()
 print("耗时 =", time.clock() - start)
+##################################################################
+## time() Return the time in seconds since the epoch as a floating point number
+then = time.time()
+now = time.time()
+print(now - then)
 ##################################################################
 ## datetime
 from datetime import datetime

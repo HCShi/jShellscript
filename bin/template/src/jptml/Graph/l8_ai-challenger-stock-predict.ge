@@ -15,6 +15,10 @@
   \n
   二(2): 在 train 上 train_test_split, 看 NB 会有什么结果 \n
   print(np.mean(predicted == split_cv\[:, -1\]));  0.536583015072; 大于 0.5, 优化一下还可以吧 \n
+  \n
+  二(5): 使用 全连接神经网络测试, 调了各种属性的组合, 最后发现必须使用集成学习来进行了... \n
+  模型在 mnist 二分类的数据集正确率 0.98, 在这个数据集上 0.56... \n
+  遇到了神经网络解决不了的问题了 \n
   ] { flow: south } -->
 
 [ 三: 建立模型 \n ] { flow: south } -->
@@ -26,18 +30,10 @@
   ] { flow: south } -->
 
 [ 六: 模型优化 \n
-  查看个属性的权重: \n
-  print(pd.DataFrame({"columns": list(train_df.columns)\[1:\], "coef":list(clf.coef_.T)})) \n
-  分析各属性的 正/负 相关性
   ] { flow: south } -->
 
 [ 七: 交叉验证 \n
-  进行一次训练集分割(train_test_split), 训练, 预测, 查看那些错误的样例: \n
-  bad_cases = origin_data_train.loc\[origin_data_train\['PassengerId'\].isin(split_cv\[predictions != cv_df.as_matrix()\[:, 0\]\]\['PassengerId'\].values)\]
   ] { flow: south } -->
 
 [ 八: 模型融合 \n
-  两种融合方式: \n
-  1. 使用多种模型进行 AdaBoost \n
-  2. 将数据分块, 同一模型对不同数据块训练, 得到不同权重的模型 \n
-  这里用的是第二种 ]
+  ]

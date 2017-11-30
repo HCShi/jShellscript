@@ -19,7 +19,10 @@ git remote -v  # 查看远端 repository
 ## 本地配置
 git config --global user.name "Ruipeng Jia"
 git config --global user.email 352111644@qq.com
-git remote add origin git@github.com:coder352/jVim.git
-git remote add origin https://github.com/coder352/jVim.git
+# 添加代理
 git config --global http.proxy 'socks5://127.0.0.1:1080'
 git config --global https.proxy 'socks5://127.0.0.1:1080'
+# 修改/添加 远程项目地址
+git remote remove oritin
+git remote add origin git@github.com:coder352/jVim.git
+git remote add origin https://github.com/coder352/jVim.git

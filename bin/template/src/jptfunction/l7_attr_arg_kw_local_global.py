@@ -45,16 +45,3 @@ def test_1(): num += 3; print(num)
 def test_2(): global num; num += 3; print(num)
 test(); test_2()
 # test_1()  # 会报错
-##################################################################
-## format, 另外还有 list 里面的格式化
-print('hello {}, {}'.format('jrp', 'beijing'), ('hello %s, %s' % ('jrp', 'beijing')))
-print(r'\\\\t')  # r 内部字符串不转义
-print(b'A' == 'A', b'A' == b'\x41')  # False, True
-print('''hello
-    world'''); print('hello\nworld')  # 两种换行方式
-print('ab' in ['ab', 'cd'])
-print('hello.py'.endswith('py'))
-# 保留小数位数
-print('hello [%.2f, %.2f]"' % (1/3, 2/3))  # [0.33, 0.67];
-print('hello {:.2}, {:.2}'.format(1/3, 2/3))  # hello 0.33, 0.67
-print('hello [%f, %f]"' % (round(1/3, 2), round(2/3, 2)))  # [0.330000, 0.670000]; round(x, n) 比较尴尬

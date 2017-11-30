@@ -46,7 +46,6 @@ alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias mountdisk='sudo mount /dev/sdb5 /media/coder352/Software && sudo mount /dev/sdb6 /media/coder352/Documents'
 alias nau='nautilus .'
-alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --data-dir=~/github/jshellscript/bin/latexpath --template=pm-template.latex'
 alias shut='test() { shutter -s -e -n -o /home/coder352/Desktop/Another\ link\ to\ Share/$1.jpg }; test'
 # shut 1 就会生成 1.jpg 到指定路径下, 后面不加参数也会交互式截图, 但不会生成文件, Ctrl + Alt + A 生成 tmp.jpg
 alias suroot='sudo su root'
@@ -127,6 +126,15 @@ alias loghexo='google-chrome http://localhost:4000'
 # Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
 alias python3httpserver='python3 -m http.server'  # open 8000 port
+
+##################################################################
+## Pandas
+##################################################################
+# alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --data-dir=~/github/jshellscript/bin/latexpath --template=pm-template.latex'
+alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc.tex'  # 上面那句话刚开始挺好用, 后来就不能用了, 使用 ln -s
+alias pandocir='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_IR.tex'
+alias pandocal='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_algorithm-design-and-analysis.tex'
+alias pandocma='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_math-manual.tex'
 
 ##################################################################
 ## Python
@@ -276,6 +284,8 @@ alias mpm="ls > music.lst"
 ########################################
 ## cd 相关操作
 ########################################
+alias cdmachinelearning="cd ~/github/jKnowledge/Math_Manual/Machine_Learning/"
+alias cdprobability="cd ~/github/jKnowledge/Math_Manual/Probability_Statistics/"
 alias cdnltk="cd ~/nltk_data"
 alias cddel="cd ~/Documents/thiscandel"
 alias cdesktop='cd ~/Desktop'  # cddesktop 会和 cddel 冲突

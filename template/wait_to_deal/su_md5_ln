@@ -21,4 +21,5 @@ md5sum filename | tr "a-z" "A-Z"  # 将小写转换为大写
 ## ln  ln -s from to
 ##################################################################
 ln -s $PWD /home/coder352/web  # 将当前目录连接到 web, nginx 就可以访问了
+# 这里一定要用 $PWD, 而且 web 目录不能存在
 rm /home/coder352/web  # 删除链接

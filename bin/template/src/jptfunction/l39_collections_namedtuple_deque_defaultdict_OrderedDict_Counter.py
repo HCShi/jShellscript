@@ -5,6 +5,7 @@ from collections import namedtuple
 from collections import deque
 from collections import defaultdict
 from collections import OrderedDict
+from collections import Counter
 ##################################################################
 ## namedtuple('名称', [属性 list]); 简化 class
 p = (1, 2); print(p)  # tuple 可以表示不变集合, 一个点的二维坐标
@@ -33,8 +34,20 @@ print(dd['key1'])  # abc; key1 存在
 print(dd['key2'])  # N/A; key2 不存在, 返回默认值
 # 注意默认值是调用函数返回的, 而函数在创建 defaultdict 对象时传入
 # 除了在 Key 不存在时返回默认值, defaultdict 的其他行为跟 dict 是完全一样的; dict 也支持返回默认值
+
+# 其实 dict() 也可以实现相关的功能, 显得 defaultdict() 比较鸡肋...
 dic = {'name':'Tim', 'age':23}
-print(dic.get('workage'), 0)  # 如果没有的话, 初始值为 0
+print(dic.get('workage', 0))  # 如果没有的话, 返回 0
+
+# 统计计数功能呢, 这个 Counter 默认已经实现了
+frequency = defaultdict(int)
+for symbol in 'hello': frequency[symbol] += 1
+print(frequency)  # defaultdict(<class 'int'>, {'h': 1, 'e': 1, 'l': 2, 'o': 1})
+print([[word, weight] for word, weight in frequency.items()])  # [['h', 1], ['e', 1], ['l', 2], ['o', 1]]
+# defaultdict.items() 的循序会是原来的顺序, Count.items() 居然也是按原来的顺序
+frequency = Counter('hello'); print(frequency)  # Counter({'l': 2, 'h': 1, 'e': 1, 'o': 1})
+print([[word, weight] for word, weight in frequency.items()])  # [['h', 1], ['e', 1], ['l', 2], ['o', 1]]
+# 结论, Counter() 真好...
 ##################################################################
 ## OrderedDict; 有序 dict
 # 使用 dict 时, Key 是无序的; 在对 dict 做迭代时, 我们无法确定 Key 的顺序; 如果要保持 Key 的顺序, 可以用 OrderedDict
@@ -48,7 +61,14 @@ print(od.keys())  # ['z', 'y', 'x']; 按照插入的 Key 的顺序返回
 # OrderedDict 可以实现一个 FIFO(先进先出) 的 dict, 当容量超出限制时, 先删除最早添加的 Key
 ##################################################################
 ## Counter 是一个简单的计数器, 例如, 统计字符出现的个数
-from collections import Counter
+# Counter 高级用法
+print(Counter(['a', 'b', 'a', 'c']))  # Counter({'a': 2, 'b': 1, 'c': 1})
+print(Counter('hello jrp \n hello'))  # Counter({'l': 4, ' ': 3, 'h': 2, 'e': 2, 'o': 2, 'j': 1, 'r': 1, 'p': 1, '\n': 1})
+# 空格 和 回车 也会统计...
+# items() 和 most_common() 顺序不一样, 前者是按输入顺序
+print([[word, weight] for word, weight in Counter('abcdcd').items()])  # [['a', 1], ['b', 1], ['c', 2], ['d', 2]]
+print(Counter('abcdcd').most_common(3))  # [('c', 2), ('d', 2), ('a', 1)]
+
 c = Counter()
 for ch in 'programming': c[ch] = c[ch] + 1
 print(c)  # Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
@@ -60,13 +80,8 @@ print(c.keys(), type(c.keys()))  # dict_keys(['p', 'r', 'o', 'g', 'a', 'm', 'i',
 print(c.values())  # dict_values([1, 2, 1, 2, 1, 2, 1, 1])
 print(list(c.values()))  # [1, 2, 1, 2, 1, 2, 1, 1]
 
-# Counter 高级用法
-print(Counter(['a', 'b', 'a', 'c']))  # Counter({'a': 2, 'b': 1, 'c': 1})
 # list 嵌套 str, 见 朴素贝叶斯文本分类
 texts = ["dog cat fish", "dog cat cat", "fish bird", 'bird']
 c = Counter([word for line in texts for word in line.split()])
 print(c)  # Counter({'cat': 3, 'dog': 2, 'fish': 2, 'bird': 2})
 print(c['cat'])  # 3
-
-# most_common() 这和函数才是王道
-print(c.most_common(2))  # [('cat', 3), ('dog', 2)]

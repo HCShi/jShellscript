@@ -33,6 +33,14 @@ print([line for line in open('tmp')])  # ['jrp\n', 'hello\n', 'world\n', '14thco
 print([line.strip() for line in open('tmp')])  # ['jrp', 'hello', 'world', '14thcoder', 'coder352']
 print([line.strip() for line in open('tmp').readlines()])  # ['jrp', 'hello', 'world', '14thcoder', 'coder352']
 ##################################################################
+## 实战技巧, 这里不能执行...
+# 对于 Space/Tab 混用的分隔方式
+data = np.array([[float(x) for x in re.split(r'\s+', line.strip())] for line in fileinput.input('TSP_Data')])  # jptalgorithm 中用到的读取文件处理的命令
+# 通常会使用 line.strip().split()
+
+# 读一个 byte
+byte = open('./README.md').read(1); print(byte)  # '#'; 读一个 byte
+##################################################################
 ## 总结:
 # 读文件
 # 1. open(file).read(); read() 是以字符为单位, 和网络数据扒取 request.urlopen(url).read() 处理效果相同

@@ -37,8 +37,15 @@ print(np.random.randn(3, 3))  # A (d0, d1, ..., dn)-shaped array of floating-poi
 print(np.random.randint(5), np.random.randint(5, 200))  # 生成 1 个 [0, 5) 和 [5, 200) 的随机数
 print(np.random.randint(0, high=256, size=(3,)).tolist())  # 生成 3 个 [0, 256) 的随机数, tolist() 不是很懂, argument is not numeric 时候用很管用
 
-print(np.random.random((10, 10)))
+print(np.random.random((10, 10)))  # Return random floats in the half-open interval [0.0, 1.0).
 print(np.random.random(3))  # 指定维数快速生成随机数
+
+# 生成回归拟合数据...
+print(np.random.normal(0, 1, (3,)))  # (均值, 标准差, shape)
+import matplotlib.pyplot as plt
+X = np.linspace(-1, 1, 200); np.random.shuffle(X); print(X)
+Y = 0.5 * X + 2 + np.random.normal(0, 0.05, (200, ))  # 添加噪声
+plt.scatter(X, Y); plt.show()
 ##################################################################
 ## 函数总结
 rand(d0, d1, ..., dn)               # Random values in a given shape.

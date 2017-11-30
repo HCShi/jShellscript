@@ -30,9 +30,15 @@ print(''.join(filter(lambda x: x and x.strip(), 'a b')))  # 将空格去掉, 并
 ## sorted(), 返回值 list
 # Python 对容器内数据的排序有两种, 一种是容器自己的 sort 函数, 一种是内建的 sorted 函数
 # sort 函数和 sorted 函数唯一的不同是, sort 是在容器内排序, sorted 生成一个新的排好序的容器
-print(sorted([1, -2], key=abs))  # 默认升序, 按绝对值排序
-print(sorted(['ab', 'AC'], key=str.lower, reverse=True))  # 默认 'Z' < 'a', 关键字: 忽略大小写, 反序
-print(sorted([('a', 3), ('b', 2)], key=lambda x: x[1]))
+print(sorted([1, -2], key=abs))  # [1, -2]; 默认升序, 按绝对值排序
+
+print(ord('A'), ord('a'))  # 65 97
+print(sorted(['ab', 'AC'], key=str.lower))  # ['ab', 'AC']; 'Z' < 'a', 但却是 'a' 在前面
+print(sorted(['zb', 'AC'], key=str.lower))  # ['AC', 'zb']; 忽略大小写...
+print(sorted(['ab', 'AC'], key=str.lower, reverse=True))  # ['AC', 'ab']; 逆序
+
+print(sorted([('a', 3), ('b', 2)], key=lambda x: x[1]))  # [('b', 2), ('a', 3)]
+print(sorted([('a', 3), ('b', 2), ('c', 2)], key=lambda x: (x[1], x[0])))  # [('b', 2), ('c', 2), ('a', 3)]; 第一排序关键字, 第二排序关键字...
 ##################################################################
 ## zip()
 a, b = ['a', 'b', 'c'], [1, 2, 3]; print(a, b)

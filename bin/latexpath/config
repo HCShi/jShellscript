@@ -3,11 +3,19 @@
 ## 也可以用ln -s 进行软连接， 感觉没有安全感...
 ##################################################################
 echo "正在初始化配置......"
-if [ ! -e $HOME/texmf/tex/latex/local/ ];then mkdir -p $HOME/texmf/tex/latex/local/;fi
+# if [ ! -e $HOME/texmf/tex/latex/local/ ];then mkdir -p $HOME/texmf/tex/latex/local/;fi
 
-curdir=`pwd`
-cp $curdir/*.cls ~/texmf/tex/latex/local
-cp $curdir/*.sty ~/texmf/tex/latex/local
+# For Latex path
+# curdir=`pwd`
+# cp $curdir/*.cls ~/texmf/tex/latex/local
+# cp $curdir/*.sty ~/texmf/tex/latex/local
+
+# for pandoc
+# ln -s $PWD ~/.pandoc/templates  # 执行这句话比较好, 确保没有 ~/.pandoc/templates 路径
+# curdir=`pwd`
+# cp $curdir/*.sty ~/.pandoc/templates
+# cp $curdir/*.cls ~/.pandoc/templates
+# cp $curdir/*.latex ~/.pandoc/templates
 
 echo "初始化配置结束....."
 

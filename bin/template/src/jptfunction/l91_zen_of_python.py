@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
 ##################################################################
-## 读文件, 这里不能执行
-data = np.array([[float(x) for x in re.split(r'\s+', line.strip())] for line in fileinput.input('TSP_Data')])  # jptalgorithm 中用到的读取文件处理的命令
-# 通常会使用 line.strip().split()
-##################################################################
 ## if 高级写法
 a = 1 if 1 > 2 else 3; print(a)
 ##################################################################

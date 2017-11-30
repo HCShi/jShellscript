@@ -4,7 +4,7 @@
 import random
 import numpy as np
 import time
-random.seed(10)  # 不写这句话, 默认是系统时间, 现在自己指定了, 所以每次生成的随机数会一样
+random.seed(10)  # 不写这句话, 默认是系统时间, 现在自己指定了, 所以每次生成的随机数会一样, 但每次执行 random() 之前必须要执行一遍这个 seed()...
 ##################################################################
 ## random() 综合应用
 def rndColor(): return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))  # randomint(a, b), return between [a, b]

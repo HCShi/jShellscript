@@ -5,7 +5,9 @@ x = np.arange(0, 10, 0.5); print(x)
 mask = (5 < x) * (x < 7.5); print(mask)  # matirx with False and True)
 print(x[mask])
 indices = np.where(mask); print(indices)  # 使用 where 函数能将索引掩码转换成索引位置
-A = np.array([[n + m * 10 for n in range(5)] for m in range(5)]); print(A)
+
+print(np.array([[1, 2], [3, 4]]) - np.array([1, 2]))  # [[0 0] [2 2]]; 会按照一行一行的去运算
+A = np.array([[n + m * 10 for n in range(5)] for m in range(5)]); print(A)  # 初始化矩阵
 ##################################################################
 ## take 函数与高级索引（fancy indexing）用法相似 但是 take 也可以用在 list 和其它对象上
 v2 = np.arange(-3, 3); print(v2)  # [-3 -2 -1  0  1  2]

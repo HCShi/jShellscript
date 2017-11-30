@@ -15,16 +15,28 @@ animate tmp.gif  # 查看 gif 文件; Space 停止/查看下一张; > 加速; < 
 
 ##################################################################
 ## pandoc
+# Markdown - Html
 pandoc in.md -o out.html
 pandoc in.md -c style.css out.html  # 添加 css 样式
 pandoc -s -H style.css in.md -o out.html  # 将 css 嵌入到 html 里面, 方便传输
 pandoc -s --self-contained -c style.css in.md -o out.html  # 这个命令不但会把 css 文件嵌入到 html 中, 它会把所有外部文件全部压缩进单个 html 文件中, 包括图片、视屏、音乐等
 
+# Markdown - PDF
 pandoc in.md -o out.pdf  # 中文会报错, 默认是 pdflatex, 不支持中文
 pandoc in.md -o out.pdf --latex-engine=xelatex  # 中文部分全是空白, 还要用下面的命令
 pandoc in.md -o out.pdf --latex-engine=xelatex -V mainfont=SimSun  # 中文完全是没有断行的; 还要用下面的命令
 pandoc in.md -o out.pdf --latex-engine=xelatex -V mainfont="Adobe Song Std"  # 我电脑中没有 SimSun
 pandoc in.md -o out.pdf --latex-engine=xelatex --template=pm-template.latex  # Perfect !!
 
+# Org - PDF
 pandoc in.org -o out.pdf --latex-engine=xelatex --template=pm-template.latex  # 先暂时用这个, 有时间写自己的模板
 pandoc -o out.pdf --latex-engine=xelatex --data-dir=~/github/jshellscript/bin/latexpath --template=pm-template.latex tmp.org  # 指定模板位置
+# 后来上面那句话又失效了, 直接在本地建立目录吧...
+mkdir -p ~/.pandoc/templates
+pandoc -D latex > ~/.pandoc/templates/default.latex
+cd ~/.pandoc/templates
+cp ~/github/jShellscript/bin/latexpath/pm-template.latex .
+# 如果用 ln -s 软连接过去的话, 不能先用 mkdir 创建目录
+
+# Org - Docx; 转换 PDF 很烦, 但是转换成其他的就很简单了
+pandoc -o out.docx Big-Project_Paper.org  # 原始模板挺好的..., 其实是自己还不会整理 docx 模板...

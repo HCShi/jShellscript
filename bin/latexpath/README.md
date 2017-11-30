@@ -35,3 +35,34 @@ jltfunction 中没有用这里的, jLatex 这个 repository 中会用到这里�
 2. Debug/Test .sty file
     将第一个 \input{} 取消注释, 因为一个 .tex 中只能有一个 \documentclass{}
 ```
+### part 文件全调用
+``` tex
+% \input{part_class_article-landscape-a4-twoside.sty}
+\input{part_normal-layout_multi-column.sty}
+\input{part_normal-packages.sty}
+% \input{part_packages_geometry-landscape.sty}
+\input{part_packages_geometry-portrait.sty}
+% \input{part_packages_multicol-2-columns.sty}
+% \input{part_packages_multicol-3-columns.sty}
+\input{part_packages_indentfirst.sty}
+\input{part_packages_math.sty}
+\input{part_packages_draw.sty}
+\input{part_packages_fancyhdr.sty}
+\input{part_packages_cuted-flushend.sty}
+\input{part_packages_chinese.sty}
+\input{part_packages_titling.sty}
+\input{part_packages_color.sty}
+\input{part_packages_table.sty}
+
+% 自定义配置
+\input{part_section_redefine-to-less-space.sty}
+\input{part_normal-settings.sty}
+\input{part_my-commands.sty}
+\input{part_my-environments.sty}
+
+% pandoc 中的默认配置
+\input{part_pandoc_packages.sty}
+
+begin{document}
+    \input{part_main_blinddocument.sty}
+```

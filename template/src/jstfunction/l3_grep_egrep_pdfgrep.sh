@@ -28,3 +28,7 @@ grep -n 'go\{2,5\}g' regular_express.txt  # 查找 g 后面接 2 到 5 个 o，�
 ## grep 常用命令
 alias greps="grep -riIn --color=always"  # example: greps hell
 greps hello */l*  # 在 jptfun 上级目录中搜索所有的 l* 开头的文件中的 'hello'
+##################################################################
+## pdfgrep
+pdfgrepinr abc *.pdf  # pdfgrep -inr; ignore-case, directories-recursively
+pdfgrepinr abc  # 默认就会检查当前目录和所有子目录的 .pdf 文件

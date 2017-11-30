@@ -12,11 +12,3 @@
 \usepackage[section]{placeins}  % 避免浮动体跨过 \section
 \usepackage{float}  % 如果希望禁止浮动, 可以使用 float 宏包, 结合 H 选项
 % \begin{figure}[H]
-
-%% ================================================================
-%% Cuted, Flushend 分栏效果, 对 documentclass[twocolumn] 管用, 在 multicol 中好像没用了
-%% ================================================================
-\usepackage{cuted}  % \begin{strip} 单栏内容 \end{strip}; 增强分栏效果, 同一页面, 既可以有单栏, 也可以有双栏;
-\usepackage{flushend}  % \raggedend, \flushend 两个命令控制分栏最后一页是否先将左侧填满
-\raggedend  % 在双栏的最后一页先排满左栏, 然后再排右栏
-% \flushend  % 恢复双栏平衡排列的命令, 左右两侧填的一样多

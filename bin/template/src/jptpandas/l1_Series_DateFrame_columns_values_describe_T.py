@@ -49,14 +49,16 @@ print(df2.describe())  # 数据总结; 按 列/属性 来进行分析
 print(df.describe().mean())  # 可以输出统计的各项值
 print(df.head().values)  # 输出 n=5 个, 类似于 shell 的 head
 print(df[:1].values)  # 要用 slice, 否则就是第一个 column
+
+# 下面检查数据为空的情况, 在 jptml/l9_Kaggle-Facebook-Recruiting-IV-Human-or-Robot 中使用
+print(df.isnull().any().any())  # False; 这里输出一个值, False 表示没有空值, True 表示有空值; 意思是只要有一个为空, 就返回 True
+print(df.a.isnull().sum())  # 统计缺失值个数
 ##################################################################
 ## 修改属性
 df2.columns = ['aa', 'bb', 'cc', 'dd', 'ee', 'ff']; print(df2.head())  # 将 Column 进行修改
 
 ## 简单操作
 print(df2.T)  # transpose 数据翻转
-print(df2.sort_index(axis=1, ascending=False))  # axis=1 表示对列的名称排序; ascending=False 表示降序
-print(df2.sort_values(by='E'))  # 对数据 值 排序输出
 
 ## 将 DataFrame 数据转为 list, 方便单独列保存
 print(type(df2.A.values))  # <class 'numpy.ndarray'>

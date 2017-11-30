@@ -74,6 +74,9 @@ a = [['hello', 'word']]; print(a)  # [['hello', 'word']]
 a = [['hello', 'word']]; a += ['jrp']; print(a)  # [['hello', 'word'], 'jrp']
 a = [['hello', 'word']]; a += [['jrp']]; print(a)  # [['hello', 'word'], ['jrp']]
 a = [['hello', 'word']]; a.append('jrp'); print(a)  # [['hello', 'word'], 'jrp']
+# 实战 ./l72_heapq.py 中实现 Heap 堆的 Huffman 树
+a, b = [1, ['T', '']], [1, ['b', '']]; print(a[1:])  # [['T', '']]
+print([a[0] + b[0]] + a[1:] + b[1:])  # [2, ['T', ''], ['b', '']]; +, extend() 会去掉外面一层 []
 ##################################################################
 ## pprint, list 格式化输出
 lis = 'abcderg'  # 不足的是最后面的可能不是整倍数, 每行 3 个打印, format 只支持 utf-8(str)

@@ -42,5 +42,5 @@ pd.read_csv('./student.csv', process_bad_lines=bad_line_handler)
 ## write back
 data.to_pickle('tmp.pickle')  # 只有 path 参数; save to pickle
 data.to_csv('tmp.csv')  # 还带着 header 和 index
-data.to_csv('tmp.csv', index=False, header=False)
+data.to_csv('tmp.csv', index=False, header=False, float_format = '%.6f')  # 保留指定的小数长度
 data.to_csv('tmp.csv', index=False)  # 这个用的最多

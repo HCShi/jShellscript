@@ -23,7 +23,10 @@ X = np.concatenate((X_train, X_test), axis=0)  # hstack
 y = np.concatenate((y_train, y_test), axis=0)
 ##################################################################
 ## summarize size, class, num_words
-print(X_train.shape, X_test.shape)  # (25000,) (25000,); 各占一半
+print(X_train[0])  # [1, 14, 22, 16, 43, 530, 973, 1622, ...,]
+print(y_train[0], set(y_train))  # 1 {0, 1}; 二分类问题
+
+print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)  # (25000,) (25000,) (25000,) (25000,); 各占一半, y 也把自己当成向量了
 print(len(X_train[0]), len(X_train[1]))  # 218 189; 和下面的相同
 print(type(X), type(X[0]))  # <class 'numpy.ndarray'> <class 'list'>
 print(len(X[0]), len(X[1]))  # 218 189; 每行长度不同, 所有才会有下面的 (50000,)

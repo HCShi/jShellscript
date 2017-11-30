@@ -3,6 +3,8 @@
 from sklearn import preprocessing
 ##################################################################
 ## 1. OneHotEncoder() 将变量的特征值转换为稀疏矩阵
+## OneHotEncoder().fit_transform(X, y=None)
+## X : array-like, shape [n_samples, n_feature]: Input array of type int.
 x = np.array([[1, 2, 3], [2, 5, 6]]); print(x)
 one_hot_encoder = preprocessing.OneHotEncoder()
 print(one_hot_encoder.fit_transform(x))  # 稀疏表示形式
@@ -23,6 +25,12 @@ print(one_hot_encoder.transform([[0, 1, 3]]).toarray())
 # [[ 1.  0.  0.  1.  0.  0.  0.  0.  1.]]
 # fit 了 4 个数据 3 个特征, 而 transform 了 1 个数据 3 个特征. 第一个特征两种值(0: 10, 1: 01), 第二个特征三种值(0: 100, 1: 010, 2: 001),
 #     第三个特征四种值(0: 1000, 1: 0100, 2: 0010, 3: 0001). 所以转换[0, 1, 3]为[ 1.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  1.].
+
+# keras.utils.np_utils.to_categorical(x) 只接受 vec, 感觉更像 one_hot, 区别见 jptkeras
+print(one_hot_encoder.fit_transform(np.array([1, 2, 1]).reshape(-1, 1)).toarray())  # 行代表 samples, 列代表 features 个数
+# [[ 1.  0.]
+#  [ 0.  1.]
+#  [ 1.  0.]]
 ##################################################################
 ## 2. LabelBinarizer()
 x = ['jrp', 'sky', 'jrp', 'flower']

@@ -5,6 +5,7 @@
 sudo fdisk -l  # perfect
 df -h  # 查看实际挂载与使用情况, 这个可以查到 Android 设备挂载到 /run/user/<user-id>/gvfs/ 中
 df -ia
+df .  # 查看当前分区的使用情况
 mount
 cat /etc/mtab
 # common steps

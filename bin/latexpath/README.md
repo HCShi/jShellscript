@@ -46,6 +46,7 @@ jltfunction 中没有用这里的, jLatex 这个 repository 中会用到这里�
 % \input{part_packages_multicol-3-columns.sty}
 \input{part_packages_indentfirst.sty}
 \input{part_packages_math.sty}
+\input{part_packages_minted.sty}  % 因为 Pandoc 中 minted 会报错, 单独列出来了
 \input{part_packages_draw.sty}
 \input{part_packages_fancyhdr.sty}
 \input{part_packages_cuted-flushend.sty}

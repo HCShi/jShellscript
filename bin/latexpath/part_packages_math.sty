@@ -1,14 +1,26 @@
 %% ================================================================
 %% Normal Package for Math
-\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{amsmath}
+% \DeclareMathOperator*{\argmin}{arg\,min} % thin space, limits underneath in displays
+% \DeclareMathOperator*{\argmin}{argmin} % no space, limits underneath in displays
+% \DeclareMathOperator{\argmin}{arg\,min} % thin space, limits on side in displays
+% \DeclareMathOperator{\argmin}{argmin} % no space, limits on side in displays
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}  % \argmin_x f(x); 并没有用, 还是用下面的吧
+% \underset{i \leq n}{\mathrm{argmin}}  # 不调用包(Lyx) 环境下这样写
+
+\usepackage{amsthm, amsfonts, amssymb}
 
 \usepackage{mathtools}  % 包括 \coloneqq 等数学符号
 
+%% ================================================================
+%% 下面是编写算法伪代码
 % 我们调用了 algorithm 宏包, 它提供了 algorithm 环境
 % 这是一个三线表样式的浮动体, 浮动的策略和 LaTeX 标准的 figure、table 环境一致
 \usepackage{algorithm}
-% \usepackage{algorithmic}  % 同时导入这个包 和 algorithm, algpseudocode, 写伪代码
+% \usepackage{algorithmic}  % 同时导入这个包 和 algorithm, algpseudocode, 写伪代码, 和 algorithmicx 不能同时写
 \usepackage{algorithmicx}   % 同时导入这个包 和 algorithm, algpseudocode, 写伪代码
+% algorithmic 和 algorithmicx 两个功能差不多, 命令相仿, 见下面
 \usepackage{algpseudocode}  % algpseudocode 宏包则是 algorithmicx 宏包的一部分, 它提供了实际用来排版伪代码的环境
 % 3 个修改 algorithm 标签, require 标签, ensure 标签显示的三个命令
 \floatname{algorithm}{Algorithm}  % 默认就是 Algorithm, 可以修改为其他的

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# 周晓飞, 王泉老师 统计机器学习 第一次作业编程
 import numpy as np
 import matplotlib.pyplot as plt
 ##################################################################

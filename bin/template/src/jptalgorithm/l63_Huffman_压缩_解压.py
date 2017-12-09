@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# 卜东波老师算法课 第三次作业编程
 # 参考: [Python 实现 Huffman 编码压缩和解压缩文件](http://www.jianshu.com/p/4cbbfed4160b)
 # 算法上面讲的很详细, 但是代码很不 Python!, 写 Huffman 为什么不用 heapq 呢!
 # 这个实现了树, 结构很好, 版本二中参考的 [Huffman Coding - Python Implementation](http://bhrigu.me/blog/2017/01/17/huffman-coding-python-implementation/)

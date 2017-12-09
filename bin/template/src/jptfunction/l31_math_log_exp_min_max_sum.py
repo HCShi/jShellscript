@@ -29,3 +29,6 @@ print(max(['hel', 'hello'], key=len))  # hello
 # with operator
 import operator
 print(max(enumerate([3, 4, 2, 1]), key=operator.itemgetter(1)))
+##################################################################
+## 5. sum()
+print(sum([1, 2, 3]))  # 6

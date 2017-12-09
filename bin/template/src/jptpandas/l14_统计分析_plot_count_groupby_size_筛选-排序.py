@@ -96,7 +96,7 @@ print(tmp.groups)  # {'Female': Int64Index([0, 1, 2, 5, 6, 11, 13], dtype='int64
 print(tmp.get_group('Male'))  # 把上面的 'Male': Index 中的都列出来了
 print(tmp.ngroup())  # 用 0, 1, 3, ... 来表示每个 Index 对应的组别
 print(tmp.ngroups)  # 2
-print(tmp.count().shape, tmp.count())  # (2, 3); 按 gender 来分类, 其他属性的个数
+print(tmp.count().shape, tmp.count())  # (2, 3); 按 gender 来分类, 每一组各个属性的个数; 没有缺失值的时候, 每个属性是相同的
 print(tmp.age.count().shape, tmp.age.count(), tmp.count().age)  # (2,); count().age 和 age.count() 结果一样
 print(tmp.age.value_counts())  # 不同数值的统计
 # 画图
@@ -144,6 +144,18 @@ def feature_count(group):
     return dct_cnt
 cnt_gender = tmp_df.groupby('gender').apply(feature_count); print(cnt_gender)
 print(cnt_gender.describe())
+
+## 按 '' 分组, 每组限定 3 个, 其余的删掉, 然后合并; apply() 以后居然神奇的又是一个 DataFrame...
+## reset_index(level=None, drop=False, inplace=False, col_level=0, col_fill='') method of pandas.core.frame.DataFrame instance
+##     For DataFrame with multi-level index, return new DataFrame with
+tmp_df = pd.read_csv('student.csv'); print(tmp_df)
+tmp_tmp_df = tmp_df.groupby('gender').apply(lambda x: x[:3]); print(tmp_tmp_df)  # 最左边出现了 Female 和 Male...
+print(type(tmp_tmp_df))  # <class 'pandas.core.frame.DataFrame'>, 但是有 multi-level index
+print(tmp_tmp_df.reset_index(drop=True))  # 这就很完美了
+
+## agg()
+https://stackoverflow.com/questions/23794082/pandas-groupby-and-join-lists
+
 ##################################################################
 ## size()
 tmp_df = pd.read_csv('student.csv')

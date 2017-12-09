@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# 卜东波老师算法课 第一次作业编程
 ##################################################################
 ## Closest Pair: A Divide-and-Conquer Approach
 # 分治法找最近点对, 可以把时间复杂度从暴力的 O(n^2) 降低到 O(nlogn)

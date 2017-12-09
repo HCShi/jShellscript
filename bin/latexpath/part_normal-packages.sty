@@ -1,14 +1,33 @@
 %% ================================================================
 %% Normal Package
 %% ================================================================
-\usepackage{minted}  % minted 用于美化代码排版, 还是彩色的
+% \usepackage{minted}  % minted 用于美化代码排版, 还是彩色的, 目前 minted 在 pandoc 中会报错, 所以单独放出去了
 \usepackage{blindtext}  % \blinddocument; 生成假的文章, 测试效果
 \usepackage{syntonly}  % \syntaxonly; 快速检查文档错误, 不产生输出
 % \usepackage{ifthen}  % \ifthenelse{<test>}{<then clause>}{<else clause>}; 可以判断是不是 a4paper
 % \usepackage{calc}
-\usepackage{graphicx, overpic}
-\usepackage{hyperref}  % 点击 Content, rel 等可以跳到对应的位置
 
+\usepackage{hyperref}  % 点击 Content, rel 等可以跳到对应的位置
+% \usepackage{underscore}  % 本来以为可以绕过 _ 报 $ Error 的错误; 后来发现只要写完整路径就不会报错
+
+%% ================================================================
+%% Graph
+\usepackage{graphicx, overpic}
 \usepackage[section]{placeins}  % 避免浮动体跨过 \section
 \usepackage{float}  % 如果希望禁止浮动, 可以使用 float 宏包, 结合 H 选项
 % \begin{figure}[H]
+\usepackage{wrapfig}  % 图片浮动
+% \begin{wrapfigure}[lineheight]{position}{width}
+% \end{wrapfigure}
+% The position parameter has eight possible values -
+% r	R	right side of the text
+% l	L	left side of the text
+% i	I	inside edge–near the binding (in a twoside document)
+% o	O	outside edge–far from the binding
+%% Example:
+% \begin{wrapfigure}{r}{0.5\textwidth}
+%   \caption{Birds}
+%   \begin{center}
+%     \includegraphics[width=0.48\textwidth]{birds}
+%   \end{center}
+% \end{wrapfigure}

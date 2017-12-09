@@ -1,11 +1,12 @@
-[ 一: 数据预览 \
+[ 一: 数据预览 \n
+  这里以最后一期(13期)为例来进行 \n
   DataFrame 一般预览数据的顺序 \n
-  Matplotlib 查看各属性之间和 label 的关系; 放弃了, 属性太多了, 名字还一样 feature1-104, 没重点, 还是先用 logistic 跑一遍, 将相关系数小的筛掉 \n
+  Matplotlib 查看各属性之间和 label 的关系; 放弃了, 属性太多了, 名字还一样 feature1-97, 没重点, 还是先用 logistic 跑一遍, 将相关系数小的筛掉 \n
   ] { flow: south } -->
 
 [ 二: 数据预处理: 特征工程(feature engineering) \n
   二(1): 一开始的思路是用 Logistic 算出每个 feature 的权重, 将权重小的 pass; 后来太慢了, 最后放弃 \n
-  feather1-104, 各属性基本都是 \[-10, 10\], 但也有特殊的情况, 进行 StandardScale 归一化 \n
+  feather1-97, 各属性基本都是 \[-10, 10\], 但也有特殊的情况, 进行 StandardScale 归一化 \n
   尝试了 StandardScale 和 MinMaxScaler , 发现后者更好用 \n
   linear_model.LogisticRegression.fit(X_scaled, y) 直接 fit, 没有交叉验证, 因为要看的只是各个属性的权重和 label 之间的关系 \n
   然后就花了 2h 来跑这个, 发现好像只用了 feather*, 忘加 group* 属性了, 没多大关系 \n
@@ -18,18 +19,28 @@
   \n
   二(5): 使用 全连接神经网络测试, 调了各种属性的组合, 最后发现必须使用集成学习来进行了... \n
   模型在 mnist 二分类的数据集正确率 0.98, 在这个数据集上 0.56... \n
+  使用了 era 属性来进行分层训练, 每次训练一个时间段的数据; 将 era 按时间分组, 每组截取相同长度, 设置为 batch-size \n
   遇到了神经网络解决不了的问题了 \n
   ] { flow: south } -->
 
-[ 三: 建立模型 \n ] { flow: south } -->
+[ 三: 建立模型 \n
+  采用 Keras 来建立多层神经网络, 简单的设置参数 \n
+  ] { flow: south } -->
 
 [ 四: 交叉验证 \n ] { flow: south } -->
 
 [ 五: 测试集处理 \n
-  目前使用的是 二(2) 中的 NB 的 clf
   ] { flow: south } -->
 
 [ 六: 模型优化 \n
+1. 调 batch, lr, epochs \n
+batch = 32,  lr = 0.0001, epochs = 10 -> 0.64755 (12 期比赛公开榜第二) \n
+batch = 1000, lr = 0.0001, epochs = 10  -> 0.67... \n
+batch = 16, lr = 0.00001, epochs = 10  -> 0.66751 \n
+batch = 16, lr = 0.0001, epochs = 10  -> 0.66200 \n
+batch = 64, lr = 0.0001, epochs = 10  -> 0.65372 \n
+2. 调 pca 大小: 50 \n
+batch = 32,  lr = 0.0001, epochs = 10 -> 0.69595 \n
   ] { flow: south } -->
 
 [ 七: 交叉验证 \n

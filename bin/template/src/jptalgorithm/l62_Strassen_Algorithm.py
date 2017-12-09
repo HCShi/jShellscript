@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
+# 卜东波老师算法课 第一次作业编程
 # 算法讲解: [Wiki](https://en.wikipedia.org/wiki/Strassen_algorithm)
 import numpy as np
 def straight(a, b):  # 传统方法, 两个矩阵相乘

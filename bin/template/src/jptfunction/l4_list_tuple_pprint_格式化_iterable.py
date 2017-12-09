@@ -42,6 +42,8 @@ print([word for item in a for word in item])  # ['he', 'she', '123', '234']
 ## 初始化矩阵, 在 ACM 中 DP 经常见到
 dp = [[1] * 5] + [[0] * 5 for _ in range(2)]; print(dp)  # 首行为 5, 其余为 0
 dp = [1] + [0] * 4; print(dp)  # 这里就是 一维的, 上面是 二维的...
+# 如果对初始化没有严格要求的话, 用 np.ones(), np.zeros() 挺好的
+dp = np.zeros((5, 2)); print(dp)
 ##################################################################
 ## index()
 print([1, 2, 3].index(2))  # 1

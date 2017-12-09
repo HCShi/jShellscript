@@ -14,6 +14,10 @@ convert image-%3d.jpg[1-5] out.gif  # choose image-001.jpg ... image-005.jpg
 animate tmp.gif  # 查看 gif 文件; Space 停止/查看下一张; > 加速; < 减速;
 
 ##################################################################
+## ffmpeg: A complete, cross-platform solution to record, convert and stream audio and video.
+ffmpeg -i hell.mkv -ss 00:00:00 -t 00:06:03 -async 1 cut.mkv  # 按照时间来切割视频
+
+##################################################################
 ## pandoc
 # Markdown - Html
 pandoc in.md -o out.html

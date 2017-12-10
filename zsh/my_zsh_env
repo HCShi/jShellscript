@@ -23,15 +23,16 @@ export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
 
 # 各种尝试了用 python 修改父进程的环境以后发现 alias 不能用, 只能在这里修改了, 每个目录下放一个脚本...
 # 其实用 `` 来使用那些命令就可以切换目录了, 但还是不够方便
-export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH  # for python
+# export 本来是实现调用 -l1,2 来打印出代码的, 后来放弃了
+# export PATH=/home/${USER}/github/jShellscript/bin/template:$PATH  # for python
 source /home/${USER}/github/jShellscript/bin/alias /home/${USER}/github/jShellscript/bin/template/
-export PATH=/home/${USER}/github/jShellscript/template:$PATH      # for shellscript
+# export PATH=/home/${USER}/github/jShellscript/template:$PATH      # for shellscript
 source /home/${USER}/github/jShellscript/bin/alias /home/${USER}/github/jShellscript/template/
-export PATH=/home/${USER}/github/jTemplate/lisp/elisp:$PATH       # for elisp
+# export PATH=/home/${USER}/github/jTemplate/lisp/elisp:$PATH       # for elisp
 source /home/${USER}/github/jShellscript/bin/alias /home/${USER}/github/jTemplate/lisp/elisp/
-export PATH=/home/${USER}/github/jTemplate/latex:$PATH            # for latex
+# export PATH=/home/${USER}/github/jTemplate/latex:$PATH            # for latex
 source /home/${USER}/github/jShellscript/bin/alias /home/${USER}/github/jTemplate/latex/
-export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, css, js, jquery ...
+# export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, css, js, jquery ...
 source /home/${USER}/github/jShellscript/bin/alias /home/${USER}/github/jWeb/template/
 
 export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH

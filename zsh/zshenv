@@ -1,1 +1,8 @@
 . /home/${USER}/.config/shellscript/my_zsh_env
+
+folder="/home/${USER}/.config/jshellscript"
+if [ -d "$folder" ]
+then
+    for x in $folder/*.env
+        . $x
+fi

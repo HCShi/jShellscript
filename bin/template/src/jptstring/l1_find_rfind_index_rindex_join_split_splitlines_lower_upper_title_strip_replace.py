@@ -6,6 +6,11 @@ str = "this is string example....wow!!! this is really string";
 l, r = str.find('string'), str.rfind('string'); print(l, r)
 str = str[l:r]; print(str)  # 最后的 string 被去掉了
 ##################################################################
+## upper(), lower()
+a, b = "Hello", 'HELLO'
+print(a.upper())  # HELLO
+print(b.lower())  # hello
+##################################################################
 ## strip() && split()
 str = "  hello world "
 print(str.strip())  # hello world

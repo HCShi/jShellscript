@@ -43,6 +43,7 @@ print(sorted([('a', 3), ('b', 2), ('c', 2)], key=lambda x: (x[1], x[0])))  # [('
 ## zip()
 a, b = ['a', 'b', 'c'], [1, 2, 3]; print(a, b)
 c = list(zip(a, b)); print(c)
+d = dict(zip(a, b)); print(d)  # 这也行...
 a, b = zip(*c); print(a, b)  # 能将 元素分开, 但是会是 tuple 格式
 print(list(a), list(b))  # 转化为 list
 

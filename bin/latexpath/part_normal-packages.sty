@@ -2,6 +2,7 @@
 %% Normal Package
 %% ================================================================
 % \usepackage{minted}  % minted 用于美化代码排版, 还是彩色的, 目前 minted 在 pandoc 中会报错, 所以单独放出去了
+% \usepackage{listings}  % 展示代码用的; 后来没用到
 \usepackage{blindtext}  % \blinddocument; 生成假的文章, 测试效果
 \usepackage{syntonly}  % \syntaxonly; 快速检查文档错误, 不产生输出
 % \usepackage{ifthen}  % \ifthenelse{<test>}{<then clause>}{<else clause>}; 可以判断是不是 a4paper
@@ -31,3 +32,12 @@
 %     \includegraphics[width=0.48\textwidth]{birds}
 %   \end{center}
 % \end{wrapfigure}
+
+%% ================================================================
+%% Unkonw
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{lmodern}
+\newenvironment{Shaded}{}{}
+

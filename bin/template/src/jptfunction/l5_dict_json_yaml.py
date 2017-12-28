@@ -4,8 +4,17 @@ dic = dict({'a': 'A', 'b': 'B'})
 print(dic.items(), dic.keys(), dic.values())  # Iterable, 'dict_values' object does not support indexing
 print(next(iter(dic.values())))  # 将 dic.values() 转化为可迭代对象, 就可以用 next, 或者用 list() 对上面进行转型用索引
 ##################################################################
-## 构造
+## 构造; 永远不要用 tmp = {} 来初始化一个字典
 words = ['hello', 'world', 'jia']; word_dict = dict((word, len(words) / (i+1)) for i, word in enumerate(words)); print(word_dict)  # Zipf's law
+# 默认 id 不是从 0 开始的整数时, 经常需要构造反向索引字典
+lis = [{'id':'abc', 'name':'Jia'}, {'id':'abe', 'name':'Rui'}]
+lis_dic = dict((item['id'], item) for item in lis); print(lis_dic)  # 反向索引字典
+a, b = ['a', 'b', 'c'], [1, 2, 3]; d = dict(zip(a, b)); print(d)  # 这也行...
+##################################################################
+## list() & sorted()
+words = ['hello', 'world', 'jia']; word_dict = dict((word, len(words) / (i+1)) for i, word in enumerate(words)); print(word_dict)  # Zipf's law
+print(list(word_dict))  # ['hello', 'world', 'jia']
+print(sorted(word_dict, key=lambda x: word_dict[x]))  # ['jia', 'world', 'hello']
 ##################################################################
 ## get(); 针对 KeyError 的情况特别好使
 dic = {'name':'Tim', 'age':23}

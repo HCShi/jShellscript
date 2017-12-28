@@ -42,3 +42,8 @@ sed -i -- 's/bar/bar/g' *  # 将当前路径所有文件替换, 没有递归效�
 perl -i -pe 's/bar/bar/gc' ./*  # 将当前路径所有文件替换, 没有递归效果 (加 e 和不加一样)
 # perl 那个比较好用
 uptime | awk '{print $3}' | sed 's/,//'
+##################################################################
+## tr
+# -d, --delete            delete characters in SET1, do not translate
+echo "hello world" | tr -d 'hello'  # wrd
+xdotool getmouselocation | awk '{print $1}' | tr -d 'x:'  # 输出当前鼠标的 x 坐标

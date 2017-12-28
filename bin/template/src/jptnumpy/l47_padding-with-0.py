@@ -11,7 +11,7 @@ res[:a.shape[0], :a.shape[1]] = a; print(res)
 ## np.pad(Mat, ()); mode='constant' 填充的是 0
 # 一维: (n, m); 左边填充 n 个 0, 右边填充 m 个 0
 A = np.ones(3); print(A)  # [ 1.  1.  1.]
-B = np.pad(A, (3, 4), 'constant'); print(B)  # [ 1.  1.  1.  0.  0.  0.  0.]
+B = np.pad(A, (3, 4), 'constant'); print(B)  # [ 0.  0.  0.  1.  1.  1.  0.  0.  0.  0.]
 B = np.pad(A, (1, 1), 'constant', constant_values=4); print(B)  # [ 4.  1.  1.  1.  4.]; 改变填充值
 # 二维:
 # (n, m); 坐上角填 nxn 个 0 , 右下角填 mxm 个 0

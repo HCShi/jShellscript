@@ -24,6 +24,7 @@ import time
 train = pd.read_csv('./tmp_dataset/Kaggle-San-Francisco-Crime-Classification/train.csv', parse_dates=['Dates'])  # 并解析第一列为日期格式
 test = pd.read_csv('./tmp_dataset/Kaggle-San-Francisco-Crime-Classification/test.csv', parse_dates=['Dates'])
 print(train.columns.values)  # ['Dates' 'Category' 'Descript' 'DayOfWeek' 'PdDistrict' 'Resolution' 'Address' 'X' 'Y']
+print(set(train.Category))  # {'WEAPON LAWS', 'GAMBLING', 'LARCENY/THEFT', 'DISORDERLY CONDUCT', 'DRUG/NARCOTIC', 'ASSAULT', 'PROSTITUTION', 'SEX OFFENSES NON FORCIBLE', 'OTHER OFFENSES', 'LOITERING', 'RECOVERED VEHICLE', 'RUNAWAY', 'EMBEZZLEMENT', 'DRIVING UNDER THE INFLUENCE', 'FRAUD', 'WARRANTS', 'MISSING PERSON', 'FAMILY OFFENSES', 'SUICIDE', 'VEHICLE THEFT', 'KIDNAPPING', 'SEX OFFENSES FORCIBLE', 'DRUNKENNESS', 'BURGLARY', 'ROBBERY', 'PORNOGRAPHY/OBSCENE MAT', 'EXTORTION', 'STOLEN PROPERTY', 'SUSPICIOUS OCC', 'VANDALISM', 'NON-CRIMINAL', 'TRESPASS', 'ARSON', 'TREA', 'SECONDARY CODES', 'LIQUOR LAWS', 'BAD CHECKS', 'FORGERY/COUNTERFEITING', 'BRIBERY'}
 print(train.head())
 print(train.info())
 # Dates         878049 non-null datetime64[ns]
@@ -35,6 +36,7 @@ print(train.info())
 # Address       878049 non-null object
 # X             878049 non-null float64
 # Y             878049 non-null float64
+print(train.describe())
 ##################################################################
 ## 二: 数据预处理
 # 用 LabelEncoder **对犯罪类型做编号**

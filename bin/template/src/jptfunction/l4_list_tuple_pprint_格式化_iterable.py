@@ -2,6 +2,7 @@
 # coding: utf-8
 ##################################################################
 ## 两种列表生成式方式: list() 和 [x for x in range(1, 3)]
+## 注意, 直接 [generator] 是不行的, 要用 list(generator) 或 [x for x in generator]
 # x for x in range(1, 3) 是生成器, list() 和 [] 将其转化为列表; 必须保证每一步的 for 的结果都是可迭代的
 print([(a, b) for a, b in [('a', 'b'), ('c', 'd')]])               # [('a', 'b'), ('c', 'd')]
 print([(x[0], x[1]) for x in [('a', 'b', 'c'), ('d', 'e', 'f')]])  # [('a', 'b'), ('d', 'e')]; 去除列表中元素的一部分
@@ -79,6 +80,13 @@ a = [['hello', 'word']]; a.append('jrp'); print(a)  # [['hello', 'word'], 'jrp']
 # 实战 ./l72_heapq.py 中实现 Heap 堆的 Huffman 树
 a, b = [1, ['T', '']], [1, ['b', '']]; print(a[1:])  # [['T', '']]
 print([a[0] + b[0]] + a[1:] + b[1:])  # [2, ['T', ''], ['b', '']]; +, extend() 会去掉外面一层 []
+##################################################################
+## list 相加 & numpy 相加
+import numpy as np
+print([1, 2] + [3, 4])  # [1, 2, 3, 4]
+print(np.array([1, 2] + np.array([3, 4])))  # [4 6]
+print(np.hstack((np.array([1, 2]), np.array([3, 4]))))  # [1 2 3 4]
+print(np.hstack((np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]]))))  # [[1 2 5 6] [3 4 7 8]]
 ##################################################################
 ## pprint, list 格式化输出
 lis = 'abcderg'  # 不足的是最后面的可能不是整倍数, 每行 3 个打印, format 只支持 utf-8(str)

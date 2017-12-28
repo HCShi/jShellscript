@@ -24,6 +24,8 @@ print(_str_spa.isspace(), _spa.isspace())  # False True
 ## S.islower() Return True if all cased characters in S are lowercase and there is at least one cased character in S, False otherwise.
 print(_str_spa.islower(), _spa.islower())  # True False
 print('heHa'.islower())  # False; 不能有大写
+print('heHa'.isupper())  # False
+print('HEHA'.isupper())  # True
 ##################################################################
 ## 总结:
 # 'isalnum', 'isalpha', 'isdecimal', 'isdigit', 'isidentifier',

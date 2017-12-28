@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+</head>
+
+<body>
+  <script>
+    htmlobj = $.ajax({  // 三种 Flask 通过 url 得到数据的方法
+      url: "/test",  // 路径一定要写相对的, http://localhost:5000/test 这样没有 Access 权限
+      async: false
+    });
+    console.log(htmlobj.responseText)
+
+    $.get('/test', function(data) {
+      console.log(data);
+    });
+
+    $("#mybtn").click(function() {  // 这种不好用了, 不知道为什么
+      $.get('/test', function(data) {
+        console.log(data);
+      });
+    });
+  </script>
+  <button id="mybtn"> hello</button>
+</body>
+
+</html>

@@ -26,6 +26,7 @@ Example:
     jcurl users/userlist
     jcurl 3000 users/userlist
     jcurl -p
+    jcurl -p 3000 users/userlist
 """
 # __doc__ 必须放最前面
 from docopt import docopt

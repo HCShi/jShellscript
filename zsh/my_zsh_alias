@@ -55,8 +55,8 @@ alias unzipo='unzip -O cp936'  # 对于乱码情况, 最好用 lsar 和 unar
 alias unrarx='unrar x'  # 将rar解压到当前文件夹,全路径
 alias wgetproxy='wget -e use_proxy=yes -e http_proxy=127.0.0.1:1080'
 alias xopen="xdg-open"
-xopenl(){xdg-open $1 && sleep 0.2 && wmctrl -r $1 -e 0,0,0,683,768}  # 打开并放到左边, 主要针对 pdf, 其它的以后再调试
-xopenr(){xdg-open $1 && sleep 0.2 && wmctrl -r $1 -e 0,683,0,683,768}
+# xopenl(){xdg-open $1 && sleep 0.2 && wmctrl -r $1 -e 0,0,0,683,768}  # 打开并放到左边, 主要针对 pdf, 其它的以后再调试
+# xopenr(){xdg-open $1 && sleep 0.2 && wmctrl -r $1 -e 0,683,0,683,768}
 # alias zd='youdao'  # 界面有点丑, 但挺快 sudo pip install youdaodict
 alias zd='python ~/github/others/ydcv/ydcv.py'  # zd hello, zd 'hello world'
 alias fy='sdcv -c'  # sudo apt-get install sdcv
@@ -125,9 +125,10 @@ alias clsweb='rm ~/web/*'
 # Hexo
 alias loghexo='google-chrome http://localhost:4000'
 
-# Python Server
+## Python Server
 alias pythonsimpleserver="python -m SimpleHTTPServer"  # 开启8000端口
 alias python3httpserver='python3 -m http.server'  # open 8000 port
+pyflask() { FLASK_APP=$1 flask run }
 
 ##################################################################
 ## Pandas
@@ -286,8 +287,11 @@ alias mpm="ls > music.lst"
 ########################################
 ## cd 相关操作
 ########################################
+panvi() {zathura pdf/${1%.*}.pdf}  # 这里就没有将它放到右边了
 alias cdmachinelearning="cd ~/github/jKnowledge/Math_Manual/Machine_Learning/"
+alias cdmachinelearningpdf="cd ~/github/jKnowledge/Math_Manual/Machine_Learning/pdf/"
 alias cdmachinelearningimg="cd ~/github/jImage/Machine_Learning/"
+alias cdmatrix="cd ~/github/jKnowledge/Math_Manual/Matrix_Theory"
 alias cdprobability="cd ~/github/jKnowledge/Math_Manual/Probability_Statistics/"
 alias cdnltk="cd ~/nltk_data"
 alias cddel="cd ~/Documents/thiscandel"

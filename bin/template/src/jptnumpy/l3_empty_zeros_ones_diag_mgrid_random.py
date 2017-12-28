@@ -30,17 +30,22 @@ print(np.diag(A, -1))  # [10 21 32 43]; 对角线下面的一条斜线
 ##################################################################
 # random 和 python 标准库中的 random 用法类似, 但是更快
 np.random.seed(10)  # 设置时间函数, 这样就不会每次乱跳了
-print(np.random.rand(3, 3))  # Create an array of the given shape and populate it with random samples from a uniform distribution over [0, 1)
+## rand(d0, d1, ..., dn): Create an array of the given shape and populate it with random samples from a uniform distribution over [0, 1)
+print(np.random.rand(3, 3))
+## randn(d0, d1, ..., dn): Return a sample (or samples) from the "standard normal" distribution.
 print(np.random.randn())  # 返回一个正态分布(高斯分布) 的数据
 print(np.random.randn(3, 3))  # A (d0, d1, ..., dn)-shaped array of floating-point samples from the standard normal distribution
-# randint(low, high=None, size=None, dtype='l'); size output shape
+## randint(low, high=None, size=None, dtype='l'); Return random integers from the "discrete uniform" distribution of
+##     the specified dtype in the "half-open" interval [`low`, `high`). If `high` is None (the default), then results are from [0, `low`).
 print(np.random.randint(5), np.random.randint(5, 200))  # 生成 1 个 [0, 5) 和 [5, 200) 的随机数
 print(np.random.randint(0, high=256, size=(3,)).tolist())  # 生成 3 个 [0, 256) 的随机数, tolist() 不是很懂, argument is not numeric 时候用很管用
-
+## random_sample(size=None)
+print(np.random.random())  # 生成一个 [0.0, 1.0) 之间的数
 print(np.random.random((10, 10)))  # Return random floats in the half-open interval [0.0, 1.0).
 print(np.random.random(3))  # 指定维数快速生成随机数
 
-# 生成回归拟合数据...
+## 生成回归拟合数据...
+## normal(loc=0.0, scale=1.0, size=None): Draw random samples from a normal (Gaussian) distribution.
 print(np.random.normal(0, 1, (3,)))  # (均值, 标准差, shape)
 import matplotlib.pyplot as plt
 X = np.linspace(-1, 1, 200); np.random.shuffle(X); print(X)

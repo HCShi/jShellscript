@@ -1,0 +1,50 @@
+#!/bin/bash
+##################################################################
+## 在 System Settings -> Keyboard -> Shortcuts 中可以设置为快捷键, 让当前窗口沾满 上/下/左/右 半屏
+# 先安装 sudo apt install xdotool
+# jmove_side 0  # 上半屏
+# jmove_side 1  # 下半屏
+# jmove_side -  # 左半屏
+# jmove_side +  # 右半屏
+# wmctrl -lG  # 查看当前的窗口数量及大小, 1366x768
+x=`xdotool getmouselocation | awk '{print $1}' | tr -d 'x:'`
+y=`xdotool getmouselocation | awk '{print $2}' | tr -d 'y:'`  # 得到当前的 x, y 坐标
+if [ $1 -eq 0 ]; then
+    echo "hello"
+    # xdotool key alt+F7  # 模拟键盘按键, 鼠标会蹦到 window 中心, 并变成小手
+    # xdotool click 1  # 鼠标恢复指针状态
+    # 上面两步是把鼠标移到当前显示窗口位置
+    wmctrl -r :SELECT: -e 0,0,-20,1366,384  # 上半部分
+    # wmctrl -r :ACTIVE: -e 0,0,0,1366,384  # 上半部分
+    # xdotool mousemove $x $y  # 鼠标回到原来位置
+elif [ $1 -eq 1 ]; then
+    # xdotool key alt+F7
+    # xdotool click 1
+    wmctrl -r :SELECT: -e 0,0,384,1366,384
+    # wmctrl -r :ACTIVE: -e 0,384,0,1366,384
+    # xdotool mousemove $x $y
+else
+    specialkey=('Control' , 'Alt' , 'Meta' , 'Super' , 'Shift' )
+    function keyUp(){
+        for key in ${specialkey[@]}
+        do
+            xdotool keyup $key
+        done
+    }
+    if [ $# -eq 0 ]
+    then
+        echo 必须输入正确的键码
+        exit
+    else
+        keyUp
+        sleep 0.1
+        xdotool key super+Down
+        sleep 0.1
+        xdotool key alt+F7
+        sleep 0.1
+        xdotool mousemove_relative -- $11000000 0
+        sleep 0.1
+        xdotool click 1
+        xdotool mousemove $x $y
+    fi
+fi

@@ -13,30 +13,30 @@ def gen_random_list(opts, n): return [random.choice(opts) for i in range(n)]
 print(gen_random_list('ABCD*', 4))  # ['A', 'D', '*', '*'], 从给定的模式中选
 print(gen_random_list(range(1, 5), 4))  # 在 [1, 5) 中随机选
 ##################################################################
-## random.random(), random.randomint()
+## random.random(), random.randomint(a, b)
 print(random.random())          # [0, 1) 之间的均匀分布, 这个不能带参数
 print(random.randint(0, 1))     # [a, b] 之间的整数, 这个必须加两个参数
 ##################################################################
-## randrange(a, b, step) 在 [a,b] 范围内, 从 a 开始(包含 a), 每隔 step 的数形成的集合
+## randrange(start, stop=None, step=1) 在 [a,b] 范围内, 从 a 开始(包含 a), 每隔 step 的数形成的集合
 print(random.randrange(0, 10, 2))  # 生成 [0, 10] 之间的偶数, 返回一个数
 print(random.randrange(1, 10, 2))  # 生成 [0, 10] 之间的奇数
 ##################################################################
-## choice(seq) 从一个序列 seq 中随机选取一个元素
+## random.choice(seq) 从一个序列 seq 中随机选取一个元素
 print(random.choice([1, 2, 3, 4, 5]))
 print(random.choice(((1, 2), (3, 4), (5, 6))))
 print(random.choice(('abcdef')))
 ##################################################################
-## sample(seq, k) 从一个序列中随机取出 k 个元素
+## random.sample(sample(population, k)) 从一个序列中随机取出 k 个元素
 print(random.sample([1, 2, 3, 4, 5], 3))  # [5, 3, 2]; 乱序的
 print(random.sample(range(2000000), 1000000)[:10])  # 生成一百万个随机整数, 浮点数可以用 uniform()
 # sample() 在上面一百万个排完序以后居然有时候会显示有重复的取值...
 ##################################################################
 ## 下面是生成各种分布
 ##################################################################
-## uniform() 均匀分布
-print(random.uniform(-10, 10))  # [a, b] 之间均匀分布的浮点数
+## random.uniform(a, b) [a, b] 之间均匀分布的一个浮点数
+print(random.uniform(-10, 10))
 ##################################################################
-## normalvariate(mu, sigma) 正态分布; mu=0, sigma=1 为标准正态分布; 除了均匀分布, 正态分布用的是最多的
+## random.normalvariate(mu, sigma) 正态分布; mu=0, sigma=1 为标准正态分布; 除了均匀分布, 正态分布用的是最多的
 n = []
 for i in range(1000000): n.append(random.normalvariate(0, 1))
 print("均值 =", np.mean(n), "\n标准差 =", np.std(n))

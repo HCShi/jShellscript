@@ -16,6 +16,7 @@ wmctrl -lG  # 查看当前的窗口数量及大小, 名称; 用名称就可以�
 # 0x0140000a  0 0    0    1366 768  localhost jPC-tmux  # 我的 Terminal
 lyx && wmctrl -r :ACTIVE: -e 0,683,0,683,768  # 打开 lyx, 将刚刚激活的窗口(lyx) 放到左上角
 # 计算像素的时候最好把 Launcher 隐藏了...
+
 ## 直接用名字很好使...
 wmctrl -r l2_GD_Gradient-Descent.pdf -e 0,683,0,683,768  # 用 zathura 打开 pdf, 然后放到右边
 
@@ -45,44 +46,6 @@ wmctrl -r l2_GD_Gradient-Descent.pdf -e 0,683,0,683,768  # 用 zathura 打开 pd
 # -g <W>,<H>           Change geometry (common size) of all desktops.
 #                      The window manager may ignore the request.
 # -h                   Print help.
-
-# <WIN>                This argument specifies the window. By default it's interpreted as a string. The string is matched
-#                      against the window titles and the first matching window is used. The matching isn't case sensitive
-#                      and the string may appear in any position of the title.
-#
-#                      The -i option may be used to interpret the argument as a numerical window ID represented as a decimal
-#                      number. If it starts with "0x", then it will be interpreted as a hexadecimal number.
-#
-#                      The -x option may be used to interpret the argument as a string, which is matched against the window's
-#                      class name (WM_CLASS property). Th first matching window is used. The matching isn't case sensitive
-#                      and the string may appear in any position of the class name. So it's recommended to  always use
-#                      the -F option in conjunction with the -x option.
-#
-#                      The special string ":SELECT:" (without the quotes) may be used to instruct wmctrl to let you select the
-#                      window by clicking on it.
-#
-#                      The special string ":ACTIVE:" (without the quotes) may be used to instruct wmctrl to use the currently
-#                      active window for the action.
-
-# <MVARG>              Specifies a change to the position and size of the window. The format of the argument is:
-#                      <G>,<X>,<Y>,<W>,<H>
-#
-#                      <G>: Gravity specified as a number. The numbers are defined in the EWMH specification. The value of
-#                         zero is particularly useful, it means "use the default gravity of the window".
-#                      <X>,<Y>: Coordinates of new position of the window.
-#                      <W>,<H>: New width and height of the window.
-#
-#                      The value of -1 may appear in place of any of the <X>, <Y>, <W> and <H> properties to left the property unchanged.
-
-# <STARG>              Specifies a change to the state of the window by the means of _NET_WM_STATE request.
-#                      This option allows two properties to be changed simultaneously, specifically to allow both
-#                      horizontal and vertical maximization to be altered together.
-#
-#                      The format of the argument is:
-#                      (remove|add|toggle),<PROP1>[,<PROP2>]
-#                      The EWMH specification defines the
-#                      following properties:
-#                          modal, sticky, maximized_vert, maximized_horz,
-#                          shaded, skip_taskbar, skip_pager, hidden,
-#                          fullscreen, above, below
-#
+##################################################################
+## xdotool
+xdotool getmouselocation | awk '{print $1}' | tr -d 'x:'  # 输出当前鼠标的 x 坐标

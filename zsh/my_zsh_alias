@@ -41,7 +41,7 @@ ju8(){
 alias ii='clear'  # 因为 C-L 被 tmux 占了(自己设置), cls 又太麻烦, ll 默认是 ls 系列的  # 后来发现不需要了, 只要 Ctrl + A + L, 不要松开 Ctrl  # 再后来 l 又被resize占了...
 alias kkm='make clean'
 alias llv='ll -v'  # -v 11 不会排在 2 前面了
-alias lsv='ls -v'
+alias lsv='ls -v'  # -v: natural sort of (version) numbers within text
 alias md5sumupper='test() { md5sum $1 | tr "a-z" "A-Z" };test'  # md5sum <file>
 alias mkdircd='test() { mkdir $1 && cd $1 };test'
 alias mountdisk='sudo mount /dev/sdb5 /media/coder352/Software && sudo mount /dev/sdb6 /media/coder352/Documents'
@@ -585,7 +585,7 @@ alias iptsta='sudo iptables -L -n | grep 1080'
 alias dattach='docker attach'
 alias dcp='docker cp'
 # alias dfimage="docker run -v /var/run/docker.sock:/var/run/docker.sock --rm centurylink/dockerfile-from-image"
-alias dexecit='docker exec -i -t'  # dexecit ubuntu /bin/bash 在已经运行的 container 上在开一个 bash
+alias dexecit='docker exec -i -t'  # dexecit ubuntu bash or /bin/bash 在已经运行的 container 上在开一个 bash; 后面要自己加 bash
 alias dimages='docker images'  # 查看所有镜像
 alias dinspect='docker inspect'
 alias dinspectfid="docker inspect -f '{{.Id}}'"
@@ -639,7 +639,8 @@ alias docmysqlcli='exec docker run -it \
 
 # alias docmongo='docker run -p 27017:27017 --name some-mongo -d mongo:3.4 --auth'  # 不加 auth 每次连接有好多 warning
 # --auth  # No one else should access mongodb; 用自己主机映射的端口连接的话就没有访问权限了..., 所以换成了下面的
-alias docmongo='docker run -p 27017:27017 --name some-mongo -d mongo:3.4'  # 试了好多, 都不好用, 就每次 warning 吧
+alias docmongo='docker run -p 27017:27017 -v /tmp/mongo/:/data/db -v /tmp/mongodump:/home/ --name some-mongo -d mongo:3.4'  # 试了好多, 都不好用, 就每次 warning 吧
+# dexecit some-mongo bash -> cd /home -> mongodump; 就可以将数据库导出到 /tmp/mongodump
 # docker run -i -t --rm -v /home/coder352/github/jBlog/:/home/node/jBlog node:8.0 /bin/bash  # 用这句话进行测试是否挂载成功
 # docexpress 是运行网站时候用的, 开发的时候还是在本机上方便..., 所以 node:8.0 里面就没传 Sass 之类的
 # --network host 可以分享主机的网络, 进而使用 docmongo 的服务, 但是感觉好不自在啊...

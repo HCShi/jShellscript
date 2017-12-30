@@ -1,0 +1,33 @@
+#!/home/coder352/anaconda3/bin/python
+# coding: utf-8
+##################################################################
+## docopt 文档
+"""remove html tag
+
+Usage:
+    jrmhtmltag -v | --version | -h | --help
+    jrmhtmltag --auth
+    jrmhtmltag FILE
+
+Options:
+    -h, --help     Help menu
+    -v, --version  Version num
+    --auth         Author
+
+Arguments:
+    FILE  The file to remove html tag
+
+Example:
+    jrmhtmltag input.html > tmp.html  # 默认打印到终端
+"""
+# __doc__ 必须放最前面
+from docopt import docopt
+import sys, os
+args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
+##################################################################
+## 功能
+from pyquery import PyQuery
+def main():
+    print(PyQuery(open(args['FILE']).read()).text())
+if args['--auth']: os.system('echo Jia Ruipeng')
+else: main()

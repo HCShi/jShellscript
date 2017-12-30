@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # coding: utf-8
-from whoosh.index import create_in,open_dir
+from whoosh.index import create_in, open_dir
 from whoosh.fields import *
 from whoosh.qparser import QueryParser
 from jieba.analyse import ChineseAnalyzer

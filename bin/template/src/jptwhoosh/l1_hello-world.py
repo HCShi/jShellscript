@@ -12,7 +12,7 @@ from whoosh import qparser
 ##################################################################
 ## 0. 先写一个简洁的版本, 后面是讲解
 from whoosh.index import create_in
-from whoosh.fields import TEXT, ID, Schema # 只引入这两个就够了
+from whoosh.fields import TEXT, ID, Schema  # 只引入这两个就够了
 schema = Schema(title=TEXT(stored=True), content=TEXT)
 ix = create_in('./tmp', schema)               # 存储 schema 信息至 ./tmp/; ** 这个只能执行一遍, 否则会报 LockError **
 writer = ix.writer()                          # 按照 schema 定义信息, 增加需要建立索引的文档
@@ -26,7 +26,7 @@ print(searcher.find('content', 'hello world')[1].fields())  # {'title': 'world'}
 # 另一种检索方式: Construct query objects directly
 from whoosh.query import *
 myquery = And([Term("content", "hello"), Term("content", "world")])
-print(searcher.search(myquery).fields(1))  # {'title': 'world'}; 和上面个结果一样
+print(searcher.search(myquery).fields(1))  # {'title': 'world'}; 和上面的结果一样
 # 第三种检索方式: Parse a query string
 from whoosh.qparser import QueryParser
 parser = QueryParser("content", ix.schema)

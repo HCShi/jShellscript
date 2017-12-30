@@ -53,9 +53,9 @@ ffmpeg -i out.mkv -ss 02:00:00 -t 00:03:22 -acodec copy -vcodec copy part6.mkv
 ffmpeg -i concat:"part1_1.mkv|part1_2.mkv" -c copy part1.mkv
 ffmpeg -f concat -i list.txt -c copy .mp4
 
-
 ##################################################################
 ## pandoc
+## /usr/share/pandoc/data/templates, 官方提供的模板在这里
 # Markdown - Html
 pandoc in.md -o out.html
 pandoc in.md -c style.css out.html  # 添加 css 样式
@@ -81,3 +81,6 @@ cp ~/github/jShellscript/bin/latexpath/pm-template.latex .
 
 # Org - Docx; 转换 PDF 很烦, 但是转换成其他的就很简单了
 pandoc -o out.docx Big-Project_Paper.org  # 原始模板挺好的..., 其实是自己还不会整理 docx 模板...
+
+# Html - Org; 经常从网上扒一些 Html, 然后转成 org
+pandoc -f html+tex_math_dollars+tex_math_single_backslash -t org in.html -o out.org  # 主要解决 $ ^ _ 前面会自动加 \

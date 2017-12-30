@@ -7,15 +7,17 @@ import pickle
 import whoosh
 from whoosh.index import open_dir
 from whoosh.qparser import QueryParser
+from gensim.models import word2vec
+from tmp_classify import test
+from collections import Counter
+import pymongo
 def init_search():
-    ix = open_dir('./tmp-homework-back')  # 在 ./tmp-homework-back 中进行备份
+    ix = open_dir('./tmp-homework')  # 在 ./tmp-homework-back 中进行备份
     searcher = ix.searcher()
     parser = QueryParser("news_body", schema=ix.schema)
     parser.add_plugin(whoosh.qparser.plugins.WildcardPlugin)
-    items = list(bson.decode_file_iter(open('./tmp.bson', 'rb')))
+    items = list(bson.decode_file_iter(open('./tmp_news/sina.bson', 'rb')))
     items_dic = dict((item['news_id'], item) for item in items)
-    with open('tmp_document-dict.pkl', 'rb') as f:
-        documents_dic = pickle.load(f)
     with open('tmp_tfidf_dic.pkl', 'rb') as f:
         tfidf_dic = pickle.load(f)
     with open('tmp_wordlist.pkl', 'rb') as f:
@@ -23,7 +25,12 @@ def init_search():
     with open('tmp_idflist.pkl', 'rb') as f:
         idflist = pickle.load(f)
     word_idf_dic = dict(zip(wordlist, idflist))
-    return searcher, parser, items, items_dic, documents_dic, tfidf_dic, wordlist, word_idf_dic
+    word2vec_model = word2vec.Word2Vec.load('/media/coder352/Documents/Share/data_set/word2vec/word2vec_wx')  # 只能放大机械硬盘里了...
+    # MongoDB Comment
+    client = pymongo.MongoClient()  # client = MongoClient('localhost', 27017); 连接到 MongoDB 的默认主机与端口
+    db = client["test"]  # mongorestore -h 127.0.0.1 -d test tmp_news; 这个命令导入的...
+    db_comments = db.sinacmt
+    return searcher, parser, items, items_dic, tfidf_dic, wordlist, word_idf_dic, word2vec_model, db_comments
 def search(query):  # 关键词检索, 通配符检索
     q = parser.parse(query)
     results = searcher.search(q)
@@ -47,12 +54,16 @@ def search_with_snippet(query):  # snippet 生成
 def preview(news_id):  # 结果预览
     return ' '.join(items_dic[news_id]['news_body'])
 def similar_news(news_id):  # 相似新闻; 找同一篇新闻中 tfidf 最高的词再进行搜索
-    items = sorted(tfidf_dic[news_id], key=lambda x: tfidf_dic[news_id][x])[-3:]
+    items = sorted(tfidf_dic[news_id], key=lambda x: tfidf_dic[news_id][x])[-2:]
     return [item for item in search(''.join(items))]
 def hotest_news(num):  # 最热社会新闻
     return list(sorted(items, key=lambda x: x.get('news_total', 0)))[:num]
+def similar_word(query):  # 查找相关词语
+    return [item[0] for item in word2vec_model.most_similar(query)]
+def comment_analyse(news_id):  # 一篇新闻中积极评论的数量
+    return Counter([test.getscore(item['content']) for item in db_comments.find_one({"newsid": news_id})['comment_list']])
 if __name__ == '__main__':
-    searcher, parser, items, items_dic, documents_dic, tfidf_dic, wordlist, word_idf_dic = init_search()
+    searcher, parser, items, items_dic, tfidf_dic, wordlist, word_idf_dic, word2vec_model, db_comments = init_search()
     # test 通配符, 关键词
     for hit in search('苹果'): print(hit)
     # test search_by_time
@@ -71,9 +82,17 @@ if __name__ == '__main__':
     # test preview
     print(preview('fxzczfc6652525'))
     # test similar_news
-    print(similar_news('fxzczfc6652525')[0]['news_body'])
-    print(similar_news('fxzczfc6652525')[1]['news_body'])
+    print(len(similar_news('fymvuyt0333763')))
+    print(similar_news('fymvuyt0333763')[2]['news_body'])
     # test hotest_news()
     for hit in hotest_news(10): print(hit['news_title'])
     for hit in hotest_news(10): print(hit['news_body'])
     for hit in hotest_news(10): print(hit['news_time'])
+    # test similar_word()
+    print(similar_word('苹果'))
+    # test getscore() 评论情感分析
+    print(test.getscore("人家是万恶的资本主义, 万恶的"))
+    # test db_comments
+    print(len(db_comments.find_one({"newsid": "fyfqvmh9184647"})['comment_list']))
+    # test good_comments_num()
+    print(comment_analyse("fyfqvmh9184647")['中性'])

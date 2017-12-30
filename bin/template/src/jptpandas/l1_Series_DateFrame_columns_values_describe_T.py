@@ -9,6 +9,9 @@ s = pd.Series([1, 3, 7, np.nan, 44, 1]); print(s)  # 序列; 类似于 numpy 中
 print(type(s))  # <class 'pandas.core.series.Series'>
 data = pd.Series(np.random.randn(10), index=np.arange(10)); print(data)
 # Series 很少用到, 可以忽略了...
+## 使用 Series 输出带序号的列表
+print(['hello', 'world', 'Jia Ruipeng'])
+print(pd.Series(['hello', 'world', 'Jia Ruipeng']))  # 只是最后一行会有 dtype
 ##################################################################
 ## DateFrame; index 行标签; columns 列标签
 dates = pd.date_range('20160101', periods=6); print(dates)

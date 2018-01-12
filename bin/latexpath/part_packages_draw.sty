@@ -1,7 +1,25 @@
 %% ================================================================
 %% Normal Package for Draw
 \usepackage{tikz}
+%% 画 LDA 时用到了
 \usetikzlibrary{graphs}  % \graph 命令时候才用得到
 \usetikzlibrary{arrows}  % >=stealth', 箭头更加好看...
 \usetikzlibrary{fit}  % fit=(W) (Z), 画一个大框包围一些节点
 % \usetikzlibrary{decorations.pathmorphing, positioning}  % 暂时还没用到
+
+%% ================================================================
+%% 自定义样式:
+%% 卜东波老师给的
+\tikzstyle{vertex}=[circle, fill=black!25, draw, minimum size=20pt, inner sep=0pt]  % 顶点
+\tikzstyle{middlevertex}=[circle, fill=black!25, draw, minimum size=15pt, inner sep=0pt]
+\tikzstyle{smallvertex}=[circle, fill=black!25, draw, minimum size=10pt, inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, draw, fill=red!24]
+\tikzstyle{blue smallvertex} = [smallvertex, draw, fill=blue]
+\tikzstyle{red smallvertex} = [smallvertex, draw, fill=red]
+\tikzstyle{edge} = [draw, thick, ->]
+\tikzstyle{undirectededge} = [draw, thick]  % 无向边
+\tikzstyle{weight} = [font=\small]  % 权重
+\tikzstyle{selected edge} = [draw, line width=3pt, -, red!50]
+\tikzstyle{ignored edge} = [draw, line width=3pt, -, black!20]
+\tikzstyle{squarednode}=[draw, fill=blue!20, thick, minimum size=5mm]
+\tikzstyle{roundnode}=[circle, draw, fill=blue!20, thick, minimum size=5mm]

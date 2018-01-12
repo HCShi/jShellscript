@@ -2,8 +2,13 @@
 # coding: utf-8
 import pandas as pd
 from gensim.models import word2vec
-model = word2vec.Word2Vec.load('/media/coder352/Documents/Share/data_set/word2vec/word2vec_wx')  # 只能放大机械硬盘里了...
+import time
+sta = time.time()
+model = word2vec.Word2Vec.load('/home/coder352/github/jData/Word2Vec/Word2Vec_Chinese_Model/word2vec_wx')
+end = time.time()
+print(end - sta)  # 机械硬盘: 12s; 固态硬盘: 6s; 模型 1.1G
 # model.save('./tmp_dataset/Word2Vec_Model/1_word2vec_from_weixin/my.model')  # 尝试自己保存, 结果还是 4 个文件, 结果更大了...
+
 print(pd.Series(model.most_similar('微信')))
 # 0        (QQ, 0.7525061964988708)
 # 1       (订阅号, 0.7143402099609375)

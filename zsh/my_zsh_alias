@@ -23,6 +23,7 @@ cpd(){cp $tmp $1}
 alias day="/bin/date '+%Y-%m-%d.%H-%M-%S'"  # "/bin/date '+%Y-%m-%d'"  # 另一种形式
 alias dub='du -b'  # ls du 等命令默认以 K 为单位, 很坑
 alias dush='du -sh'  # dush 当前目录大小, dush a.txt 文件大小, dush directory 目录大小
+alias dud1='du -h -d 1'  # --max-depth=1; 显示当前路径下的所有目录的大小
 alias findname='find -iname'  # exapmle: findname "*.txt"
 ggc(){ google-chrome http://127.0.0.1:$1 }
 alias grep="grep -iI --color=always"  # google: grep exclude binary file || grep ignore spcific directory
@@ -33,6 +34,7 @@ grepsd(){  # 这个不好用, 还是 greps --exclude-dir={.git,node_modules,book
 }
 alias grepsls='ls | grep'
 alias pdfgrepinr='test() { pdfgrep -inr $1 * };test'
+alias pptgreprw='pptgrep -r -w'
 ju8(){
     # iconv -f ISO-8859-1 -t UTF-8 $1 > $1.tmp  # file $1 显示的是 ISO-8859, 但没用
     iconv -f gbk -t utf-8 $1 > $1.tmp  # gbk 中文通用
@@ -131,13 +133,15 @@ alias python3httpserver='python3 -m http.server'  # open 8000 port
 pyflask() { FLASK_APP=$1 flask run }
 
 ##################################################################
-## Pandas
+## Pandoc
 ##################################################################
 # alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --data-dir=~/github/jshellscript/bin/latexpath --template=pm-template.latex'
-alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc.tex'  # 上面那句话刚开始挺好用, 后来就不能用了, 使用 ln -s
-alias pandocir='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_IR.tex'
-alias pandocal='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_algorithm-design-and-analysis.tex'
-alias pandocma='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_math-manual.tex'
+# alias pandocme='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc.tex'  # 上面那句话刚开始挺好用, 后来就不能用了, 使用 ln -s
+# alias pandocir='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_IR.tex'
+# alias pandocal='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_ucas_algorithm-design-and-analysis.tex'
+# alias pandocma='pandoc -o out.pdf --latex-engine=xelatex --template=14thcoder_pandoc_math-manual.tex'
+# 上边的都写进 Emacs 了, 很少会再用到
+alias pandocorg='pandoc -f html+tex_math_dollars+tex_math_single_backslash -t org'
 
 ##################################################################
 ## Python
@@ -195,7 +199,7 @@ alias ppw='pug -P -w'  # for pug 实时编译
 alias cwc='coffee -wc'  # for coffee 实时编译
 alias cbpe='coffee -bpe'
 alias html2jademe='html2jade -n 4 --double --donotencode --bodyless --noemptypipe --noattrcomma'
-# npm 项目跳转, express jBlog 生成的项目
+# npm 项目跳转, express jExpress 生成的项目
 alias lse="tree -I 'node_modules|bower_components|bourbon|stylesheets|前面的都没备份|README.md|app.js|bin|package.json|bower.json|images'"
 alias css="$jumpto package.json public/stylesheets"
 alias ass="$jumpto package.json public/sass"
@@ -257,7 +261,7 @@ alias logmysql='mysql -h 127.0.0.1 -u root -p'
 alias memcachedme='memcached -d -m 256 -u root -l localhost -c 256 -P /tmp/memcached.pid'  # 开启 Memcached
 alias telmemcached='telnet localhost 11211'  # 默认是11211端口
 # redis-cli 就可以直接连接本地的数据库了, apt install redis-tools
-alias sudomongod='sudo mongod --fork --logpath /var/log/mongod.log --dbpath'  # sudomongod ~/github/jBlog/data; 在后台开启指定路径的 mongo
+alias sudomongod='sudo mongod --fork --logpath /var/log/mongod.log --dbpath'  # sudomongod ~/github/jExpress/data; 在后台开启指定路径的 mongo
 # sudomongod 是但是用 Express, 在本地开启 MongoDB 服务的时候用的
 
 ##################################################################
@@ -302,7 +306,7 @@ cdhistory() { cd `tail -n 2 ~/.zsh_history | head -n 1 | awk '{print $3}'` }  # 
 alias cdhtml="cd ~/github/Some-Markdown-in-Sublime"
 alias cdhtmlhexo="cd ~/github/Some-Markdown-in-Sublime/hexo"
 alias cdmythesis="cd ~/Documents/thiscandel/thesis"
-alias cdjblog="cd ~/github/jBlog"
+alias cdjexpress="cd ~/github/jExpress"
 alias cdjhexo="cd ~/github/jHexo"
 alias cdjhexoothers='cd ~/github/others/Blog_backup'
 alias cdjhexoqrsync='cd ~/github/jQrsyncHexo'
@@ -639,14 +643,15 @@ alias docmysqlcli='exec docker run -it \
 
 # alias docmongo='docker run -p 27017:27017 --name some-mongo -d mongo:3.4 --auth'  # 不加 auth 每次连接有好多 warning
 # --auth  # No one else should access mongodb; 用自己主机映射的端口连接的话就没有访问权限了..., 所以换成了下面的
-alias docmongo='docker run -p 27017:27017 -v /tmp/mongo/:/data/db -v /tmp/mongodump:/home/ --name some-mongo -d mongo:3.4'  # 试了好多, 都不好用, 就每次 warning 吧
+# alias docmongo='docker run -p 27017:27017 -v /tmp/mongo/:/data/db -v /tmp/mongodump:/home/ --name some-mongo -d mongo:3.4'  # 试了好多, 都不好用, 就每次 warning 吧
+alias docmongo='docker run -p 27017:27017 -v /tmp/mongodump:/home/ --name some-mongo -d mongo:3.4'  # 加上 /data/db 就不能 restore 了...
 # dexecit some-mongo bash -> cd /home -> mongodump; 就可以将数据库导出到 /tmp/mongodump
-# docker run -i -t --rm -v /home/coder352/github/jBlog/:/home/node/jBlog node:8.0 /bin/bash  # 用这句话进行测试是否挂载成功
+# docker run -i -t --rm -v /home/coder352/github/jExpress/:/home/node/jExpress node:8.0 /bin/bash  # 用这句话进行测试是否挂载成功
 # docexpress 是运行网站时候用的, 开发的时候还是在本机上方便..., 所以 node:8.0 里面就没传 Sass 之类的
 # --network host 可以分享主机的网络, 进而使用 docmongo 的服务, 但是感觉好不自在啊...
 alias docexpress='docker run -p 3000:3000 --name some-express -u node -d --network host \
-    -v /home/coder352/github/jBlog/:/home/node/jBlog \
-    node:8.0 /bin/bash -c "cd /home/node/jBlog \
+    -v /home/coder352/github/jExpress/:/home/node/jExpress \
+    node:8.0 /bin/bash -c "cd /home/node/jExpress \
     && node ./bin/www"'
 
 alias docredis='docker run -p 6379:6379 --name some-redis -d redis:3'

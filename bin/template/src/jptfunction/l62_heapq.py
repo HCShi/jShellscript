@@ -43,7 +43,7 @@ def encode(frequency):
     # print(heap)  # [[1, ['T', '']], [4, ['h', '']], [7, ['e', '']], [13, [' ', '']], [5, ['f', '']], ...]
     heapq.heapify(heap)  # 按照 item[0] 实现一个最小堆
     # print(heap)  # [[1, ['T', '']], [1, ['b', '']], [1, ['d', '']], [1, ['c', '']], [4, ['h', '']], ...]
-    while len(heap) > 1:
+    while len(heap) > 1:  # 初始是一个森林, 最后都变成一棵树就结束
         lo = heapq.heappop(heap)
         hi = heapq.heappop(heap)
         for pair in lo[1:]: pair[1] = '0' + pair[1]  # 因为下面用了 [lo[0] + hi[0]] + lo[1:] + hi[1:], 所以后面可能有多个

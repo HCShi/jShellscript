@@ -20,6 +20,12 @@ print(isinstance(p, tuple))  # True
 Circle = namedtuple('Circle', ['x', 'y', 'r'])  # 用坐标和半径表示一个圆
 ##################################################################
 ## deque; 双向 list
+q = ['a', 'b', 'c']; print(q.pop())  # c
+q = ['a', 'b', 'c']; print(q.pop(0))  # a
+q = ['a', 'b', 'c']; print(q.pop(1))  # b
+q = ['a', 'b', 'c']; q.append('d'); print(q)  # ['a', 'b', 'c', 'd']
+# list 的 pop 和 append 默认是最右边的, pop 可以选择其他位置
+
 # 使用 list 存储数据时, 按索引访问元素很快, 但是插入和删除元素就很慢了, 因为 list 是线性存储, 数据量大的时候, 插入和删除效率很低
 # deque 是为了高效实现插入和删除操作的双向列表, 适合用于队列和栈
 q = deque(['a', 'b', 'c'])

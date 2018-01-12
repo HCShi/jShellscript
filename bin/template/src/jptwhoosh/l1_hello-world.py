@@ -20,19 +20,21 @@ writer.add_document(title='hello', content='hello world')
 writer.add_document(title='world', content='world hello')
 writer.commit()                               # searcher() 要写到 commit() 后面
 searcher = ix.searcher()                      # 创建一个检索器; 最好用 with ix.searcher() as searcher: 来写, 这里只是为了方便
-# 第一种检索方式:
+## 第一种检索方式:
 print(searcher.find('content', 'hello world').fields(0))  # {'title': 'hello'}; TEXT 会存储位置信息, 支持短语检索
 print(searcher.find('content', 'hello world')[1].fields())  # {'title': 'world'};
-# 另一种检索方式: Construct query objects directly
+## 另一种检索方式: Construct query objects directly
 from whoosh.query import *
 myquery = And([Term("content", "hello"), Term("content", "world")])
 print(searcher.search(myquery).fields(1))  # {'title': 'world'}; 和上面的结果一样
-# 第三种检索方式: Parse a query string
+## 第三种检索方式: Parse a query string; 一般最好用这种方法做
 from whoosh.qparser import QueryParser
 parser = QueryParser("content", ix.schema)
 myquery = parser.parse('hello world')
 print(len(searcher.search(myquery)))  # 2
 for hit in searcher.search(myquery): print(hit.highlights('title'))  # 可以高亮输出指定部分, 见 ./l2_jieba-中文.py
+for hit in searcher.search(myquery): print(hit.fields())  # 因为 TEXT 检索不到的, 所以没有输出
+for hit in searcher.search(myquery, limit=100): print(hit.fields())  # 默认一次返回 10 个, 这里改为 100 个
 # 第三种检索方式支持: AND OR NOT, group terms together into clauses with parentheses, do range, prefix,
 #                     and wilcard queries, and specify different fields to search
 # By default it joins clauses together with AND
@@ -42,6 +44,9 @@ print(parser.parse("render OR (title:shade content:animate)"))  # (content:rende
 # 交互式环境输出: Or([Term("content", "render"), And([Term("title", "shade"), Term("keyword", "animate")])])
 print(parser.parse("rend*"))  # content:rend*
 # 交互式环境输出: Prefix("content", "rend")
+## search_page(query, pagenum, pagelen=10, **kwargs)
+results = searcher.search_page(myquery, 2, 1); print(results[0])  # <Hit {'title': 'world'}>; 每页显示一个结果, 第 2 页
+results = searcher.search_page(myquery, 1, 1); print(results[0])  # <Hit {'title': 'hello'}>; 每页显示一个结果, 第 1 页
 
 ##################################################################
 ## 1. 创建 schema

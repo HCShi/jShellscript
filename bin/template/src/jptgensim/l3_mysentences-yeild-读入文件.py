@@ -26,5 +26,5 @@ print(list(sentences)[0])  # [':', 'capital-common-countries']
 ##################################################################
 ## 训练模型
 sentences = MySentences('./tmp_dataset/questions-words_Word2Vec-accuracy-test.txt')  # 重新打开, 因为上面已经移动了指针
-model = word2vec.Word2Vec(sentences)
+model = word2vec.Word2Vec(sentences, size=256, window=10, min_count=10, sg=1, hs=1, iter=10, workers=25)
 # 如果需要对文件中的单词做其他处理, 比如转换为 unicode, 转换大小写, 删除数字, 抽取命名实体等, 所有这些都可以在 MySentence 迭代器中进行处理.

@@ -4,6 +4,9 @@
 ##################################################################
 ## 1. 列表生成式
 g = (x * x for x in range(10)); print(g)  # 列表生成式的 [] 改成 (), 就创建了一个 generator
+print(type(g))  # <class 'generator'>
+print(list(g))  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]; generator 还是可以转为 list
+g = (x * x for x in range(10)); print(g)  # list 转换完了以后, 指针就到最后面了, 还要重新生成
 print(next(g), next(g))  # next() 基本不会用到
 for n in g: print(n)  # for 传入的是 可迭代对象 Iterable, 接着上面的 next() 之后输出
 ##################################################################
@@ -23,10 +26,10 @@ print('\n'.join([str(x) for x in triangles(10)]))  # for x in triangles(10): pri
 # 所以 Gensim 只要求输入按顺序提供句子, 并不将这些句子存储在内存, 然后 Gensim 可以加载一个句子, 处理该句子, 然后加载下一个句子
 # 例如, 如果输入分布在硬盘上的多个文件中, 文件的每一行是一个句子, 那么可以逐个文件, 逐行的处理输入:
 class MySentences(object):
-    def __init__(self, dirname): self.dirname = dirname
+    def __init__(self, path): self.path = path
     def __iter__(self):
-        for fname in os.listdir(self.dirname):
-            for line in open(os.path.join(self.dirname, fname)):
-                yield line.split()
-sentences = MySentences('/some/directory')  # a memory-friendly iterator
-model = gensim.models.Word2Vec(sentences)
+        for line in open(self.path):
+            yield line.split()
+sentences = MySentences('README.md')  # a memory-friendly iterator
+print(list(sentences))
+# model = gensim.models.Word2Vec(sentences)

@@ -18,7 +18,7 @@ awk -F : '{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecon
 awk -F : '{printf("filename:%10s,linenumber:%s,columns:%s,linecontent:%s\n",FILENAME,NR,NF,$0)}' /etc/passwd  # 使用 printf 替代 print,可以让代码更加简洁
 ifconfig wlan0 | awk '/inet addr/{gsub(/addr:/,"");print $2}'  # 输出无线网 IP 地址
 ##################################################################
-## sed
+## sed & perl
 ## sed 处理文件
 ## sed 删除指定行
 sed '42d' test.txt > tmp    # 删除 42 from test.txt and save to test2.txt; 前后的文件名一定不能相同, 否则全删光了
@@ -31,6 +31,7 @@ sed "s/mathjax//g;s/MathJax//g;s/mathJax//g" tmp.html > he.html  # 替换 mathja
 sed -e '/abc/d' tmp         # 删除含有 abc 的行
 sed -e '/abc/d;/efg/d' tmp     # 删除含有 abc 或 efg 的行
 sed -e '/mathJax/d;/MathJax/d;/mathjax/d' tmp.html > out.html  # 删掉含 MathJax 的行, 删掉了, 但是没什么用
+# 最后还是用 jrmhtmltag 来删掉标签...
 
 ## sed perl 处理字符串
 sed -i -- 's/bar/bar/g' *  # 将当前路径所有文件替换, 没有递归效果, sed 不能加 e

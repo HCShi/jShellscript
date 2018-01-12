@@ -1,3 +1,3 @@
 ### Description
 requests 和 bs4 是两大神器, 有时候比 scapy 还好用
-xpath 功能有点弱
+xpath 和 bs4 有点不太好用, 还是 pyquery 好用...; 但 bs4 还有好多功能 pyquery 目前没有实现...

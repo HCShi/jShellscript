@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # coding: utf-8
-from bs4 import BeautifulSoup
-import bs4
+from bs4 import BeautifulSoup as bs
 html = """
 <html><head><title> The Dormouse's story </title></head>
 <body>
@@ -14,7 +13,7 @@ html = """
   <p class="story"> ... </p>
 </body>
 """
-soup = BeautifulSoup(html, "html.parser")  # html 通过 requests.get(url) 获得; 第二个参数表示使用 Python 标准库
+soup = bs(html, "html.parser")  # html 通过 requests.get(url) 获得; 第二个参数表示使用 Python 标准库
 ##################################################################
 ## find_all(), attrs[] 得到所有的 **链接**
 links = soup.find_all('a')  # 找到所有的 a 标签
@@ -42,4 +41,38 @@ raw = soup.get_text(); print(raw); print(type(raw))  # <class 'str'>
 #  ...
 ##################################################################
 ## get_text() 可以转化任意字符串, 但记得标记添加参数 'html.p'
-print(BeautifulSoup('hello </br> world <a> jiaruipeng', 'html.parser').get_text())
+print(bs('hello </br> world <a> jiaruipeng', 'html.parser').get_text())
+##################################################################
+## prettify(): 也就这个比 pyquery 好用了...
+soup = bs("<html><body><h1>hello world</h1></body></html>", "html.parser"); print(soup)
+print(soup.prettify())  # 1 个空格的缩进
+##################################################################
+## unwrap()
+import re
+soup = bs("<html><body><h1 id='hello'>hello world</h1></body></html>", "html.parser"); print(soup)
+for match in soup.findAll('body'): match.unwrap()
+print(soup)  # <html><h1 id="hello">hello world</h1></html>
+for match in soup.findAll('h1', id=re.compile('he*')): match.unwrap()  # 还能用 regex...
+print(soup)  # <html>hello world</html>
+##################################################################
+## 总结
+# 1. prettify(), unwrap() 两个函数还很有用
+
+##################################################################
+## 处理作业部落的 MathJax
+from bs4 import BeautifulSoup as bs
+soup = bs(open('./CMD-作业部落.html').read(), "html.parser");
+print(soup.prettify())
+for match in soup.findAll('use'): match.unwrap()
+for match in soup.findAll('g'): match.unwrap()
+for match in soup.findAll('script'): match.unwrap()
+for match in soup.findAll('span'): match.unwrap()
+for match in soup.findAll('svg'): match.unwrap()
+for match in soup.findAll('div', class_='MathJax_SVG_Display'): match.unwrap()
+for match in soup.findAll('div', class_='md-section-divider'): match.unwrap()
+# 去掉一些很烦人的
+for match in soup.findAll('a'): match.unwrap()
+for match in soup.findAll('meta'): match.unwrap()
+for match in soup.findAll('link'): match.unwrap()
+open('tmp.html', 'w').write(str(soup.prettify()))
+print(open('tmp.html').read())

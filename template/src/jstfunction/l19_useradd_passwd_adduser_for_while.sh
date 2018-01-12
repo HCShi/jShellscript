@@ -33,3 +33,10 @@ for((i=1;i<=4;i++)); do
         echo break; break
     fi
 done
+
+## 根据当前路径来创建目录树
+# for x in ./Machine-Learning/*;
+# do
+#     echo $(basename $x);
+#     if [ ! -e $HOME/github/jShellscript/bin/template/src/jptml/tmp_datasets/$(basename $x) ];then mkdir -p $HOME/github/jShellscript/bin/template/src/jptml/tmp_datasets/$(basename $x);fi
+# done

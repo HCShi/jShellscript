@@ -26,8 +26,24 @@ import sys, os
 args = docopt(__doc__, version=os.path.basename(sys.argv[0]).split('.')[0] + ' v1.0.0')
 ##################################################################
 ## 功能
-from pyquery import PyQuery
+from bs4 import BeautifulSoup as bs
+import re
 def main():
-    print(PyQuery(open(args['FILE']).read()).text())
+    # print(PyQuery(open(args['FILE']).read()).text())  # pyquery 功能不够
+    soup = bs(open(args['FILE']).read(), "html.parser");
+    for match in soup.findAll('use'): match.unwrap()
+    for match in soup.findAll('g'): match.unwrap()
+    for match in soup.findAll('script'): match.unwrap()
+    for match in soup.findAll('span'): match.unwrap()
+    for match in soup.findAll('svg'): match.unwrap()
+    for match in soup.findAll('div', class_='MathJax_SVG_Display'): match.unwrap()
+    for match in soup.findAll('div', class_='md-section-divider'): match.unwrap()
+    for match in soup.findAll('div', class_=re.compile('remark*')): match.unwrap()
+    for match in soup.findAll('div', id=re.compile('preview*')): match.unwrap()
+    # 去掉一些很烦人的
+    for match in soup.findAll('a'): match.unwrap()
+    for match in soup.findAll('meta'): match.unwrap()
+    for match in soup.findAll('link'): match.unwrap()
+    print(soup.prettify())
 if args['--auth']: os.system('echo Jia Ruipeng')
 else: main()

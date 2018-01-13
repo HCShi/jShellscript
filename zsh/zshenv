@@ -1,6 +1,6 @@
-. /home/${USER}/.config/shellscript/my_zsh_env
+. ~/.config/shellscript/my_zsh_env
 
-folder="/home/${USER}/.config/jshellscript"
+folder="~/.config/jshellscript"
 if [ -d "$folder" ]
 then
     for x in $folder/*.env

@@ -1,6 +1,6 @@
 # . /home/${USER}/.config/shellscript/my_zsh_env  # 环境变量 PATH 要放到 .profile, .bash_profile or .zshenv 这些文件中
 # Path to your oh-my-zsh installation.
-export ZSH=/home/${USER}/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -83,11 +83,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-. /home/${USER}/.config/shellscript/my_zsh_alias # 为了将自己的 alias 的优先级提高
-folder="/home/${USER}/.config/jshellscript"
+. ~/.config/shellscript/my_zsh_alias # 为了将自己的 alias 的优先级提高
+folder="~/.config/jshellscript"
 if [ -d "$folder" ]
 then
     for x in $folder/*.sh
         . $x
 fi
-. /home/${USER}/.config/shellscript/my_zsh_rc
+. ~/.config/shellscript/my_zsh_rc

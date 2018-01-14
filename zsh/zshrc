@@ -90,4 +90,10 @@ then
     for x in $folder/*.sh
         . $x
 fi
-. ~/.config/shellscript/my_zsh_rc
+
+if [ "$(uname)" = "Darwin" ]; then
+    . ~/.config/shellscript/my_zsh_rc
+    . ~/.config/shellscript/my_zsh_env
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    . ~/.config/shellscript/my_zsh_rc
+fi

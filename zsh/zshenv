@@ -1,4 +1,6 @@
-. ~/.config/shellscript/my_zsh_env
+if [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    . ~/.config/shellscript/my_zsh_env
+fi
 
 folder="~/.config/jshellscript"
 if [ -d "$folder" ]

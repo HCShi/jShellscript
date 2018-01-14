@@ -146,19 +146,12 @@ fi
 ##################################################################
 ## ~/.zshrc see something in jpc/terminal_config
 ##################################################################
-if [ "$(uname)" == "Darwin" ]; then
-    # Do something under Mac OS X platform
-    # PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件, 即 ~/.dircolors
+if [ "$(uname)" = "Darwin" ]; then
     alias ls='ls -F --show-control-chars --color=auto'
     eval `gdircolors -b $HOME/.dircolors`
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件, 即 ~/.dircolors
     # dircolors 是 GNU 系统自带命令(MAC 不能使用), dircolors 文件是自定义的, 只要加上这句话, 就可以改变 ls 的颜色, 不需要其它软件支持
-# elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-    # Do something under 32 bits Windows NT platform
-# elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
-    # Do something under 64 bits Windows NT platform
 fi
 
 export TERM=xterm-256color

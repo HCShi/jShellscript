@@ -1,5 +1,4 @@
 # . /home/${USER}/.config/shellscript/my_zsh_env  # 环境变量 PATH 要放到 .profile, .bash_profile or .zshenv 这些文件中
-export HOMEBREW_NO_AUTO_UPDATE=true
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 

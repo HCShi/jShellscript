@@ -16,10 +16,10 @@
 ##################################################################
 export GREP_COLOR='01;37;46'   # color grep matches 蓝底白字加粗
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/home/${USER}/github/jLife/bin:$PATH
-export PATH=/home/${USER}/github/jShellscript/bin:$PATH
-export PATH=/home/${USER}/github/jShellscript/bin/ctf:$PATH
-export PATH=/home/${USER}/github/jShellscript/bin/game:$PATH
+export PATH=~/github/jLife/bin:$PATH
+export PATH=~/github/jShellscript/bin:$PATH
+export PATH=~/github/jShellscript/bin/ctf:$PATH
+export PATH=~/github/jShellscript/bin/game:$PATH
 
 # 各种尝试了用 python 修改父进程的环境以后发现 alias 不能用, 只能在这里修改了, 每个目录下放一个脚本...
 # 其实用 `` 来使用那些命令就可以切换目录了, 但还是不够方便
@@ -35,10 +35,10 @@ source ~/github/jShellscript/bin/alias ~/github/jTemplate/latex/
 # export PATH=/home/${USER}/github/jWeb/template:$PATH              # for html, css, js, jquery ...
 source ~/github/jShellscript/bin/alias ~/github/jWeb/template/
 
-export PATH=/home/${USER}/github/others/ctf-tools/bin:$PATH
+export PATH=~/github/others/ctf-tools/bin:$PATH
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
-export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/pythonpath
-export PYTHONPATH=$PYTHONPATH:/home/${USER}/github/jShellscript/bin/template/src/jptsdn  # for SDN
+export PYTHONPATH=$PYTHONPATH:~/github/jShellscript/bin/pythonpath
+export PYTHONPATH=$PYTHONPATH:~/github/jShellscript/bin/template/src/jptsdn  # for SDN
 export NODE_PATH=$HOME/github/jShellscript/bin/nodepath/:$NODE_PATH
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64:$JAVA_HOME  # 后面不能加原来的 $JAVA_HOME, 否则 pyspark 会报错...
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -52,10 +52,10 @@ export LC_CTYPE=zh_CN.UTF-8  # emacs GUI 输入中文要用这个, 终端里本�
 ## Java CLASSPATH
 ##################################################################
 # export CLASSPATH=/home/somebody/lib/java/a.jar:/home/somebody/lib/java/b.jar # Java 的 CLASSPATH 必须写全...; Java 一生黑...
-export CLASSPATH=.:/home/${USER}/lib/java/lucene-analyzers-common-7.1.0.jar:$CLASSPATH  # 设置 Java CLASSPATH
-export CLASSPATH=/home/${USER}/lib/java/lucene-core-7.1.0.jar:$CLASSPATH
-export CLASSPATH=/home/${USER}/lib/java/lucene-demo-7.1.0.jar:$CLASSPATH
-export CLASSPATH=/home/${USER}/lib/java/lucene-queryparser-7.1.0.jar:$CLASSPATH
+export CLASSPATH=.:~/lib/java/lucene-analyzers-common-7.1.0.jar:$CLASSPATH  # 设置 Java CLASSPATH
+export CLASSPATH=~/lib/java/lucene-core-7.1.0.jar:$CLASSPATH
+export CLASSPATH=~/lib/java/lucene-demo-7.1.0.jar:$CLASSPATH
+export CLASSPATH=~/lib/java/lucene-queryparser-7.1.0.jar:$CLASSPATH
 # cd ~/lib/java && java -classpath lucene-analyzers-common-7.1.0.jar:lucene-core-7.1.0.jar:lucene-demo-7.1.0.jar:lucene-queryparser-7.1.0.jar org.apache.lucene.demo.IndexFiles -docs docs
 # 如果没有配置好 CLASSPATH, 就需要这样执行
 ##################################################################
@@ -75,8 +75,8 @@ export WORKON_HOME=$HOME/.virtualenvs  # python-virtualenvwrapper 环境变量
 export PROJECT_HOME=$HOME/workspace    # virtualenvwrapper 的工作路径, mkproject 使用
 # 下面的 source 用 virtualenvwrapper 的时候取消注释, 用 miniconda3 的时候要注释掉, 而且 source 启动很慢
 # source /usr/share/virtualenvwrapper/virtualenvwrapper.sh  # 这条命令之后才能使用 mkvirtualenv 等命令
-export PATH=/home/${USER}/anaconda3/bin:$PATH  # for anaconda
-export PATH=/home/${USER}/miniconda3/bin:$PATH   # for miniconda, 就是靠环境变量把我系统的 python 覆盖掉的
+export PATH=~/anaconda3/bin:$PATH  # for anaconda
+export PATH=~/miniconda3/bin:$PATH   # for miniconda, 就是靠环境变量把我系统的 python 覆盖掉的
 export PYENV_ROOT="$HOME/.pyenv"   # pyenv 用到的环境变量
 export PATH=$PYENV_ROOT/bin:$PATH  # pyenv 可执行文件
 # eval "$(pyenv init -)"             # enable shims and autocompletion, 安装 pyenv 后, 将这两句话取消注释

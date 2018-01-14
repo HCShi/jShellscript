@@ -30,8 +30,30 @@ fi
 export TERM=xterm-256color
 
 ##################################################################
-## for tmux
+## Tmux 每次登陆进入到 tmux, disable this function since I start to use Emacs
 ##################################################################
+cmd=$(which tmux)  # tmux path
+if [ -z $cmd ]; then  # 判断是否已有开启的 tmux 会话, 没有则开启
+    echo "You need to install tmux."
+    # exit 1
+else
+    session=`whoami`  # session name
+    $cmd has -t $session  # has-session 不存在会报错, 并且返回 1, 存在返回 0
+    if [ $? != 0 ]; then
+        $cmd new -d -n normal -s $session            # 最后的 "" 中的都是命令
+        # $cmd splitw -v -p 20 -t $session "pry"  # 创建窗口 1, 并分为上下两个窗格, 其中上窗格占 80% 空间, 运行 Vim, 下窗格占 20% 空间, 运行 Pry
+        # $cmd neww -n mutt -t $session "mutt"    # 创建窗口 2, 运行 Mutt
+        # 下面这句话并没有用
+        $cmd set -g automatic-rename-format '#(pwd="#{pane_current_path}"; echo ${pwd####*/})'
+        $cmd att -t $session                      # 第二个终端就不会进入 tmux 了, 最后才能进入 tmux
+    fi
+fi
+# 另一种判断 tmux 是否已经运行的方法
+# if which tmux 2>&1 >/dev/null; then
+#     # test -z "$TMUX" && (tmux attach || tmux_init)  # attach 上以后会自动 sync
+#     test -z "$TMUX" && (clear || tmux_init)  # 当打开第二个终端时, 不执行任何操作, tmux_init() 函数中可以写初始化
+# fi
+
 # precmd () {
 #     if [ -n "$TMUX" ]; then
 #         if [ -n "$VIM" ]; then
@@ -60,6 +82,28 @@ else
     bindkey "\e\e" sudo-command-line  # ESC
     # bindkey "^E" sudo-command-line  # 先随便写一个, 然后再替换的时候快捷键, 这里的^T不是两个字符
 fi
+
+##################################################################
+## ~/.zshrc see something in jpc/terminal_config
+##################################################################
+if [ "$(uname)" = "Darwin" ]; then
+    eval `gdircolors -b $HOME/.dircolors`
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件, 即 ~/.dircolors
+    # dircolors 是 GNU 系统自带命令(MAC 不能使用), dircolors 文件是自定义的, 只要加上这句话, 就可以改变 ls 的颜色, 不需要其它软件支持
+fi
+
+##################################################################
+## Change Title of Terminal (not work)
+##################################################################
+# function set-title(){
+#   if [[ -z "$ORIG" ]]; then
+#     ORIG=$PS1
+#   fi
+#   TITLE="\[\e]2;$*\a\]"
+#   PS1=${ORIG}${TITLE}
+# }
+# set-title "路尽隐香处 翩然雪海间"
 
 ##################################################################
 ## 快捷键, 这好坑...

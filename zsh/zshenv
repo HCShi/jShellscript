@@ -1,6 +1,4 @@
-if [ "$(uname)" = "Linux" ]; then
-    . ~/.config/shellscript/my_zsh_env
-fi
+. ~/.config/shellscript/my_zsh_env
 
 folder="~/.config/jshellscript"
 if [ -d "$folder" ]

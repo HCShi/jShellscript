@@ -147,7 +147,6 @@ fi
 ## ~/.zshrc see something in jpc/terminal_config
 ##################################################################
 if [ "$(uname)" = "Darwin" ]; then
-    alias ls='ls -F --show-control-chars --color=auto'
     eval `gdircolors -b $HOME/.dircolors`
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     eval `dircolors ~/.dircolors` # 执行的是调用这个脚本的地方的文件, 即 ~/.dircolors

@@ -1,4 +1,4 @@
-if [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+if [ "$(uname)" = "Linux" ]; then
     . ~/.config/shellscript/my_zsh_env
 fi
 

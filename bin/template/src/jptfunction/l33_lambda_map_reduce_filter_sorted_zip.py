@@ -11,6 +11,8 @@ a = [1.2, 1.8, 0.8]; print(list(map(round, a)))  # [1, 2, 1]
 # Python3 中移除了 'Tuple parameter unpacking' 的用法
 print(list(map(lambda x: x[0] * x[1], zip([1, 2], [3, 4]))))
 # print(list(map(lambda (x, y): x * y, zip([1, 2], [3, 4]))))  # python3 会报错, python2 可以这样写
+
+print(list(map(int, [1.2, 1.3, 1.4])))  # [1, 1, 1]; 最方便的转换方式了...
 ##################################################################
 ## reduce() 接收两个参数, 函数 和 Iterable, reduce() 把函数作用在一个序列 [x1, x2, x3, ...] 上, reduce 把结果继续和序列的下一个元素做累积计算
 # reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)

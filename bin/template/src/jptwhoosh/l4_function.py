@@ -27,14 +27,15 @@ class Search_Engine(object):
         with open('tmp_idflist.pkl', 'rb') as f:
             self.idflist = pickle.load(f)
         self.word_idf_dic = dict(zip(self.wordlist, self.idflist))
-        self.word2vec_model = word2vec.Word2Vec.load('/media/coder352/Documents/Share/data_set/word2vec/word2vec_wx')  # 只能放大机械硬盘里了...
+        # self.word2vec_model = word2vec.Word2Vec.load('/media/coder352/Documents/Share/data_set/word2vec/word2vec_wx')
+        self.word2vec_model = word2vec.Word2Vec.load('/home/coder352/github/jData/Word2Vec/Word2Vec_Chinese_Model/word2vec_wx')
         # MongoDB Comment
         self.client = pymongo.MongoClient()  # client = MongoClient('localhost', 27017); 连接到 MongoDB 的默认主机与端口
         self.db = self.client["news"]  # mongorestore -h 127.0.0.1 -d test tmp_news; 这个命令导入的...
         self.db_comments = self.db.sinacmt
     def search(self, query):  # 关键词检索, 通配符检索
         q = self.parser.parse(query)
-        results = self.searcher.search(q, limit=100)
+        results = self.searcher.search(q, limit=10)
         return results
     def search_by_time(self, query):  # 按时间排序
         return sorted(self.search(query), key=lambda x: x['news_time'], reverse=True)

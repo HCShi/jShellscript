@@ -92,3 +92,8 @@ then
 fi
 
 . ~/.config/shellscript/my_zsh_rc
+
+## MacOS 不会后面的覆盖， 所以必须把 anaconda3 放到前面
+if [ "$(uname)" = "Darwin" ]; then
+    export PATH=~/anaconda3/bin:$PATH  # for anaconda
+fi
